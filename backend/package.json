@@ -1,0 +1,48 @@
+{
+  "name": "apollo-backend",
+  "version": "0.1.0",
+  "description": "",
+  "main": "./src/server.js",
+  "scripts": {
+    "launch": "bash start.sh",
+    "start": "nodemon ./src/server.js --exec babel-node -e js",
+    "build": "babel -d ./build ./src -s",
+    "serve-staging": "NODE_ENV=staging node ./server.js",
+    "serve-production": "NODE_ENV=production node ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.23.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-friendly-formatter": "^2.0.7",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "apollo-server-express": "^1.1.2",
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.2",
+    "cors": "^2.8.3",
+    "eslint-plugin-graphql": "^1.3.0",
+    "express": "^4.15.2",
+    "graphql": "^0.9.6",
+    "graphql-server-express": "^1.1.2",
+    "graphql-server-module-operation-store": "^1.1.0",
+    "graphql-tools": "^1.2.3",
+    "jsonwebtoken": "^7.4.0",
+    "lodash.mapvalues": "^4.6.0",
+    "merge-graphql-schemas": "^1.1.4",
+    "node-fetch": "^1.6.3"
+  }
+}

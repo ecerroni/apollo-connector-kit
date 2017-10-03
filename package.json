@@ -1,0 +1,20 @@
+{
+  "name": "vue-apollo-all",
+  "version": "0.0.1",
+  "description": "Mono repo for EURES newsletter manager",
+  "private": true,
+  "license": "ISC",
+  "author": "Waat <enrico@waat.eu>",
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  },
+  "scripts": {
+    "start-dev-apollo": "cd backend && yarn launch",
+    "start-dev-vue": "cd frontend && yarn dev",
+    "install-dev-apollo": "cd backend && yarn install",
+    "install-dev-vue": "cd frontend && yarn install",
+    "dev": "concurrently  --kill-others 'yarn start-dev-apollo' 'yarn start-dev-vue'",
+    "install-all": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-vue'",
+    "start": "yarn run dev"
+  }
+}

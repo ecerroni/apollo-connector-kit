@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+node_modules/
+.history/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+start.sh
+start-prod.sh
+start-stag.sh
