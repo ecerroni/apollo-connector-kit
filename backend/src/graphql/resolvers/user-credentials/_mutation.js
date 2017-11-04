@@ -30,11 +30,10 @@ export default {
         const user = validUser;
         const additionalClaims = {};
         if (context.uuid) {
-          // TODO: THIS SHOULD BE EITHER HASHED OR ENCRYPTERD OR THE JWT PAYLOAD SHOULD.
           additionalClaims.jwtid = context.uuid;
         }
         if (context.fingerprint) {
-          additionalClaims.subject = context.fingerprint; // TODO: SAME AS ABOVE
+          additionalClaims.subject = context.fingerprint;
         }
         return jwt.sign(Object.assign({ id: user.id }), auth.secret, { expiresIn: '1h', ...additionalClaims });
       } else {

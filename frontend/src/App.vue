@@ -9,6 +9,7 @@
 export default {
   name: 'app',
 };
+// TODO: ADD BASIC STYLING FOR ROOT APP (FLEXBOX + GRID LAYOUT)
 </script>
 
 <style>

@@ -2,6 +2,13 @@ import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import router from '../../router';
 import { AUTH, UUID } from '../../environment';
 
+// TODO: UPGRADE TO APOLLO LINK
+// TODO: CHANGE LOGIC TO TOKEN + REFRESH TOKEN
+// TODO: SET THE TOKEN HERE INSTEAD OF LOGIN
+// TODO: GET RID OF BOTH UUID AND FINGERPRINT LOGIC (WE DON'T SEND ANYTHING LIKE THAT ANYMORE)
+// TODO: BECAUSE OF THE ABOVE WE'RE GOING TO SEND ONLY A TIMESTAMP (IF CLOCK SKEW STRATEGY IS ENABLED)
+
+
 // DEFINE WHICH AUTH STRATEGY TO USE. THEY'RE XOR
 const auth = {
   strategies: {

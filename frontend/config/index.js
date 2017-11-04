@@ -1,6 +1,8 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
+// TODO: INTEGRATE PROXY TABLE FROM EURES/NEWSLETTER-MNGR
+
 module.exports = {
   build: {
     env: require('./prod.env'),

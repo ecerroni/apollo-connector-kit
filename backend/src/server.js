@@ -1,3 +1,7 @@
+// TODO: ADD CLOCK SKEW LOGIC
+// TODO: ADD TOKEN + REFRESH TOKEN LOGIC
+// TODO: ADD GRAPHQL TESTER (WITH AUTH SKIP FOR TESTING)
+
 import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { OperationStore } from 'graphql-server-module-operation-store';
@@ -65,11 +69,10 @@ if (localAuthServer) {
     const user = req && req.body && users.filter(u => u.username === req.body.username).length > 0 ? users.filter(u => u.username === req.body.username)[0] : '';
     const additionalClaims = {};
     if (req.headers.uuid) {
-      // TODO: THIS SHOULD BE EITHER HASHED OR ENCRYPTED OR THE JWT PAYLOAD SHOULD.
       additionalClaims.jwtid = req.headers.uuid;
     }
     if (req.headers.fingerprint) {
-      additionalClaims.subject = req.headers.fingerprint; // TODO: SAME AS ABOVE
+      additionalClaims.subject = req.headers.fingerprint; E
     }
 
     if (!user) {

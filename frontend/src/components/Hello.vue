@@ -21,6 +21,7 @@
 </template>
 
 <script>
+// TODO: ADD LOGIN COMPONENT FOR BOTH LOCALSTORAGE AND HTTP COOKIE STRATEGY (USE AXIOS)
 export default {
   name: 'hello',
   data() {

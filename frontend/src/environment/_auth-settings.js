@@ -1,3 +1,6 @@
+// TODO: REMOVE DEVICE UUID STRATEGY
+// TODO: ADD CLOCK SKEW STRATEGY
+
 import { DeviceUUID } from 'device-uuid';
 
 export const VERSION = 'v031017';

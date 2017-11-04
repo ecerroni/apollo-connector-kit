@@ -1,3 +1,7 @@
+// TODO: REMOVE FINGERPRINT + DEVICE UUID LOGIC
+// TODO: ADD CLOCK SKEW LOGIC
+// TODO: ADD GEOIP STRATEGY
+
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
 import { auth } from '../config';
@@ -26,10 +30,10 @@ async function validateUser(authorization, secrets, uuid, fingerprint) {
   const addSecurityChecks = {};
 
   if (uuid) {
-    addSecurityChecks.jwtid = uuid; // TODO: THIS SHOULD BE EITHER HASHED OR ENCRYPTERD OR THE JWT PAYLOAD SHOULD. PERFORMANCE OF THE EVENTUAL SOLUTION MATTERS A TON HERE
+    addSecurityChecks.jwtid = uuid;
   }
   if (fingerprint) {
-    addSecurityChecks.subject = fingerprint; // TODO: SAME AS ABOVE
+    addSecurityChecks.subject = fingerprint;
   }
   const authLength = auth.strategies.localStorage ? "Bearer ".length : auth.strategies.httpOnly ? `${auth.cookie.name}=`.length : '';
   if (authorization && authorization.length > authLength) {
