@@ -11,12 +11,24 @@
 
 <script>
 // TODO: ADD LOGIN COMPONENT FOR BOTH LOCALSTORAGE AND HTTP COOKIE STRATEGY (USE AXIOS)
+import { checkAuthQuery } from '../api';
+
 export default {
   name: 'home',
   data() {
     return {
       intro: 'A basic connector for authentication/authorization',
+      authorized: false,
     };
+  },
+
+  apollo: {
+    authorized: {
+      query: checkAuthQuery,
+      update({ res: { checkAuth } }) {
+        return checkAuth;
+      },
+    },
   },
 };
 </script>

@@ -1,5 +1,5 @@
 import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
+import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
@@ -33,12 +33,12 @@ if (auth.strategies.httpOnly) {
 }
 
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: '/graphql',
   ...opts,
 });
 
-const middlewareLink = setContext(() => ({
+const authMiddlewareLink = setContext(() => ({
   headers: auth.strategies.localStorage
     ? {
       'x-token': localStorage.getItem('token') || null,
@@ -49,7 +49,6 @@ const middlewareLink = setContext(() => ({
 
 const afterwareLink = new ApolloLink((operation, forward) => {
   const { headers } = operation.getContext();
-
   if (headers) {
     const token = headers.get('x-token');
     const refreshToken = headers.get('x-refresh-token');
@@ -72,24 +71,32 @@ const afterwareLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const errorLink = onError(({ networkError, graphQLErrors }) => {
+const errorLink = onError(({ networkError }) => {
   if (networkError.statusCode === 401 || networkError.statusCode === 403) {
     // eslint-disable-next-line
-    console.log('Unauthorized', graphQLErrors);
+    console.warn('Unauthorized');
     router.push('/login');
   }
   if ((networkError.statusCode >= 500)) {
     // eslint-disable-next-line
-    console.log('SERVER ERROR', graphQLErrors);
+    console.warn('SERVER ERROR');
     // DO SOMETHING. HANDLE THIS ONE.
   }
 });
 
+// const link = errorLink.concat(afterwareLink.concat(authMiddlewareLink.concat(httpLink)));
+const link = ApolloLink.from([
+  errorLink,
+  afterwareLink,
+  authMiddlewareLink,
+  httpLink,
+]);
 
-const link = errorLink.concat(afterwareLink.concat(middlewareLink.concat(httpLink)));
+const cache = new InMemoryCache();
 
 export default new ApolloClient({
   link,
-  cache: new InMemoryCache(),
+  cache,
+  connectToDevTools: true,
 });
 
