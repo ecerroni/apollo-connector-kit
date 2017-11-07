@@ -1,6 +1,11 @@
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context';
+import { onError } from 'apollo-link-error';
+import { ApolloLink } from 'apollo-link';
 import router from '../../router';
-import { AUTH, UUID } from '../../environment';
+import { AUTH } from '../../environment';
 
 // TODO: UPGRADE TO APOLLO LINK
 // TODO: CHANGE LOGIC TO TOKEN + REFRESH TOKEN
@@ -18,82 +23,73 @@ const auth = {
     uuid: AUTH.STRATEGIES.UUID, // UNIQUE PER DEVICE
   },
 };
-// Create the apollo client
-const networkInterfaceObj = {
-  uri: '/graphql',
-  // uri: 'http://51.15.60.70:8080/graphql',
-  transportBatching: true,
-};
+
+let opts = {};
 
 if (auth.strategies.httpOnly) {
-  networkInterfaceObj.opts = {
+  opts = {
     credentials: 'same-origin',
   };
 }
-const networkInterface = createNetworkInterface(networkInterfaceObj);
-
-/* * -------------- STRATEGY LOCALSTORAGE -------- * */
-if (auth.strategies.localStorage) {
-  networkInterface.use([{
-    applyMiddleware(req, next) {
-      if (!req.options.headers) {
-        req.options.headers = {};  // Create the header object if needed.
-      }
-
-      if (auth.strategies.uuid) {
-        req.options.headers.uuid = UUID;
-      }
-
-      const token = localStorage.getItem('askerikToken');
-      if (token) {
-        req.options.headers.authorization = `Bearer ${token}`;
-        next();
-      } else {
-        // eslint-disable-next-line
-        console.error('ERROR: no askerikToken');
-        router.push('/login'); // window.location.href = 'http://siwei.me';
-      }
-      // console.log(req.options.headers);
-      next();
-    },
-  }]);
-}
-/* * --------------------------- * */
-
-/* * -------------- STRATEGY HTTP_ONLY -------- * */
-/* * -------------- AS LONG AS UUID IS TRUE -------- * */
-
-if (auth.strategies.httpOnly && auth.uuid) {
-  networkInterface.use([{
-    applyMiddleware(req, next) {
-      if (!req.options.headers) {
-        req.options.headers = {};  // Create the header object if needed.
-      }
-
-      if (auth.uuid) {
-        req.options.headers.uuid = UUID;
-      }
-      next();
-    },
-  }]);
-}
-/* *--------------------------- * */
 
 
-// DESPITE EITHER STRATEGIES AFTERWARE IS ALWAYS THE SAME
-networkInterface.useAfter([{
-  applyAfterware({ response }, next) {
-    if ((response && response.status >= 500)) {
-      // eslint-disable-next-line
-      console.log('SERVER ERROR', response);
+const httpLink = createHttpLink({
+  uri: '/graphql',
+  ...opts,
+});
+
+const middlewareLink = setContext(() => ({
+  headers: auth.strategies.localStorage
+    ? {
+      'x-token': localStorage.getItem('token') || null,
+      'x-refresh-token': localStorage.getItem('refreshToken') || null,
     }
-    if (response && (response.status === 401 || response.status === 403)) {
-      // eslint-disable-next-line
-      console.log('unauthorized', response);
-      router.push('/login');
-    }
-    next();
-  },
-}]);
+    : {},
+}));
 
-export default new ApolloClient({ networkInterface, connectToDevTools: true });
+const afterwareLink = new ApolloLink((operation, forward) => {
+  const { headers } = operation.getContext();
+
+  if (headers) {
+    const token = headers.get('x-token');
+    const refreshToken = headers.get('x-refresh-token');
+
+    if (!(token && refreshToken)) {
+      // eslint-disable-next-line
+      console.error('ERROR: no tokens');
+      router.push('/login'); // window.location.href = 'http://siwei.me';
+    }
+
+    if (token) {
+      localStorage.setItem('token', token);
+    }
+
+    if (refreshToken) {
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+  }
+
+  return forward(operation);
+});
+
+const errorLink = onError(({ networkError, graphQLErrors }) => {
+  if (networkError.statusCode === 401 || networkError.statusCode === 403) {
+    // eslint-disable-next-line
+    console.log('Unauthorized', graphQLErrors);
+    router.push('/login');
+  }
+  if ((networkError.statusCode >= 500)) {
+    // eslint-disable-next-line
+    console.log('SERVER ERROR', graphQLErrors);
+    // DO SOMETHING. HANDLE THIS ONE.
+  }
+});
+
+
+const link = errorLink.concat(afterwareLink.concat(middlewareLink.concat(httpLink)));
+
+export default new ApolloClient({
+  link,
+  cache: new InMemoryCache(),
+});
+

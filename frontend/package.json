@@ -5,18 +5,22 @@
   "author": "Rico <e.cerroni@gmail.com>",
   "private": true,
   "scripts": {
-    "lint": "eslint ./src",
+    "lint": "eslint --ext .js,.vue src",
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "build": "node build/build.js"
   },
   "dependencies": {
+    "apollo-cache-inmemory": "1.1.0",
     "apollo-client": "^1.9.3",
+    "apollo-link": "1.0.0",
+    "apollo-link-context": "1.0.0",
+    "apollo-link-error": "1.0.0",
+    "apollo-link-http": "1.1.0",
     "device-uuid": "^1.0.4",
     "element-ui": "^1.4.6",
     "vue": "^2.4.2",
-    "vue-apollo": "^2.1.0-rc.5",
+    "vue-apollo": "3.0.0-alpha.2",
     "vue-router": "^2.7.0",
     "vue-wysiwyg": "^1.2.7"
   },

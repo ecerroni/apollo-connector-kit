@@ -13,7 +13,7 @@ const getCookie = (src, name) => {
 };
 
 export async function context(headers, secrets) {
-  const authorization = auth.strategies.localStorage ? headers.authorization : auth.strategies.httpOnly ? headers.cookie : '';
+  const authorization = auth.strategies.localStorage ? headers['x-token'] : auth.strategies.httpOnly ? headers.cookie : '';
   const uuid = headers.uuid;
   const fingerprint = headers.fingerprint;
   const user = await validateUser(authorization, secrets, uuid, fingerprint);
@@ -35,7 +35,7 @@ async function validateUser(authorization, secrets, uuid, fingerprint) {
   if (fingerprint) {
     addSecurityChecks.subject = fingerprint;
   }
-  const authLength = auth.strategies.localStorage ? 'Bearer '.length : auth.strategies.httpOnly ? `${auth.cookie.name}=`.length : '';
+  const authLength = auth.strategies.localStorage ? ''.length : auth.strategies.httpOnly ? `${auth.cookie.name}=`.length : '';
   if (authorization && authorization.length > authLength) {
     const token = auth.strategies.localStorage ? authorization.slice(authLength) : auth.strategies.httpOnly ? getCookie(authorization, auth.cookie.name) : '';
     const { ok, result } = await new Promise(resolve =>
