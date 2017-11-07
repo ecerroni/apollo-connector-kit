@@ -26,7 +26,7 @@ const typeDefs = mergeTypes([
 ]);
 
 const authenticated = resolver => (parent, args, context, info) => {
-  console.log('context user', context.user)
+  console.log('context user', context.user);
   if (context.user) {
     return resolver(parent, args, context, info);
   }

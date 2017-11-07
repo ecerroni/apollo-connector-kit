@@ -2,10 +2,10 @@
 // TODO: ADD CLOCK SKEW LOGIC
 // TODO: ADD GEOIP STRATEGY
 
-import jwt from "jsonwebtoken";
-import fetch from "node-fetch";
+import jwt from 'jsonwebtoken';
 import { auth } from '../config';
 
+//
 const getCookie = (src, name) => {
   const value = `; ${src}`;
   const parts = value.split(`; ${name}=`);
@@ -13,9 +13,9 @@ const getCookie = (src, name) => {
 };
 
 export async function context(headers, secrets) {
-  const authorization = auth.strategies.localStorage ? headers["authorization"] : auth.strategies.httpOnly ? headers['cookie'] : '';
-  const uuid = headers['uuid'];
-  const fingerprint = headers['fingerprint'];
+  const authorization = auth.strategies.localStorage ? headers.authorization : auth.strategies.httpOnly ? headers.cookie : '';
+  const uuid = headers.uuid;
+  const fingerprint = headers.fingerprint;
   const user = await validateUser(authorization, secrets, uuid, fingerprint);
   return {
     user,
@@ -35,26 +35,26 @@ async function validateUser(authorization, secrets, uuid, fingerprint) {
   if (fingerprint) {
     addSecurityChecks.subject = fingerprint;
   }
-  const authLength = auth.strategies.localStorage ? "Bearer ".length : auth.strategies.httpOnly ? `${auth.cookie.name}=`.length : '';
+  const authLength = auth.strategies.localStorage ? 'Bearer '.length : auth.strategies.httpOnly ? `${auth.cookie.name}=`.length : '';
   if (authorization && authorization.length > authLength) {
     const token = auth.strategies.localStorage ? authorization.slice(authLength) : auth.strategies.httpOnly ? getCookie(authorization, auth.cookie.name) : '';
     const { ok, result } = await new Promise(resolve =>
-      jwt.verify(token, secrets.AUTH_SECRET, {...addSecurityChecks}, (err, result) => {
+      jwt.verify(token, secrets.AUTH_SECRET, { ...addSecurityChecks }, (err, result) => {
         if (err) {
           resolve({
             ok: false,
-            result: err
+            result: err,
           });
         } else {
           resolve({
             ok: true,
-            result
+            result,
           });
         }
-      })
+      }),
     );
     if (ok) {
-      /*const profileRequest = await fetch(
+      /* const profileRequest = await fetch(
         `https://${secrets.AUTH_ENDPOINT}/tokeninfo`,
         {
           method: "POST",
@@ -70,16 +70,15 @@ async function validateUser(authorization, secrets, uuid, fingerprint) {
       return {
         ...profile,
         id: result.sub
-      };*/
+      }; */
 
       return {
         id: result.id,
         nickname: result.nickname,
-        email: result.email
-      }
-    } else {
-      console.error(result);
+        email: result.email,
+      };
     }
+    console.error(result);
   }
 
   return null;

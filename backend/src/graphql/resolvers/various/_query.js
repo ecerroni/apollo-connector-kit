@@ -18,20 +18,20 @@ export default {
     ********** DEVELOPMENT ONLY | TO BE USED WITH GRAPHIQL ********
      */
     createValidToken: async (_, { secret }) => {
-      let users = []
+      let users = [];
       if (auth.usersDB.isApi) {
-        const fetchUsers = await fetch('https://jsonplaceholder.typicode.com/users')
+        const fetchUsers = await fetch('https://jsonplaceholder.typicode.com/users');
         users = await fetchUsers.json();
       } else if (auth.usersDB.isLocal) {
         users = mockUsers;
       } else {
         throw new Error('Misconfiguration in _config.js');
       }
-      const user = users[(Math.round(Math.random() * 10)) - 1]
+      const user = users[(Math.round(Math.random() * 10)) - 1];
       return jwt.sign({ id: user.id }, secret);
     },
     // already expired token
-    createExpiredToken: async (_, {secret}) =>
+    createExpiredToken: async (_, { secret }) =>
       jwt.sign({ id: 0, exp: Math.floor(Date.now() / 1000) - 30 }, secret),
   },
 };

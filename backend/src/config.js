@@ -12,7 +12,7 @@ export const database = {
   type: 'mySQL',
   host: 'localhost',
   port: 27017,
-  name: 'askerik'
+  name: 'askerik',
 };
 
 export const auth = {
@@ -34,5 +34,5 @@ export const auth = {
   usersDB: {
     isApi: false,
     isLocal: true,
-  }
-}
+  },
+};

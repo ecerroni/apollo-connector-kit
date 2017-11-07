@@ -11,7 +11,7 @@ export default {
       }
       let users = [];
       if (auth.usersDB.isApi) {
-        const fetchUsers = await fetch('https://jsonplaceholder.typicode.com/users')
+        const fetchUsers = await fetch('https://jsonplaceholder.typicode.com/users');
         users = await fetchUsers.json();
         users = users.map(u => Object.assign({}, u, { password: '1234' }));
       } else if (auth.usersDB.isLocal) {
@@ -36,9 +36,8 @@ export default {
           additionalClaims.subject = context.fingerprint;
         }
         return jwt.sign(Object.assign({ id: user.id }), auth.secret, { expiresIn: '1h', ...additionalClaims });
-      } else {
-        throw new Error('There is no user with this credentials');
       }
+      throw new Error('There is no user with this credentials');
     },
   },
 };

@@ -23,11 +23,11 @@ const localAuthServer = localAuth() && auth.strategies.httpOnly;
 if (typeof auth.secret === 'undefined') {
   console.warn('WARNING: process.env.AUTH_SECRET is not defined. Check README.md for more information');
 } else {
-  console.log('AUTH SECRET HAS BEEN PROVIDED')
+  console.log('AUTH SECRET HAS BEEN PROVIDED');
   if (typeof auth.endpoint === 'undefined') {
     console.warn('WARNING: process.env.AUTH_ENDPOINT is not defined. Check README.md for more information');
   } else {
-    console.log(`AUTH ENDPOINT = ${auth.endpoint}`)
+    console.log(`AUTH ENDPOINT = ${auth.endpoint}`);
     const authLocation = localAuth() ? 'THIS ONE' : 'EXTERNAL';
     console.log(`AUTH SERVER IS ${authLocation}`);
     console.log('ALL SET >> SERVER CONFIGURATION READY');
@@ -41,7 +41,7 @@ const whitelist = [
   'http://localhost:8080',
 ];
 const corsOptions = {
-  origin(origin, callback){
+  origin(origin, callback) {
     const originIsWhitelisted = whitelist.indexOf(origin) !== -1;
     callback(null, originIsWhitelisted);
   },
@@ -55,7 +55,7 @@ if (localAuthServer) {
   expressServer.post('/handle-logout', bodyParser.urlencoded({
     extended: true,
   }), (req, res, next) => {
-    res.cookie(auth.cookie.name, '', { expires: new Date(0), httpOnly: true }).sendStatus(200)
+    res.cookie(auth.cookie.name, '', { expires: new Date(0), httpOnly: true }).sendStatus(200);
     next;
   });
 }
@@ -72,13 +72,13 @@ if (localAuthServer) {
       additionalClaims.jwtid = req.headers.uuid;
     }
     if (req.headers.fingerprint) {
-      additionalClaims.subject = req.headers.fingerprint; E
+      additionalClaims.subject = req.headers.fingerprint; E;
     }
 
     if (!user) {
       res.status(403).send('Invalid User');
     } else {
-        // check if password and username matches
+      // check if password and username matches
       if (user.username !== req.body.username || user.password !== req.body.password) {
         res.status(403).send('Invalid Password');
       } else {
@@ -87,7 +87,7 @@ if (localAuthServer) {
         const token = jwt.sign({ id: user.id }, auth.secret);
         // return the information including token as JSON
         // set token to cookie using the httpOnly flag
-        res.cookie(auth.cookie.name, token, { expiresIn: '1h', ...additionalClaims, httpOnly: true }).sendStatus(200)
+        res.cookie(auth.cookie.name, token, { expiresIn: '1h', ...additionalClaims, httpOnly: true }).sendStatus(200);
         // We could also try to make the following work against a different scenario
         /*
           res.cookie(auth.cookie.name, token, {
@@ -107,7 +107,6 @@ if (whitelistedQueries) {
 }
 
 expressServer.use(server.graphql, bodyParser.json(), graphqlExpress(async (request, response) => {
-
   // console.log(request.body);
   const graphqlObj = {
     schema,
@@ -122,8 +121,8 @@ expressServer.use(server.graphql, bodyParser.json(), graphqlExpress(async (reque
     },
     formatParams(params) {
       if (whitelistedQueries) {
-        params['query'] = store.get(params.operationName);
-        if (!params['query']){
+        params.query = store.get(params.operationName);
+        if (!params.query) {
           throw new Error(`Only whitelisted queries are allowed. No query stored for ${params.operationName}`);
         }
       }
