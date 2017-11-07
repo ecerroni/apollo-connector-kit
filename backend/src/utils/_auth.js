@@ -35,9 +35,10 @@ async function validateUser(authorization, secrets, uuid, fingerprint) {
   if (fingerprint) {
     addSecurityChecks.subject = fingerprint;
   }
-  const authLength = auth.strategies.localStorage ? ''.length : auth.strategies.httpOnly ? `${auth.cookie.name}=`.length : '';
-  if (authorization && authorization.length > authLength) {
-    const token = auth.strategies.localStorage ? authorization.slice(authLength) : auth.strategies.httpOnly ? getCookie(authorization, auth.cookie.name) : '';
+  // const authLength = auth.strategies.localStorage ? ''.length : auth.strategies.httpOnly ?
+  // `${auth.cookie.name}=`.length : '';
+  if (typeof authorization === 'string' && authorization !== 'null') {
+    const token = auth.strategies.localStorage ? authorization : auth.strategies.httpOnly ? getCookie(authorization, auth.cookie.name) : '';
     const { ok, result } = await new Promise(resolve =>
       jwt.verify(token, secrets.AUTH_SECRET, { ...addSecurityChecks }, (err, result) => {
         if (err) {
