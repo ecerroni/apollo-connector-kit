@@ -3,7 +3,5 @@ export default `
     test: String!
     connection: String!
     checkAuth: String
-    createValidToken(secret: String): String
-    createExpiredToken(secret: String): String
   }
 `;
