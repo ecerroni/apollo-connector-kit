@@ -2,6 +2,7 @@ import { PUBLIC_PREFIX } from '#/common/strategies'
 import { mockUsers } from '@/mocks';
 import { createTokens } from '@/authentication';
 import { encryptor } from '@/utils/';
+import { ERROR } from '@/environment'
 
 export default {
   Mutation: {
@@ -18,7 +19,7 @@ export default {
       if (validUser) {
         const validPassword = await encryptor.verify({ digest: password }, validUser.password);
         if (!validPassword) {
-          throw new Error('Wrong password');
+          throw new Error(ERROR.USER.WRONG_PASSWORD);
         }
         const user = validUser;
         const additionalClaims = {};
@@ -36,9 +37,8 @@ export default {
         const [token, refreshToken] = await createTokens(userData, additionalClaims);
         const response = JSON.stringify({ token, refreshToken });
         return response;
-
       }
-      throw new Error('There is no user with this credentials');
+      throw new Error(ERROR.USER.WRONG_CREDENTIALS);
     },
   },
 };
