@@ -31,23 +31,12 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {/*
-      '/handle-login': {
-        target: 'http://localhost:3000',
-        changeOrigin: false
-      },
-      '/handle-logout': {
-        target: 'http://localhost:3000',
-        changeOrigin: false
-      },
-      '/cookie': {
-        target: 'http://localhost:3000',
-        changeOrigin: false
-      },*/
+    proxyTable: {
       '/graphql': {
         target: 'http://localhost:3000',
-        changeOrigin: false
-      }, /*
+        changeOrigin: false,
+      },
+       /*
       '/upload': {
         target: 'http://localhost:4000',
         changeOrigin: false

@@ -1,3 +1,3 @@
-import { auth } from '../config';
+import { AUTH } from '../config';
 
-export const localAuth = () => auth.endpoint === 'localhost' || auth.endpoint === '127.0.0.1' || auth.endpoint === '0.0.0.0';
+export const localAuthCheck = () => AUTH.ENDPOINT === 'localhost' || AUTH.ENDPOINT === '127.0.0.1' || AUTH.ENDPOINT === '0.0.0.0';

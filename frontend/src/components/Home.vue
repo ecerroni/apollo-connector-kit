@@ -1,16 +1,16 @@
 <template>
-  <div class="hello">
+  <div v-loading="!authorized">
     <h1>{{ intro }}</h1>
     <h2>Ecosystem</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">VueJs</a></li>
       <li><a href="https://www.apollographql.com/" target="_blank">Apollo Graphql</a></li>
+      <li><a href="http://element.eleme.io/" target="_blank">Element UI</a></li>
     </ul>
   </div>
 </template>
 
 <script>
-// TODO: ADD LOGIN COMPONENT FOR BOTH LOCALSTORAGE AND HTTP COOKIE STRATEGY (USE AXIOS)
 import { checkAuthQuery } from '../api';
 
 export default {
@@ -25,8 +25,8 @@ export default {
   apollo: {
     authorized: {
       query: checkAuthQuery,
-      update({ res: { checkAuth } }) {
-        return checkAuth;
+      update({ checkAuth }) {
+        return typeof checkAuth === 'string';
       },
     },
   },

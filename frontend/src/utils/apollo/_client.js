@@ -4,72 +4,59 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
-import router from '../../router';
-import { AUTH } from '../../environment';
+import router from '@/router';
+import {
+  AUTH,
+  APP,
+  JWT,
+  VERSION,
+  CLIENT_AUTH_REQUEST_TYPE,
+  CLIENT_AUTHENTICATION_METHOD,
+} from '@/environment';
 
-// TODO: UPGRADE TO APOLLO LINK
-// TODO: CHANGE LOGIC TO TOKEN + REFRESH TOKEN
-// TODO: SET THE TOKEN HERE INSTEAD OF LOGIN
-// TODO: GET RID OF BOTH UUID AND FINGERPRINT LOGIC (WE DON'T SEND ANYTHING LIKE THAT ANYMORE)
-// TODO: BECAUSE OF THE ABOVE WE'RE GOING TO SEND ONLY A TIMESTAMP
-// (IF CLOCK SKEW STRATEGY IS ENABLED)
-
-
-// DEFINE WHICH AUTH STRATEGY TO USE. THEY'RE XOR
-const auth = {
-  strategies: {
-    httpOnly: AUTH.STRATEGIES.HTTP_ONLY,
-    localStorage: AUTH.STRATEGIES.LOCALSTORAGE,
-    uuid: AUTH.STRATEGIES.UUID, // UNIQUE PER DEVICE
+const opts = {
+  credentials: 'same-origin',
+  headers: {
+    'frontend-version': VERSION,
+    [AUTH.STRATEGIES.CLIENT.AUTH_HEADER]: CLIENT_AUTH_REQUEST_TYPE,
   },
 };
 
-let opts = {};
-
-if (auth.strategies.httpOnly) {
-  opts = {
-    credentials: 'same-origin',
-  };
-}
-
+const useLocalStorage = CLIENT_AUTHENTICATION_METHOD.LOCAL_STORAGE;
 
 const httpLink = new HttpLink({
-  uri: '/graphql',
+  uri: APP.ENDPOINT.GRAPHQL,
   ...opts,
 });
 
 const authMiddlewareLink = setContext(() => ({
-  headers: auth.strategies.localStorage
-    ? {
-      'x-token': localStorage.getItem('token') || null,
-      'x-refresh-token': localStorage.getItem('refreshToken') || null,
-    }
-    : {},
+  headers: {
+    [JWT.HEADER.TOKEN.NAME]: localStorage.getItem(JWT.LOCAL_STORAGE.TOKEN.NAME) || null,
+    [JWT.HEADER.REFRESH_TOKEN.NAME]: localStorage.getItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME) || null, // eslint-disable-line
+  },
 }));
 
-const afterwareLink = new ApolloLink((operation, forward) => {
-  const { headers } = operation.getContext();
-  if (headers) {
-    const token = headers.get('x-token');
-    const refreshToken = headers.get('x-refresh-token');
+const afterwareLink = new ApolloLink((operation, forward) =>
+  forward(operation).map((response) => {
+    const context = operation.getContext();
+    const { response: { headers } } = context;
 
-    if (!(token && refreshToken)) {
-      // eslint-disable-next-line
-      console.error('ERROR: no tokens');
-      router.push('/login'); // window.location.href = 'http://siwei.me';
+    if (headers) {
+      const token = headers.get(JWT.HEADER.TOKEN.NAME);
+      const refreshToken = headers.get(JWT.HEADER.REFRESH_TOKEN.NAME);
+
+      if (token) {
+        localStorage.setItem(JWT.LOCAL_STORAGE.TOKEN.NAME, token);
+      }
+
+      if (refreshToken) {
+        localStorage.setItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME, refreshToken);
+      }
     }
 
-    if (token) {
-      localStorage.setItem('token', token);
-    }
-
-    if (refreshToken) {
-      localStorage.setItem('refreshToken', refreshToken);
-    }
-  }
-
-  return forward(operation);
-});
+    return response;
+  }),
+);
 
 const errorLink = onError(({ networkError }) => {
   if (networkError.statusCode === 401 || networkError.statusCode === 403) {
@@ -84,13 +71,22 @@ const errorLink = onError(({ networkError }) => {
   }
 });
 
-// const link = errorLink.concat(afterwareLink.concat(authMiddlewareLink.concat(httpLink)));
-const link = ApolloLink.from([
+let links = [
   errorLink,
-  afterwareLink,
-  authMiddlewareLink,
   httpLink,
-]);
+];
+
+if (useLocalStorage) {
+  links = [
+    errorLink,
+    afterwareLink,
+    authMiddlewareLink,
+    httpLink,
+  ];
+}
+
+const link = ApolloLink.from(links);
+
 
 const cache = new InMemoryCache();
 

@@ -1,38 +1,27 @@
 // Configuration file. One rules them all
-export const server = {
-  host: 'localhost',
-  port: 3000,
-  graphql: '/graphql',
-  graphiql: '/graphiql',
+import { APP, AUTH as AUTH_COMMON } from '#/common';
+
+export { JWT } from '#/common';
+
+export const SERVER = {
+  ...APP.ENDPOINT,
 };
 
-export const whitelistedQueries = false;
-
-export const database = {
-  type: 'mySQL',
-  host: 'localhost',
-  port: 27017,
-  name: 'askerik',
+export const DATABASE = {
+  TYPE: 'mySQL',
+  HOST: 'localhost',
+  PORT: 27017,
+  NAME: 'mydb',
 };
 
-export const auth = {
-  endpoint: process.env.AUTH_ENDPOINT,
-  secret: process.env.AUTH_SECRET,
-  cookie: {
-    name: 'graphql_access_token', // be original
-    expiration: '',
-  },
-  strategies: {
-    // These shouldn't be mutually exclusive.
-    // i.e. desktop client may send requests with httpOnly cookies while react native with token in localstorage
-    // If it is that  way code in _auth.js needs refactoring
-    // Not sure yet though about keeping them mutually exclusive or not.
-    // Needs more thoughts
-    httpOnly: false,
-    localStorage: true, // when working with graphiQL localStorage must be true. Otherwise it doesn't work atm
-  },
-  usersDB: {
-    isApi: false,
-    isLocal: true,
+export const AUTH = {
+  ...AUTH_COMMON,
+  ENDPOINT: process.env.AUTH_ENDPOINT,
+  SECRET_TOKEN: process.env.AUTH_SECRET_TOKEN,
+  SECRET_REFRESH_TOKEN: process.env.AUTH_SECRET_REFRESH_TOKEN,
+  USERS_DB: {
+    IS_API: false,
+    IS_LOCAL: true,
   },
 };
+

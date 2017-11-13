@@ -1,8 +1,15 @@
 {
   presets: ['latest'],
   plugins: [
+    ["babel-plugin-root-import", [{
+      "rootPathPrefix": "@",
+      "rootPathSuffix": "./src"
+    }, {
+      "rootPathPrefix": "#",
+      "rootPathSuffix": "./" // since we suport relative paths you can also go into a parent directory
+    }]],
     'transform-runtime',
     'transform-async-generator-functions',
-    'transform-object-rest-spread',
-  ],
+    'transform-object-rest-spread'
+  ]
 }

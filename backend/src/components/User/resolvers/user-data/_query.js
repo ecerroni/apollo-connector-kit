@@ -1,4 +1,4 @@
-import { mockUsers } from '../../../mocks';
+import { mockUsers } from '@/mocks';
 
 export default {
   Query: {

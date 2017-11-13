@@ -34,16 +34,12 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-import { login } from '../api';
-import router from '../router';
-import { AUTH } from '../environment';
+import { login } from '@/api';
+import router from '@/router';
+
 
 export default {
   name: 'login',
-  mounted() {
-    localStorage.removeItem('askerikToken');
-  },
   data() {
     return {
       validateForm: {
@@ -53,47 +49,24 @@ export default {
     };
   },
   methods: {
-    /* eslint consistent-return: 0 */
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         const params = new URLSearchParams();
         params.append('username', this.validateForm.email);
         params.append('password', this.validateForm.password);
         if (valid) {
-          if (AUTH.STRATEGIES.HTTP_ONLY) {
-            axios.post('/handle-login', params,
-              {
-                withCredentials: true,
-              })
-            // .then((respohnse) => {
-            .then(() => {
-              // JSON responses are automatically parsed.
-              console.log('Logged in');
-              router.push('/');
-            })
-            .catch((e) => {
-              console.log(e);
-              this.$notify({
-                title: 'Wrong credentials',
-                message: 'Cannot login. Try again',
-                duration: 2000,
-              });
-            });
-          } else {
-            this.$apollo.mutate({
-              // Query
-              mutation: login,
-              // Parameters
-              variables: {
-                userCredentials: {
-                  username: this.validateForm.email,
-                  password: this.validateForm.password,
-                },
+          this.$apollo.mutate({
+            // Query
+            mutation: login,
+            // Parameters
+            variables: {
+              userCredentials: {
+                username: this.validateForm.email,
+                password: this.validateForm.password,
               },
-            })
-          .then((res) => {
-            console.log(res);
-            localStorage.setItem('askerikToken', res.data.login);
+            },
+          })
+          .then(() => {
             router.push('/');
           })
           .catch((e) => {
@@ -104,11 +77,8 @@ export default {
               duration: 2000,
             });
           });
-          }
-        } else {
-          // console.log('error submit!!');
-          return false;
         }
+        return false;
       });
     },
     resetForm(formName) {
