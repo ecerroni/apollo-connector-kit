@@ -1,6 +1,7 @@
 import { PUBLIC_PREFIX } from '#/common/strategies'
 import { mockUsers } from '@/mocks';
 import { createTokens } from '@/authentication';
+import { encryptor } from '@/utils/';
 
 export default {
   Mutation: {
@@ -15,7 +16,8 @@ export default {
         ? users.filter(u => u.username === username)[0]
         : undefined;
       if (validUser) {
-        if (validUser.password !== password) {
+        const validPassword = await encryptor.verify({ digest: password }, validUser.password);
+        if (!validPassword) {
           throw new Error('Wrong password');
         }
         const user = validUser;

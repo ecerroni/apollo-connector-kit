@@ -1,73 +1,37 @@
+// online hash.js emulator
+// http://www.xorbin.com/tools/sha256-hash-calculator
+
+// online bcrypt emulator (use 12 rounds)
+// https://www.dailycred.com/article/bcrypt-calculator
+
 export const mockUsers = [
   {
     id: 1,
-    name: 'Greg',
-    username: 'greg',
-    email: 'greg@greg.biz',
-    password: '1234',
+    name: 'Enrico',
+    username: 'ric0',
+    email: 'enrico@waat.eu',
+    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna', // this is === 123456
   },
   {
     id: 2,
     name: 'Kris',
     username: 'kris',
-    email: 'kris@kris.tv',
-    password: '1234',
+    email: 'kris@waat.eu',
+    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
   },
   {
     id: 3,
-    name: 'Serkan',
-    username: 'serkan',
-    email: 'serkan@serkan.net',
-    password: '1234',
+    name: 'Tomek',
+    username: 'tomek',
+    email: 'tomek.pazio@waat.eu',
+    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
   },
   {
     id: 4,
-    name: 'Cagry',
-    username: 'cagry',
-    email: 'cagry@vagry.org',
-    password: '1234',
-  },
-  {
-    id: 5,
-    name: 'Chelsey Dietrich',
-    username: 'Kamren',
-    email: 'Lucio_Hettinger@annie.ca',
-    password: '1234',
-  },
-  {
-    id: 6,
-    name: 'Mrs. Dennis Schulist',
-    username: 'Leopoldo_Corkery',
-    email: 'Karley_Dach@jasper.info',
-    password: '1234',
-  },
-  {
-    id: 7,
-    name: 'Kurtis Weissnat',
-    username: 'Elwyn.Skiles',
-    email: 'Telly.Hoeger@billy.biz',
-    password: '1234',
-  },
-  {
-    id: 8,
-    name: 'Nicholas Runolfsdottir V',
-    username: 'Maxime_Nienow',
-    email: 'Sherwood@rosamond.me',
-    password: '1234',
-  },
-  {
-    id: 9,
-    name: 'Glenna Reichert',
-    username: 'Delphine',
-    email: 'Chaim_McDermott@dana.io',
-    password: '1234',
-  },
-  {
-    id: 10,
-    name: 'Clementina DuBuque',
-    username: 'Moriah.Stanton',
-    email: 'Rey.Padberg@karina.biz',
-    password: '1234',
+    name: 'Greg',
+    username: 'greg',
+    email: 'greg@waat.eu',
+    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
   },
 ];
 

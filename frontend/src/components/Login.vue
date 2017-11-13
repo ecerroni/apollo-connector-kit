@@ -36,6 +36,7 @@
 <script>
 import { login } from '@/api';
 import router from '@/router';
+import { hashString } from '@/utils';
 
 
 export default {
@@ -62,7 +63,7 @@ export default {
             variables: {
               userCredentials: {
                 username: this.validateForm.email,
-                password: this.validateForm.password,
+                password: hashString(this.validateForm.password).digest,
               },
             },
           })
