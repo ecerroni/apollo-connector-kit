@@ -1,5 +1,6 @@
 import { JWT } from '#/common/strategies'
 import { selectAuthStrategy } from '@/authentication';
+import { setCookies, setHeaders, unsetCookies } from '@/authentication';
 
 // TODO: MOVE THEM TO ENUMS OR CONFIG
 const logins = ['publicLogin', 'publicRegister'];
@@ -11,9 +12,7 @@ export const formatResponse = (res, { context }, response, request) => {
   if (operationName && extendedResponse.data && operationName === logout) {
     const [httpOnly] = selectAuthStrategy(request.headers);
     if (httpOnly) {
-      response
-        .cookie(JWT.COOKIE.TOKEN.NAME, '', { expires: new Date(0), httpOnly: true })
-        .cookie(JWT.COOKIE.REFRESH_TOKEN.NAME, '', { expires: new Date(0), httpOnly: true });
+      unsetCookies(response);
     }
   }
   if (operationName && extendedResponse.data && logins.includes(operationName)) {
@@ -22,17 +21,10 @@ export const formatResponse = (res, { context }, response, request) => {
       const [httpOnly, localStorage] = selectAuthStrategy(request.headers);
       const { token, refreshToken } = data;
       if (httpOnly) {
-        response.cookie(JWT.COOKIE.TOKEN.NAME, token, {
-          maxAge: JWT.COOKIE.EXP,
-          httpOnly: true,
-        }).cookie(JWT.COOKIE.REFRESH_TOKEN.NAME, refreshToken, {
-          maxAge: JWT.COOKIE.EXP,
-          httpOnly: true,
-        });
+        setCookies(response, token, refreshToken);
       }
       if (localStorage) {
-        response.set(JWT.HEADER.TOKEN.NAME, token);
-        response.set(JWT.HEADER.REFRESH_TOKEN.NAME, refreshToken);
+        setHeaders(response, token, refreshToken);
       }
       extendedResponse = {
         data: { [operationName]: data },

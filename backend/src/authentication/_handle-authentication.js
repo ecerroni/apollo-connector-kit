@@ -1,12 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { JWT } from '@/config'
 import { refreshTokens } from './_handle-tokens';
-import { selectAuthStrategy } from '@/authentication'
+import { selectAuthStrategy } from '@/authentication';
+import { setCookies, setHeaders } from './_handle-headers';
 
 const getCookie = (src, name) => {
   const value = `; ${src}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
 };
 
 export const handleAuthentication = async (req, res, next) => {
@@ -38,18 +40,11 @@ export const handleAuthentication = async (req, res, next) => {
       if (newToken && newRefreshToken) {
 
         if (httpOnly) {
-          res.cookie(JWT.COOKIE.TOKEN.NAME, newToken, {
-            maxAge: JWT.COOKIE.EXP,
-            httpOnly: true,
-          }).cookie(JWT.COOKIE.REFRESH_TOKEN.NAME, newRefreshToken, {
-            maxAge: JWT.COOKIE.EXP,
-            httpOnly: true,
-          })
+          setCookies(res, newToken, newRefreshToken);
         }
 
         if (localStorage) {
-          res.set(JWT.HEADER.TOKEN.NAME, newToken);
-          res.set(JWT.HEADER.REFRESH_TOKEN.NAME, newRefreshToken);
+          setHeaders(res, newToken, newRefreshToken);
         }
       }
       req.user = user;

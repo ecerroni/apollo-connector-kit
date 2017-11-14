@@ -23,12 +23,6 @@ export default {
         }
         const user = validUser;
         const additionalClaims = {};
-        if (context.uuid) {
-          additionalClaims.jwtid = context.uuid;
-        }
-        if (context.fingerprint) {
-          additionalClaims.subject = context.fingerprint;
-        }
         const userData = {
           id: user.id,
           username: user.username,

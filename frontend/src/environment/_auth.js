@@ -14,7 +14,7 @@ export const JWT = {
 };
 
 // You may change this to match your needs
-export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.LOCAL_STORAGE; // Or
+export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.HTTP_ONLY; // Or
 // AUTH.STRATEGIES.CLIENT.HTTP_ONLY
 
 export const CLIENT_AUTHENTICATION_METHOD = { // Either both FALSE or one TRUE at any given time

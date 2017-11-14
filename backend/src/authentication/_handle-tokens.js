@@ -50,15 +50,6 @@ export const refreshTokens = async (refreshToken) => {
 
   const addSecurityChecks = {};
 
-/*  if (countryCode) {
-    addSecurityChecks.jwtid = countryCode;
-  }
-  if (fingerprint) {
-    addSecurityChecks.subject = fingerprint;
-  }*/
-
-  // call to addSecurityChecks
-
   const { ok, user } = await verifyToken(refreshToken, AUTH.SECRET_REFRESH_TOKEN, addSecurityChecks);
   if (ok) {
     const [newToken, newRefreshToken] = await createTokens(user, addSecurityChecks);

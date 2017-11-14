@@ -5,6 +5,8 @@ const TOKEN_NAME = `x-${APP.NAMESPACE}-token`;
 const REFRESH_TOKEN_NAME = `x-${APP.NAMESPACE}-refresh-token`;
 const TOKEN_EXP = 6 * 60; // 6 minutes (seconds)
 const REFRESH_TOKEN_EXP = 7 * 24 * 60 * 60; // 7 days (seconds)
+const COOKIE_EXP = 365 * 24 * 60 * 60 * 1000; // one year (ms)
+
 export const JWT = {
   HEADER: {
     TOKEN: {
@@ -25,7 +27,12 @@ export const JWT = {
       NAME: REFRESH_TOKEN_NAME,
       EXP: REFRESH_TOKEN_EXP,
     },
-    EXP: 365 * 24 * 60 * 60 * 1000, // one year (ms)
+    TYPE: {
+      maxAge: COOKIE_EXP,
+      httpOnly: true,
+      // Best cookie atm `Set-Cookie: __Host-sess=123; path=/; Secure; HttpOnly; SameSite`
+      // ref: https://scotthelme.co.uk/tough-cookies/
+    },
   },
 };
 
