@@ -44,7 +44,6 @@ export const createTokens = async (user, additionalClaims = {}) => {
 };
 
 
-// TODO: ADD GEOIP STRATEGY
 // TODO: ADD FINGERPTINT (UA + ACC.LANG) STRATEGY (WITH xxHash)
 export const refreshTokens = async (refreshToken) => {
 
