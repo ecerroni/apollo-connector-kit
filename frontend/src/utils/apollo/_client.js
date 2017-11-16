@@ -4,7 +4,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
-import router from '@/router';
 import {
   AUTH,
   APP,
@@ -13,6 +12,7 @@ import {
   CLIENT_AUTH_REQUEST_TYPE,
   CLIENT_AUTHENTICATION_METHOD,
 } from '@/environment';
+import router from '@/router';
 
 const opts = {
   credentials: 'same-origin',
