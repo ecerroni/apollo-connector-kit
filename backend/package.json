@@ -4,8 +4,8 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "launch": "bash start.sh",
-    "start": "nodemon ./src/server.js --exec babel-node -e js",
+    "start": "bash start.sh",
+    "launch": "nodemon ./src/server.js --exec babel-node -e js",
     "build": "babel -d ./build ./src -s",
     "serve-staging": "NODE_ENV=staging node ./server.js",
     "serve-production": "NODE_ENV=production node ./server.js",
