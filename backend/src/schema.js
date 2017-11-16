@@ -9,7 +9,7 @@ import { userTypes, userResolvers } from '@/components/User';
 import { variousTypes, variousResolvers } from '@/components/Various';
 
 
-import { UNAUTHORIZED, PUBLIC_PREFIX } from '@/environment/_enums';
+import { UNAUTHORIZED, PUBLIC_PREFIX } from '@/environment';
 
 const typeDefs = mergeTypes([
   ...variousTypes,
