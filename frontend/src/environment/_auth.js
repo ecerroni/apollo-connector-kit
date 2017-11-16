@@ -1,7 +1,7 @@
 import { JWT as JWT_COMMON, APP, AUTH } from '#/common';
 
 // You may change this one only to match your needs
-export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.HTTP_ONLY; // Or
+export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.LOCAL_STORAGE; // Or
 // AUTH.STRATEGIES.CLIENT.HTTP_ONLY
 
 
