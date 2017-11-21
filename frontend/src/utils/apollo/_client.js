@@ -59,10 +59,13 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 );
 
 const errorLink = onError(({ networkError }) => {
-  if (networkError.statusCode === 401 || networkError.statusCode === 403) {
+  if (networkError.statusCode === 401) {
     // eslint-disable-next-line
     console.warn('Unauthorized');
     router.push('/login');
+  }
+  if (networkError.statusCode === 403) {
+    // Do something
   }
   if ((networkError.statusCode >= 500)) {
     // eslint-disable-next-line

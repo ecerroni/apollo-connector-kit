@@ -25,3 +25,53 @@ export const AUTH = {
   },
 };
 
+export const SCOPES = {
+  OPERATION: {
+    READ: 'read',
+    WRITE: 'write',
+    // add more
+  },
+  TYPE: {
+    COMMENTS: 'comments',
+    PROFILE: 'profile',
+    SETTINGS: 'settings',
+    // add more
+  },
+  ROLES: {
+    ADMIN: 'ADMIN',
+    USER: 'USER',
+  },
+
+};
+
+export const ROLES_PERMISSIONS = {
+  ADMIN: {
+    NAME: SCOPES.ROLES.ADMIN,
+    PERMISSIONS: {
+      [SCOPES.OPERATION.READ]: [
+        SCOPES.TYPE.COMMENTS,
+        SCOPES.TYPE.PROFILE,
+        // add more
+      ],
+      [SCOPES.OPERATION.WRITE]: [
+        SCOPES.TYPE.COMMENTS,
+        SCOPES.TYPE.PROFILE,
+        // add more
+      ],
+    },
+  },
+  USER: {
+    NAME: SCOPES.ROLES.USER,
+    PERMISSIONS: {
+      [SCOPES.OPERATION.READ]: [
+        SCOPES.TYPE.COMMENTS,
+        // add more
+      ],
+      [SCOPES.OPERATION.WRITE]: [
+        SCOPES.TYPE.COMMENTS,
+        // add more
+      ],
+    },
+  },
+  // add more
+};

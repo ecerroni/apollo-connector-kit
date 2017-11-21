@@ -27,6 +27,8 @@ export default {
           id: user.id,
           username: user.username,
           email: user.email,
+          roles: user.roles,
+          permissions: user.permissions,
         };
         const [token, refreshToken] = await createTokens(userData, additionalClaims);
         const response = JSON.stringify({ token, refreshToken });

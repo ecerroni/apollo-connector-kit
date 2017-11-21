@@ -11,7 +11,10 @@ import { variousTypes, variousResolvers } from '@/components/Various';
 
 import { UNAUTHORIZED, PUBLIC_PREFIX } from '@/environment';
 
+import { directives,  attachDirectives } from '@/directives';
+
 const typeDefs = mergeTypes([
+  directives,
   ...variousTypes,
   ...userTypes,
 ]);
@@ -35,9 +38,10 @@ const resolvers = [
 /*
 * ANYTHING CONTAINING THE PUBLIC_PREFIX STRING IN THE RESOLVER NAME
 * DOESN'T GO THROUGH THE AUTHORIZATION CHECK */
+// Credit: zach.codes https://zach.codes/handling-auth-in-graphql-the-right-way/
 const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
   mapValues(resolver, (item) => {
-    if (type !== 'Mutation' && type !== 'Query') return item;
+    if (type !== 'Mutation' && type !== 'Query') return item; // skip type resolvers
     if (item.name.match(/public/)) return item;
     if (process.env.NODE_ENV === 'testing') {
       return item;
@@ -52,3 +56,5 @@ export const schema = makeExecutableSchema({
   typeDefs,
   resolvers: authResolvers,
 });
+
+attachDirectives(schema);

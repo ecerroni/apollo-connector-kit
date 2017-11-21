@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT } from '@/config'
+import { AUTH, JWT } from '@/config'
 import { refreshTokens } from './_handle-tokens';
 import { selectAuthStrategy } from '@/authentication';
 import { setCookies, setHeaders } from './_handle-headers';
@@ -11,6 +11,7 @@ const getCookie = (src, name) => {
   return null;
 };
 
+// Inspired by: benawad https://github.com/benawad/slack-clone-server/blob/13_where/index.js
 export const handleAuthentication = async (req, res, next) => {
 
   req.user = undefined;
