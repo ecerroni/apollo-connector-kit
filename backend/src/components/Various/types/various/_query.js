@@ -12,6 +12,6 @@ export default `
     ${PUBLIC_PREFIX}Test: String @${canReadProfile}
     ${PUBLIC_PREFIX}AAA: AAA @${isAdmin}
     connection: String!
-    checkAuth: String
+    checkAuth: String  @${isAdmin}
   }
 `;

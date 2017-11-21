@@ -7,7 +7,7 @@ export default {
     connection: () => 'Connected',
     checkAuth: (_, args, context) => {
       if (context.user) {
-        return `Authorized | CurentUserId ${context.user}!`;
+        return `Authorized | CurentUserId ${context.user.id}!`;
       }
       throw new Error(UNAUTHORIZED);
     },
