@@ -10,7 +10,7 @@ export const mockUsers = [
     id: 1,
     name: 'Enrico',
     username: 'ric0',
-    email: 'enrico@waat.eu',
+    email: 'admin@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna', // this is === 123456
     roles: [
       ROLES_PERMISSIONS.ADMIN.NAME,
@@ -26,7 +26,7 @@ export const mockUsers = [
     id: 2,
     name: 'Kris',
     username: 'kris',
-    email: 'kris@waat.eu',
+    email: 'test@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
     roles: [
       ROLES_PERMISSIONS.USER.NAME,
@@ -35,20 +35,6 @@ export const mockUsers = [
       ...ROLES_PERMISSIONS.USER.PERMISSIONS[SCOPES.OPERATION.READ].map(permission =>
         `${SCOPES.OPERATION.READ}:${permission}`),
     ],
-  },
-  {
-    id: 3,
-    name: 'Tomek',
-    username: 'tomek',
-    email: 'tomek.pazio@waat.eu',
-    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
-  },
-  {
-    id: 4,
-    name: 'Greg',
-    username: 'greg',
-    email: 'greg@waat.eu',
-    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
   },
 ];
 
