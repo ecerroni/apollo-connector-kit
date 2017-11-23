@@ -1,5 +1,11 @@
-import variousTypes from './types';
-import variousResolvers from './resolvers';
+import general from './general';
+
+const variousTypes = [
+  general.types,
+];
+
+const variousResolvers = [
+  general.resolvers,
+];
 
 export { variousTypes, variousResolvers };
-

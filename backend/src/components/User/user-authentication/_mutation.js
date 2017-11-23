@@ -2,15 +2,23 @@ import { PUBLIC_PREFIX } from '#/common/strategies'
 import { mockUsers } from '@/mocks';
 import { createTokens } from '@/authentication';
 import { encryptor } from '@/utils/';
-import { ERROR } from '@/environment'
+import { ERROR } from '@/environment';
 
-export default {
+export const mutationTypes = `
+  type Mutation {
+    publicLogin(input: userCredentials): String
+    logout: String
+  }
+`;
+
+
+export const mutationResolvers = {
   Mutation: {
     logout: () => {
       return 'ok'; // This is gonna be taken care in server > formatResponse
     },
     publicLogin: async (_, { input }, context) => {
-      const users = mockUsers; // Replace this with an actual users call
+      const users = mockUsers; // Replace this with an actual call to users' entity
 
       const { username, password } = input;
       const validUser = users.filter(u => u.username === username).length > 0

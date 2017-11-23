@@ -3,7 +3,14 @@ import fetch from 'node-fetch';
 import { auth } from '@./config';
 import { mockUsers } from '@/mocks';
 
-export default {
+export const mutationTypes = `
+  type Mutation {
+    createValidToken(secret: String): String
+    createExpiredToken(secret: String): String
+  }
+`;
+
+export const mutationResolvers = {
   Mutation: {
     /*
   ********** DEVELOPMENT ONLY | TO BE USED WITH GRAPHIQL ********

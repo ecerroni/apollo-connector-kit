@@ -1,4 +1,4 @@
-export default `
+export const types = `
   type AAA {
     aaa: AAB
   }
@@ -6,3 +6,7 @@ export default `
     aab: String
   }
 `;
+
+export const typeResolvers = {
+  //
+};

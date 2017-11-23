@@ -26,7 +26,6 @@ export const handleAuthentication = async (req, res, next) => {
     refreshToken = getCookie(req.headers.cookie, JWT.COOKIE.REFRESH_TOKEN.NAME);
   }
 
-  // IS THAT EVER GONNA HAPPEN THOUGH?
   if (localStorage) {
     token = req.headers[JWT.HEADER.TOKEN.NAME];
     refreshToken = req.headers[JWT.HEADER.REFRESH_TOKEN.NAME];

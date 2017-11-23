@@ -1,6 +1,11 @@
 import { mockUsers } from '@/mocks';
 
-export default {
+export const queryTypes = `
+  type Query {
+    currentUser: User
+  }`;
+
+export const queryResolvers = {
   Query: {
     currentUser: (_, args, context) => {
       const users = mockUsers;

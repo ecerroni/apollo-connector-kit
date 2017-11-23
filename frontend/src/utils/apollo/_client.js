@@ -66,6 +66,7 @@ const errorLink = onError(({ networkError }) => {
   }
   if (networkError.statusCode === 403) {
     // Do something
+    router.push('/forbidden');
   }
   if ((networkError.statusCode >= 500)) {
     // eslint-disable-next-line
