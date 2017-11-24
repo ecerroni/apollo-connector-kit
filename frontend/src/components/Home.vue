@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="authorized">
     <h1>{{ intro }}</h1>
     <h2>Ecosystem</h2>
     <ul>
