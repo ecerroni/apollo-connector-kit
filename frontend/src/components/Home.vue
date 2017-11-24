@@ -13,9 +13,7 @@
 <script>
 import { apolloAuthentication } from '@/mixins';
 
-export default
-
-{
+export default {
   name: 'home',
   mixins: [apolloAuthentication], /* call this only if there are no
   other apollo queries in the component that are not public and you want to protect this route
