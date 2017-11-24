@@ -17,7 +17,7 @@ export const mutationResolvers = {
     logout: () => {
       return 'ok'; // This is gonna be taken care in server > formatResponse
     },
-    publicLogin: async (_, { input }, context) => {
+    publicLogin: async (_, { input }) => {
       const users = mockUsers; // Replace this with an actual call to users' entity
 
       const { username, password } = input;

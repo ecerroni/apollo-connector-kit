@@ -45,6 +45,7 @@ export const createTokens = async (user, additionalClaims = {}) => {
 
 
 // TODO: ADD FINGERPTINT (UA + ACC.LANG) STRATEGY (WITH xxHash)
+// TODO: ADD A STRATEGY FOR REVOKING TOKEN LIKE CONCATENATING USER'S PASSWORD TO THE REFRESH SECRET
 export const refreshTokens = async (refreshToken) => {
 
   const addSecurityChecks = {};
