@@ -6,7 +6,7 @@
       appear-to-class="fade"
       appear-active-class="fade-enter-active"
     >
-      <div class="a">
+      <div class="container">
         <top />
         <img class="logo" src="./assets/logo.png">
         <transition name="slide" mode="out-in">
@@ -32,12 +32,15 @@ export default {
 html, body {
   margin: 0;
 }
-.a {
+.container {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  justify-content: space-between;
 }
 #app  {
   display: flex;
+  flex: 1;
   height: 100vh;
   flex-flow: column;
   justify-content: space-between;
