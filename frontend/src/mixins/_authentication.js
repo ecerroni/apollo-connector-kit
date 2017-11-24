@@ -9,6 +9,7 @@ export default {
   apollo: {
     authorized: {
       query: checkAuthQuery,
+      fetchPolicy: 'network-only',
       update({ checkAuth }) {
         return typeof checkAuth === 'string';
       },
