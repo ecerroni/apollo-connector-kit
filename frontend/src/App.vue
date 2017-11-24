@@ -1,28 +1,40 @@
 <template>
   <div id="app">
-    <header />
-    <img src="./assets/logo.png">
+    <top />
+    <img class="logo" src="./assets/logo.png">
     <router-view></router-view>
-    <footer />
+    <bottom />
   </div>
 </template>
 
 <script>
+import { Top, Bottom } from '@/components/layout';
+
 export default {
   name: 'app',
+  components: { Top, Bottom },
 };
 // TODO: ADD BASIC STYLING FOR ROOT APP (FLEXBOX + GRID LAYOUT)
 </script>
 
 <style>
+html, body {
+  margin: 0;
+}
 #app  {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   display: flex;
+  height: 100vh;
   flex-flow: column;
   justify-content: space-between;
-  align-items: center;
-  height: 100vh;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.logo {
+  display: flex;
+  align-self: center;
 }
 </style>
