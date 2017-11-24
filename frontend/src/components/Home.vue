@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="!authorized">
+  <div>
     <h1>{{ intro }}</h1>
     <h2>Ecosystem</h2>
     <ul>
@@ -11,24 +11,19 @@
 </template>
 
 <script>
-import { checkAuthQuery } from '../api';
+import { apolloAuthentication } from '@/mixins';
 
-export default {
+export default
+
+{
   name: 'home',
+  mixins: [apolloAuthentication], /* call this only if there are no
+  other apollo queries in the component that are not public and you want to protect this route
+  anyway */
   data() {
     return {
       intro: 'A basic connector for authentication/authorization',
-      authorized: false,
     };
-  },
-
-  apollo: {
-    authorized: {
-      query: checkAuthQuery,
-      update({ checkAuth }) {
-        return typeof checkAuth === 'string';
-      },
-    },
   },
 };
 </script>
