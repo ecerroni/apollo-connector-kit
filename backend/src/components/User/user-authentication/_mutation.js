@@ -18,7 +18,6 @@ export const mutationResolvers = {
     publicLogin: async (_, { input }) => {
       const { username, password } = input;
       const user = await User.validate(username, password);
-      console.log(user)
       if (user) {
         const additionalClaims = {};
         const userData = {
