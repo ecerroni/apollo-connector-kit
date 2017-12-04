@@ -16,5 +16,6 @@
     "dev": "concurrently  --kill-others 'yarn start-dev-apollo' 'yarn start-dev-vue'",
     "install-all": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-vue'",
     "start": "yarn run dev"
-  }
+  },
+  "dependencies": {}
 }
