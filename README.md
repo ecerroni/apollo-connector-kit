@@ -23,3 +23,6 @@ from the project's root folder
 from the project's root folder
 
 `cd backend && yarn launch`
+
+TODO:
+- add graphql-tester package and initial tests
