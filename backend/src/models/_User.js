@@ -25,4 +25,5 @@ export default {
     }
     throw new Error(ERROR.USER.DOES_NOT_EXIST);
   },
+  all: async () => users,
 };

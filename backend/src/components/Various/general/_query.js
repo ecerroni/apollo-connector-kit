@@ -1,13 +1,18 @@
 import { PUBLIC_PREFIX } from '#/common/strategies';
 import { isAdmin, canReadProfile } from '@/directives';
+import { makeQueryPublic } from '@/graphql'
 
 // right after cloning the repo
 // isAdmin ---> only user ric0 is allowed
 // canReadProfile ---> both users ric0 and kris are allowed
 
+const PUBLIC_QUERIES = {
+  PUBLIC_TEST: `${PUBLIC_PREFIX}Test`,
+};
+
 export const queryTypes = `
   type Query {
-    ${PUBLIC_PREFIX}Test: String
+    ${PUBLIC_QUERIES.PUBLIC_TEST}: String
     connection: String!
     checkAuth: String  @${isAdmin}
     currentUser: User  @${canReadProfile}
@@ -21,9 +26,11 @@ export const queryTypes = `
 
 export const queryResolvers = {
   Query: {
-    publicTest: () => 'Server is up and running... working smoothly',
+    [PUBLIC_QUERIES.PUBLIC_TEST]: () => 'Server is up and running... working smoothly',
     connection: () => 'Connected',
     checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,
     currentUser: (_, args, context) => context.user,
   },
 };
+
+// makeQueryPublic(queryResolvers.Query);
