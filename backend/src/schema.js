@@ -5,11 +5,11 @@ import mapValues from 'lodash.mapvalues';
 import { userTypes, userResolvers } from '@/components/User';
 import { variousTypes, variousResolvers } from '@/components/Various';
 
+import { PUBLIC_PREFIX } from '#/common/strategies';
+import { UNAUTHORIZED } from '@/environment';
 
-import { UNAUTHORIZED, PUBLIC_PREFIX } from '@/environment';
-
-import { directives,  attachDirectives } from '@/directives';
-import { setPublicResolvers } from './graphql'
+import { directives, attachDirectives } from '@/directives';
+import { setPublicResolvers } from './graphql';
 
 const typeDefs = mergeTypes([
   directives,
@@ -39,10 +39,13 @@ setPublicResolvers(resolvers);
 * ANYTHING CONTAINING THE PUBLIC_PREFIX STRING IN THE RESOLVER NAME
 * DOESN'T GO THROUGH THE AUTHORIZATION CHECK */
 // Credit: zach.codes https://zach.codes/handling-auth-in-graphql-the-right-way/
+
+const publicPrefixRegex = new RegExp(`^${PUBLIC_PREFIX}`);
+
 const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
   mapValues(resolver, (item) => {
     if (type !== 'Mutation' && type !== 'Query') return item; // skip type resolvers
-    if (item.name.match(/public/)) return item;
+    if (publicPrefixRegex.test(item.name)) return item;
     if (process.env.NODE_ENV === 'testing') { // skip auth for graphql-tester
       return item;
     }
