@@ -11,8 +11,8 @@ from the project's root folder
 
 `yarn start`
 
-## Run single server
-You may also run server separately
+## Run a single server
+You may also run servers separately
 
 ### VUE
 from the project's root folder
