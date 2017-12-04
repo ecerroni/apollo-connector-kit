@@ -1,5 +1,6 @@
 import { graphiqlExpress } from 'apollo-server-express';
 import { AUTH, SERVER } from '@/config';
+import { PUBLIC_PREFIX } from '#/common/strategies';
 
 // If using GraphiQL put the token in the request headers
 // This Chrome extension is a good fit for the task: https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj
@@ -11,7 +12,7 @@ let graphiqlQueries = '';
 if (process.env.NODE_ENV !== 'production') {
   graphiqlQueries = `
       query test {
-        publicTest
+        ${PUBLIC_PREFIX}Test
       }
   
       query auth {
@@ -19,11 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
       }
   
       mutation validToken {
-        createValidToken(secret: "${AUTH.SECRET_TOKEN}")
-      }
-  
-      mutation notValidToken {
-        createExpiredToken(secret: "${AUTH.SECRET_TOKEN}")
+        ${PUBLIC_PREFIX}CreateValidToken(secret: "${AUTH.SECRET_TOKEN}")
       }
     `;
 }
