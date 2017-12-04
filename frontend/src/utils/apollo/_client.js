@@ -11,6 +11,8 @@ import {
   VERSION,
   CLIENT_AUTH_REQUEST_TYPE,
   CLIENT_AUTHENTICATION_METHOD,
+  UNAUTHORIZED,
+  FORBIDDEN,
 } from '@/environment';
 import router from '@/router';
 
@@ -61,11 +63,12 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 const errorLink = onError(({ networkError }) => {
   if (networkError.statusCode === 401) {
     // eslint-disable-next-line
-    console.warn('Unauthorized');
+    console.warn(UNAUTHORIZED);
     router.push('/login');
   }
   if (networkError.statusCode === 403) {
     // Do something
+    console.warn(FORBIDDEN);
     router.push('/forbidden');
   }
   if ((networkError.statusCode >= 500)) {
