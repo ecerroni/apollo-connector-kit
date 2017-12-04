@@ -1,2 +1,6 @@
 /.idea 
 /node_modules
+/.vscode
+/.history
+ToDo.txt
+yarn-error.log

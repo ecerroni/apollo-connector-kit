@@ -4,6 +4,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+const APP = require('../../settings/app.json')
 
 module.exports = {
   build: {
@@ -32,8 +33,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/graphql': {
-        target: 'http://localhost:3000',
+      [APP.ENDPOINT.GRAPHQL]: {
+        target: 'http://' + APP.ENDPOINT.HOST + ':' + APP.ENDPOINT.PORT + APP.ENDPOINT.GRAPHQL,
         changeOrigin: false,
       },
        /*

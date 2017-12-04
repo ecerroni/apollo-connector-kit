@@ -1,5 +1,3 @@
-import { PUBLIC_PREFIX } from '#/common';
-export const UNAUTHORIZED = 'Unauthorized!';
 export const RESPONSE = {
   MESSAGES: {
     UP_RUNNING: 'Apollo GraphQL up and running...',

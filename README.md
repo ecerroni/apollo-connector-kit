@@ -1,5 +1,5 @@
-# EURES NEWSLETTER MANAGER
-Admin UI for managing multilanguage EURES newsletter
+# APOLLO CONNECTOR
+Boilerplate for Apollo authentication/authorization
 
 ## Installation
 from the project's root folder
