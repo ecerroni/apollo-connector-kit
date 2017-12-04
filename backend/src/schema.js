@@ -9,6 +9,7 @@ import { variousTypes, variousResolvers } from '@/components/Various';
 import { UNAUTHORIZED, PUBLIC_PREFIX } from '@/environment';
 
 import { directives,  attachDirectives } from '@/directives';
+import { setPublicResolvers } from './graphql'
 
 const typeDefs = mergeTypes([
   directives,
@@ -32,6 +33,8 @@ const resolvers = [
   ...variousResolvers,
 ];
 
+setPublicResolvers(resolvers);
+
 /*
 * ANYTHING CONTAINING THE PUBLIC_PREFIX STRING IN THE RESOLVER NAME
 * DOESN'T GO THROUGH THE AUTHORIZATION CHECK */
@@ -46,6 +49,7 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
     return authenticated(item);
   }),
 );
+
 
 /***************************************************/
 

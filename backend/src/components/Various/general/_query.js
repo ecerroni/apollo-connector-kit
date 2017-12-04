@@ -33,4 +33,4 @@ export const queryResolvers = {
   },
 };
 
-makeQueryPublic(queryResolvers.Query);
+// makeQueryPublic(queryResolvers.Query);

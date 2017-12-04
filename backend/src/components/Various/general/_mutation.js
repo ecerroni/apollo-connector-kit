@@ -2,7 +2,6 @@ import { PUBLIC_PREFIX } from '#/common/strategies';
 import { createTokens } from '@/authentication';
 import { User } from '@/models';
 import { AUTH } from '@/config';
-import { makeQueryPublic } from '@/graphql'
 
 const PUBLIC_MUTATIONS = {
   CREATE_VALID_TOKEN: `${PUBLIC_PREFIX}CreateValidToken`,
@@ -44,10 +43,3 @@ export const mutationResolvers = {
   },
 };
 
-makeQueryPublic(mutationResolvers.Mutation); // an hacky workaround to fix
-// [PUBLIC_MUTATIONS.CREATE_VALID_TOKEN]: async () => {
-// otherwise not working
-//
-// Working without the need of makeQueryPublic:
-// ['publicName']: async () => {
-// publicName: async () => {
