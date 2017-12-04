@@ -2,4 +2,4 @@
 export { default as apolloClient } from './apollo/_client';
 export { default as hashString } from './hash';
 
-// TODO: ADD FRONTEND UTILITIES
+// TODO: ADD OTHER FRONTEND UTILITIES
