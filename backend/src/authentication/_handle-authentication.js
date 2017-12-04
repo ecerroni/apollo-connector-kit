@@ -36,9 +36,12 @@ export const handleAuthentication = async (req, res, next) => {
       const { user } = jwt.verify(token, AUTH.SECRET_TOKEN);
       req.user = user;
     } catch (err) {
-      const { token: newToken, refreshToken: newRefreshToken, user } = await refreshTokens(refreshToken);
+      const {
+        token: newToken,
+        refreshToken: newRefreshToken,
+        user,
+      } = await refreshTokens(refreshToken);
       if (newToken && newRefreshToken) {
-
         if (httpOnly) {
           setCookies(res, newToken, newRefreshToken);
         }

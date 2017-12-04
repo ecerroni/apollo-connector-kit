@@ -1,6 +1,7 @@
 import { PUBLIC_PREFIX } from '#/common/strategies';
 import { createTokens } from '@/authentication';
 import { User } from '@/models';
+import { AUTH } from '@/config';
 
 export const mutationTypes = `
   type Mutation {
@@ -27,7 +28,10 @@ export const mutationResolvers = {
           roles: user.roles,
           permissions: user.permissions,
         };
-        const [token, refreshToken] = await createTokens(userData, additionalClaims);
+        const [token, refreshToken] = await createTokens({
+          user: userData,
+          refreshTokenSecret: user.password + AUTH.SECRET_REFRESH_TOKEN,
+        }, additionalClaims);
         const response = JSON.stringify({ token, refreshToken });
         return response;
       }

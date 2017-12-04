@@ -16,4 +16,13 @@ export default {
     }
     throw new Error(ERROR.USER.WRONG_CREDENTIALS);
   },
+  getPassword: async (id) => {
+    const validUser = users.filter(u => u.id === id).length > 0
+      ? users.filter(u => u.id === id)[0]
+      : undefined;
+    if (validUser) {
+      return validUser.password;
+    }
+    throw new Error(ERROR.USER.DOES_NOT_EXIST);
+  },
 };
