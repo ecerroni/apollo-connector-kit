@@ -3,7 +3,7 @@
   "ENDPOINT": {
     "HOST": "localhost",
     "PORT": 3000,
-    "GRAPHQL": "/graphql-poi",
+    "GRAPHQL": "/graphql",
     "GRAPHIQL": "/graphiql"
   }
 }
