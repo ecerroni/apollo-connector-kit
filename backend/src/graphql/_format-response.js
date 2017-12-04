@@ -1,9 +1,8 @@
-import { JWT } from '#/common/strategies'
 import { selectAuthStrategy } from '@/authentication';
 import { setCookies, setHeaders, unsetCookies } from '@/authentication';
 
 // TODO: MOVE THEM TO ENUMS OR CONFIG
-const logins = ['publicLogin', 'publicRegister'];
+const login = ['publicLogin', 'publicRegister'];
 const logout = 'logout';
 
 export const formatResponse = (res, { context }, response, request) => {
@@ -15,7 +14,7 @@ export const formatResponse = (res, { context }, response, request) => {
       unsetCookies(response);
     }
   }
-  if (operationName && extendedResponse.data && logins.includes(operationName)) {
+  if (operationName && extendedResponse.data && login.includes(operationName)) {
     const data = JSON.parse(extendedResponse.data[operationName]);
     if (data) {
       const [httpOnly, localStorage] = selectAuthStrategy(request.headers);

@@ -16,6 +16,7 @@ export const mutationResolvers = {
     logout: () => {
       return 'ok'; // This is gonna be taken care in server > formatResponse
     },
+    // [`${PUBLIC_PREFIX}Login`] <--- this will not work
     publicLogin: async (_, { input }) => {
       const { username, password } = input;
       const user = await User.validate(username, password);
