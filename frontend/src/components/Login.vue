@@ -37,10 +37,16 @@
 import { login } from '@/api';
 import router from '@/router';
 import { hashString } from '@/utils';
-
+import { CLIENT_AUTHENTICATION_METHOD, JWT } from '@/environment';
 
 export default {
   name: 'login',
+  mounted() {
+    if (CLIENT_AUTHENTICATION_METHOD.LOCAL_STORAGE) {
+      localStorage.removeItem(JWT.LOCAL_STORAGE.TOKEN.NAME);
+      localStorage.removeItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME);
+    }
+  },
   data() {
     return {
       validateForm: {

@@ -1,5 +1,5 @@
-# EURES NEWSLETTER MANAGER
-Admin UI for managing multilanguage EURES newsletter
+# APOLLO CONNECTOR
+Boilerplate for Apollo authentication/authorization
 
 ## Installation
 from the project's root folder
@@ -11,8 +11,8 @@ from the project's root folder
 
 `yarn start`
 
-## Run single server
-You may also run server separately
+## Run a single server
+You may also run servers separately
 
 ### VUE
 from the project's root folder

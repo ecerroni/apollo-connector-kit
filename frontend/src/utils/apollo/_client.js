@@ -4,7 +4,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
-import router from '@/router';
 import {
   AUTH,
   APP,
@@ -12,7 +11,10 @@ import {
   VERSION,
   CLIENT_AUTH_REQUEST_TYPE,
   CLIENT_AUTHENTICATION_METHOD,
+  UNAUTHORIZED,
+  FORBIDDEN,
 } from '@/environment';
+import router from '@/router';
 
 const opts = {
   credentials: 'same-origin',
@@ -59,10 +61,15 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 );
 
 const errorLink = onError(({ networkError }) => {
-  if (networkError.statusCode === 401 || networkError.statusCode === 403) {
+  if (networkError.statusCode === 401) {
     // eslint-disable-next-line
-    console.warn('Unauthorized');
+    console.warn(UNAUTHORIZED);
     router.push('/login');
+  }
+  if (networkError.statusCode === 403) {
+    // Do something
+    console.warn(FORBIDDEN);
+    router.push('/forbidden');
   }
   if ((networkError.statusCode >= 500)) {
     // eslint-disable-next-line

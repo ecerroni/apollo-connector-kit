@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT } from '@/config'
+import { AUTH, JWT } from '@/config'
 import { refreshTokens } from './_handle-tokens';
 import { selectAuthStrategy } from '@/authentication';
 import { setCookies, setHeaders } from './_handle-headers';
@@ -11,6 +11,7 @@ const getCookie = (src, name) => {
   return null;
 };
 
+// Inspired by: benawad https://github.com/benawad/slack-clone-server/blob/13_where/index.js
 export const handleAuthentication = async (req, res, next) => {
 
   req.user = undefined;
@@ -25,7 +26,6 @@ export const handleAuthentication = async (req, res, next) => {
     refreshToken = getCookie(req.headers.cookie, JWT.COOKIE.REFRESH_TOKEN.NAME);
   }
 
-  // IS THAT EVER GONNA HAPPEN THOUGH?
   if (localStorage) {
     token = req.headers[JWT.HEADER.TOKEN.NAME];
     refreshToken = req.headers[JWT.HEADER.REFRESH_TOKEN.NAME];
@@ -36,9 +36,12 @@ export const handleAuthentication = async (req, res, next) => {
       const { user } = jwt.verify(token, AUTH.SECRET_TOKEN);
       req.user = user;
     } catch (err) {
-      const { token: newToken, refreshToken: newRefreshToken, user } = await refreshTokens(refreshToken);
+      const {
+        token: newToken,
+        refreshToken: newRefreshToken,
+        user,
+      } = await refreshTokens(refreshToken);
       if (newToken && newRefreshToken) {
-
         if (httpOnly) {
           setCookies(res, newToken, newRefreshToken);
         }

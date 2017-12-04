@@ -9,7 +9,7 @@
     "concurrently": "^3.5.0"
   },
   "scripts": {
-    "start-dev-apollo": "cd backend && yarn launch",
+    "start-dev-apollo": "cd backend && yarn start",
     "start-dev-vue": "cd frontend && yarn dev",
     "install-dev-apollo": "cd backend && yarn install",
     "install-dev-vue": "cd frontend && yarn install",
@@ -17,7 +17,5 @@
     "install-all": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-vue'",
     "start": "yarn run dev"
   },
-  "dependencies": {
-    "lodash.mapkeys": "4.6.0"
-  }
+  "dependencies": {}
 }

@@ -6,7 +6,10 @@
       "rootPathSuffix": "./src"
     }, {
       "rootPathPrefix": "#",
-      "rootPathSuffix": "./" // since we suport relative paths you can also go into a parent directory
+      "rootPathSuffix": "./"
+    }, {
+      "rootPathPrefix": "$",
+      "rootPathSuffix": "../" // since we suport relative paths you can also go into a parent directory
     }]],
     'transform-runtime',
     'transform-async-generator-functions',

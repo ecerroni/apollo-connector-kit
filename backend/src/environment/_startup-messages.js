@@ -1,7 +1,8 @@
 import { AUTH, SERVER } from '@/config';
-import { localAuthCheck } from '@/utils/_utils';
 
 const { PORT } = SERVER;
+
+const localAuthCheck = () => AUTH.ENDPOINT === 'localhost' || AUTH.ENDPOINT === '127.0.0.1' || AUTH.ENDPOINT === '0.0.0.0';
 
 export const startupMessages = () => {
   if (typeof AUTH.SECRET_TOKEN === 'undefined' || typeof AUTH.SECRET_REFRESH_TOKEN === 'undefined') {
