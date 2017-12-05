@@ -3,7 +3,7 @@ import { APP } from '#/common/_app';
 
 const TOKEN_NAME = `x-${APP.NAMESPACE}-token`;
 const REFRESH_TOKEN_NAME = `x-${APP.NAMESPACE}-refresh-token`;
-const TOKEN_EXP = 6; // 6 minutes (seconds)
+const TOKEN_EXP = 6 * 60; // 6 minutes (seconds)
 const REFRESH_TOKEN_EXP = 7 * 24 * 60 * 60; // 7 days (seconds)
 const COOKIE_EXP = 365 * 24 * 60 * 60 * 1000; // one year (ms)
 
