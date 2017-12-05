@@ -8,7 +8,7 @@ Clone this repo using
 
 Move to the appropriate directory:
 
-`cd apollo-auth-connector`
+`cd apollo-connector-kit`
 
 From the project's root folder
 
