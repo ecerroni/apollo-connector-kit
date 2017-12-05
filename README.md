@@ -1,8 +1,16 @@
-# APOLLO CONNECTOR
+# APOLLO CONNECTOR KIT
 Boilerplate for Apollo authentication/authorization
 
 ## Installation
-from the project's root folder
+Clone this repo using
+
+`git clone https://github.com/ecerroni/apollo-connector-kit.git`
+
+Move to the appropriate directory:
+
+`cd apollo-auth-connector`
+
+From the project's root folder
 
 `yarn install-all`
 
