@@ -32,6 +32,13 @@ from the project's root folder
 
 `cd backend && yarn launch`
 
-TODO:
+## TODO:
 - add graphql-tester package and initial tests
 - Swap ElementUI with KeenUI (if is it worth)
+
+
+
+## Thanks To
+- [Ryan Chenkie's GraphQL Summit 2017 talk](https://www.youtube.com/watch?v=4_Bcw7BULC8)
+- [Zach Silveira's blog](https://zach.codes/tag/graphql)
+- [Ben Awad' Video tutorial](https://www.youtube.com/watch?v=0MKJ7JbVnFc)
