@@ -1,36 +1,34 @@
 <template>
-  <div class="form">
-      <el-row type="flex" justify="center">
-        <el-col :span="6" :offset="0">
-          <div>
-            <el-form :model="validateForm" ref="validateForm" label-width="120px" class="demo-dynamic">
-              <el-form-item
-                prop="email"
-                label="User"
-                :rules="[
-          { required: true, message: 'Please input your username', trigger: 'blur' },
-          { message: 'Please input correct email address', trigger: 'blur,change' }
-        ]"
-              >
-                <el-input @keyup.13.native="submitForm('validateForm')" v-model="validateForm.email"></el-input>
-              </el-form-item>
-              <el-form-item
-                prop="password"
-                label="Password"
-                :rules="[
-          { required: true, message: 'Please input your password', trigger: 'blur' },
-        ]"
-              >
-                <el-input @keyup.enter.native="submitForm('validateForm')"  type="password" v-model="validateForm.password"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="submitForm('validateForm')">Submit</el-button>
-                <el-button @click="resetForm('validateForm')">Reset</el-button>
-              </el-form-item>
-            </el-form>
-          </div>
-        </el-col>
-      </el-row>
+  <div class="form-container">
+    <el-form
+      class="form"
+      :model="validateForm"
+      ref="validateForm" label-width="120px"
+    >
+      <el-form-item
+        prop="email"
+        label="User"
+        :rules="[
+  { required: true, message: 'Please input your username', trigger: 'blur' },
+  { message: 'Please input correct email address', trigger: 'blur,change' }
+]"
+      >
+        <el-input @keyup.13.native="submitForm('validateForm')" v-model="validateForm.email"></el-input>
+      </el-form-item>
+      <el-form-item
+        prop="password"
+        label="Password"
+        :rules="[
+  { required: true, message: 'Please input your password', trigger: 'blur' },
+]"
+      >
+        <el-input @keyup.enter.native="submitForm('validateForm')"  type="password" v-model="validateForm.password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('validateForm')">Submit</el-button>
+        <el-button @click="resetForm('validateForm')">Reset</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 <script>
@@ -95,11 +93,13 @@ export default {
 };
 </script>
 <style scoped>
-  .form {
-    width: 100%;
-    margin-top: 30px;
+  .form-container {
+    margin: 30px auto;
   }
-  .el-row--flex.is-justify-center {
-    margin-left: -150px;
+  .form {
+    margin-left: -30%;
+    margin-top: 50px;
+    min-width: 300px;
+    max-width: 600px;
   }
 </style>
