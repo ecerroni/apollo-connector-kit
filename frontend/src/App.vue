@@ -78,4 +78,10 @@ html, body {
   display: flex;
   align-self: center;
 }
+
+@media only screen and (max-width:767px ){
+  .logo {
+    display: none;
+  }
+}
 </style>
