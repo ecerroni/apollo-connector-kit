@@ -1,31 +1,10 @@
-<template>
+<template functional>
    <div>
      <header>
        <p id="header-content">Apollo Boilerplate</p>
      </header>
    </div>
 </template>
-
-<script>
-
-export default {
-  name: 'head',
-  // props: [],
-  mounted() {
-    //
-  },
-
-  data() {
-    return {
-      //
-    };
-  },
-
-  methods: {
-    //
-  },
-};
-</script>
 
 <style scoped>
 header {

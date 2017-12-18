@@ -1,9 +1,8 @@
 /* eslint import/prefer-default-export: 0 */
-import Top from './_head';
-import Bottom from './_foot';
-
+import Header from './_header';
+import Footer from './_footer';
 
 export {
-  Top,
-  Bottom,
+  Header,
+  Footer,
 };

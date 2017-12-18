@@ -19,11 +19,14 @@
 </template>
 
 <script>
-import { Top, Bottom } from '@/components/layout';
+import { Header, Footer } from '@/components/layout';
 
 export default {
   name: 'app',
-  components: { Top, Bottom },
+  components: {
+    Top: Header,
+    Bottom: Footer,
+  },
 };
 // TODO: ADD BASIC STYLING FOR ROOT APP (FLEXBOX + GRID LAYOUT)
 </script>
