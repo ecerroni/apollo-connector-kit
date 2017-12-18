@@ -1,15 +1,14 @@
 <template functional>
-   <div>
-     <header>
-       <p id="header-content">Apollo Boilerplate</p>
-     </header>
-   </div>
+   <header>
+     <p id="header-content">Apollo Boilerplate</p>
+   </header>
 </template>
 
 <style scoped>
 header {
+  width: 100%;
   margin-bottom: 60px;
-  padding: 10px;
+  padding: 10px 0;
   border-bottom: 3px solid #35495e;
 }
 #header-content {

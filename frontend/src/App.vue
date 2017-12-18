@@ -6,24 +6,28 @@
       appear-to-class="fade"
       appear-active-class="fade-enter-active"
     >
-      <div class="container">
-        <top />
-        <img class="logo" src="./assets/logo.png">
-        <transition name="slide" mode="out-in">
-          <router-view></router-view>
-        </transition>
-        <bottom />
-      </div>
+      <Layout>
+        <Top slot="header"/>
+        <div slot="body">
+          <img class="logo" src="./assets/logo.png">
+          <transition name="slide" mode="out-in">
+            <router-view></router-view>
+          </transition>
+        </div>
+        <Bottom slot="footer"/>
+      </Layout>
     </transition>
   </div>
 </template>
 
 <script>
 import { Header, Footer } from '@/components/layout';
+import Layout from '@/components/Layout';
 
 export default {
   name: 'app',
   components: {
+    Layout,
     Top: Header,
     Bottom: Footer,
   },
@@ -34,12 +38,6 @@ export default {
 <style>
 html, body {
   margin: 0;
-}
-.container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
 }
 #app  {
   display: flex;
@@ -80,6 +78,7 @@ html, body {
 .logo {
   display: flex;
   align-self: center;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width:767px ){
