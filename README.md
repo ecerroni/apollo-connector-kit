@@ -1,6 +1,14 @@
 # APOLLO CONNECTOR KIT
 Boilerplate for Apollo authentication/authorization
 
+![demo](./apollo-connector-kit.gif "Apollo Connector Kit")
+
+Ecosystem:
+- Apollo Server (with Express)
+- Apollo Client 2.0
+- Vue.js (frontend web client)
+
+
 ## Installation
 Clone this repo using
 
@@ -31,6 +39,9 @@ from the project's root folder
 from the project's root folder
 
 `cd backend && yarn launch`
+
+## Additional:
+[Medium post](https://blog.mvp-space.com/authentication-and-authorization-boilerplate-with-apollo-2-0-b77042aba3f6)
 
 ## TODO:
 - add graphql-tester package and initial tests
