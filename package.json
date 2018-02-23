@@ -10,12 +10,22 @@
   },
   "scripts": {
     "start-dev-apollo": "cd backend && yarn start",
-    "start-dev-vue": "cd frontend && yarn dev",
+    "start-dev-vue": "cd frontend-vue && yarn dev",
+    "start-dev-react": "cd frontend-react && yarn dev",
     "install-dev-apollo": "cd backend && yarn install",
-    "install-dev-vue": "cd frontend && yarn install",
-    "dev": "concurrently  --kill-others 'yarn start-dev-apollo' 'yarn start-dev-vue'",
-    "install-all": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-vue'",
+    "install-dev-vue": "cd frontend-vue && yarn install",
+    "install-dev-react": "cd frontend-react && yarn install",
+    "dev-apollo-vue": "concurrently  --kill-others 'yarn start-dev-apollo' 'yarn start-dev-vue'",
+    "dev-apollo-react": "concurrently  --kill-others 'yarn start-dev-apollo' 'yarn start-dev-react'",
+    "dev": "concurrently  --kill-others 'yarn start-dev-apollo' 'yarn start-dev-vue' 'yarn start-dev-react'",
+    "install-all-apollo-vue": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-vue'",
+    "install-all-apollo-react": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-react'",
+    "install-all": "yarn install && concurrently 'yarn install-dev-apollo' 'yarn install-dev-vue' 'yarn install-dev-react'",
+    "start-apollo-vue": "yarn run dev-apollo-vue",
+    "start-apollo-react": "yarn run dev-apollo-react",
     "start": "yarn run dev"
   },
-  "dependencies": {}
+  "dependencies": {
+    "create-react-app": "1.5.2"
+  }
 }
