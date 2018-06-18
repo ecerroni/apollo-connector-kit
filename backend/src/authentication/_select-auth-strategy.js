@@ -1,4 +1,4 @@
-import { AUTH } from '@/config'
+import { AUTH } from '~/config'
 
 export const selectAuthStrategy = (headers) => {
 

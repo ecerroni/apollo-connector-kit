@@ -1,6 +1,6 @@
-import { createTokens } from '@/authentication';
-import { User } from '@/models';
-import { AUTH } from '@/config';
+import { createTokens } from '~/authentication';
+import { User } from '~/models';
+import { AUTH } from '~/config';
 import { makePublicResolver } from '../../../graphql';
 
 export const mutationTypes = `

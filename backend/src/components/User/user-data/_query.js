@@ -1,5 +1,5 @@
-import { mockUsers } from '@/mocks';
-import { canReadProfile } from '@/directives';
+import { mockUsers } from '~/mocks';
+import { canReadProfile } from '~/directives';
 
 export const queryTypes = `
   type Query {

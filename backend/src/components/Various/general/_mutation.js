@@ -1,7 +1,7 @@
-import { createTokens } from '@/authentication';
-import { User } from '@/models';
-import { AUTH } from '@/config';
-import { setPublicResolvers } from '@/graphql';
+import { createTokens } from '~/authentication';
+import { User } from '~/models';
+import { AUTH } from '~/config';
+import { setPublicResolvers } from '~/graphql';
 import { makePublicResolver } from '../../../graphql'
 
 const PUBLIC_MUTATIONS = {

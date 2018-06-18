@@ -1,5 +1,5 @@
 import { graphiqlExpress } from 'apollo-server-express';
-import { AUTH, SERVER } from '@/config';
+import { AUTH, SERVER } from '~/config';
 import QUERY_SETTINGS from '$/settings/queries.json';
 
 const { PUBLIC_PREFIX = 'public' } = QUERY_SETTINGS;

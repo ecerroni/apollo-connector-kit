@@ -2,12 +2,12 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import mapValues from 'lodash.mapvalues';
 
-import components from '@/components';
+import components from '~/components';
 
 import QUERY_SETTINGS from '$/settings/queries.json';
-import { UNAUTHORIZED } from '@/environment';
+import { UNAUTHORIZED } from '~/environment';
 
-import { directives, attachDirectives } from '@/directives';
+import { directives, attachDirectives } from '~/directives';
 import { setPublicResolvers } from './graphql';
 
 

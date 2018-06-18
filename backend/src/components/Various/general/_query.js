@@ -1,5 +1,5 @@
-import { isAdmin } from '@/directives';
-import { makePublicResolver } from '@/graphql';
+import { isAdmin } from '~/directives';
+import { makePublicResolver } from '~/graphql';
 
 // right after cloning the repo
 // isAdmin ---> only user ric0 is allowed

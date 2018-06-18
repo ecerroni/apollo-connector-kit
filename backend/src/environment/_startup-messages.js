@@ -1,4 +1,4 @@
-import { AUTH, SERVER } from '@/config';
+import { AUTH, SERVER } from '~/config';
 
 const { PORT } = SERVER;
 
