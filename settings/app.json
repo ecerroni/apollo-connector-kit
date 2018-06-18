@@ -4,6 +4,12 @@
     "HOST": "localhost",
     "PORT": 3000,
     "GRAPHQL": "/graphql",
-    "GRAPHIQL": "/graphiql"
+    "GRAPHIQL": "/graphiql",
+    "CONSTANTS": {
+      "HTTP_ONLY": "HTTP_ONLY",
+      "LOCAL_STORAGE": "LOCAL_STORAGE",
+      "FORBIDDEN": "Forbidden",
+      "UNAUTHORIZED": "Unauthorized!"
+    }
   }
 }
