@@ -7,6 +7,7 @@ Ecosystem:
 - Apollo Server (with Express)
 - Apollo Client 2.0
 - Vue.js (frontend web client)
+- React (frontend web client)
 
 
 ## Installation
@@ -33,12 +34,58 @@ You may also run servers separately
 ### VUE
 from the project's root folder
 
-`cd frontend && yarn dev`
+`cd frontend-vue && yarn dev`
+
+### REACT
+from the project's root folder
+
+`cd frontend-react && yarn dev`
 
 ### APOLLO
 from the project's root folder
 
 `cd backend && yarn launch`
+
+## Usage
+### SETTINGS
+All essentials settings are under the `settings` folder.
+
+You may change them as you see fit and they will propagate to the backend as well as across
+all client folders.
+
+### APOLLO GRAPHQL COMPONENTS
+You may create new graphql components just by typing from project's root folder:
+
+`cd backend`
+
+`yarn add-component-part <component_name> <component_part>`
+
+Ex. `yarn add-component-part User user-authentication`
+
+The above will create under `components` a new folder named `User` with a subfolder named
+`user-authentication`
+
+`user-authentication` has all files needed to implement your component. You just need to fill them;
+
+`_input.js`: input types you need for your component part's mutations
+`_mutation.js`: all mutations for this component part go here
+`_query.js`: all queries for this component part go here
+`_type.js`: all types and type resolvers for this component part go here
+
+You may implement only what you need, though you should never delete any of these files. For example
+if you have no mutations and no inputs for a component part you should not delete _input.js and
+mutations.js. Just leave them there as they were created by the script.
+
+Each component has at least one part, though it can have many.
+
+Ex.
+components
+-- User
+---- user-authentication
+---- user-data
+
+
+
 
 ## Additional:
 [Medium post](https://blog.mvp-space.com/authentication-and-authorization-boilerplate-with-apollo-2-0-b77042aba3f6)
