@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { Header, Footer } from '~/components/layout';
+import { Header, Footer } from '@/components/layout';
 import Layout from '@/components/Layout';
 
 export default {
