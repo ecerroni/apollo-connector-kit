@@ -1,11 +1,21 @@
 import { WHITELISTED_QUERIES } from './_queries';
-import { APP } from '#/common/_app';
+import APP from '$/settings/app.json';
+import JWT_SETTINGS from '$/settings/jwt.json';
+import COOKIE_SETTINGS from '$/settings/cookie.json';
 
-const TOKEN_NAME = `x-${APP.NAMESPACE}-token`;
-const REFRESH_TOKEN_NAME = `x-${APP.NAMESPACE}-refresh-token`;
-const TOKEN_EXP = 6 * 60; // 6 minutes (seconds)
-const REFRESH_TOKEN_EXP = 7 * 24 * 60 * 60; // 7 days (seconds)
-const COOKIE_EXP = 365 * 24 * 60 * 60 * 1000; // one year (ms)
+const {
+  TOKEN_EXP = 6 * 60, // 6 minutes (seconds)
+  REFRESH_TOKEN_EXP = 7 * 24 * 60 * 60, // 7 days (seconds)
+} = JWT_SETTINGS;
+
+const {
+  COOKIE_EXP = 365 * 24 * 60 * 60 * 1000, // one year (ms)
+} = COOKIE_SETTINGS;
+
+const { NAMESPACE = '_' } = APP;
+
+const TOKEN_NAME = `x-${NAMESPACE}-token`;
+const REFRESH_TOKEN_NAME = `x-${NAMESPACE}-refresh-token`;
 
 // YOU MAY NOT CHANGE THESE SETTINGS BELOW
 export const JWT = {
@@ -43,7 +53,7 @@ export const AUTH = {
     HTTP_ONLY: true,
     LOCAL_STORAGE: true,
     CLIENT: {
-      AUTH_HEADER: `x-${APP.NAMESPACE}-auth-request-type`,
+      AUTH_HEADER: `x-${NAMESPACE}-auth-request-type`,
       HTTP_ONLY: 'HTTP_ONLY',
       LOCAL_STORAGE: 'LOCAL_STORAGE',
     },

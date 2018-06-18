@@ -1,7 +1,7 @@
 // Configuration file. One rules them all
-import { APP, AUTH as AUTH_COMMON } from '#/common';
+import { APP, AUTH as AUTH_COMMON } from './base';
 
-export { JWT } from '#/common';
+export { JWT } from './base';
 
 export const SERVER = {
   ...APP.ENDPOINT,

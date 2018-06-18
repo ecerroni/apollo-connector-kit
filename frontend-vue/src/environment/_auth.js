@@ -1,19 +1,35 @@
-import { JWT as JWT_COMMON, APP, AUTH } from '#/common';
+import APP from '../../../settings/app.json';
+
+const {
+  NAMESPACE = '_',
+  CONSTANTS: {
+    HTTP_ONLY = 'HTTP_ONLY',
+    LOCAL_STORAGE = 'LOCAL_STORAGE',
+  } = {},
+} = APP;
+
+export const AUTH = {
+  STRATEGIES: {
+    CLIENT: {
+      AUTH_HEADER: `x-${NAMESPACE}-auth-request-type`,
+      HTTP_ONLY,
+      LOCAL_STORAGE,
+    },
+  },
+};
 
 // You may change this one only to match your needs
 export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.LOCAL_STORAGE; // Or
 // AUTH.STRATEGIES.CLIENT.HTTP_ONLY
 
-
 // eslint-disable-next-line
 export const JWT = {
-  ...JWT_COMMON,
   LOCAL_STORAGE: {
     TOKEN: {
-      NAME: `${APP.NAMESPACE}Token`,
+      NAME: `${NAMESPACE}Token`,
     },
     REFRESH_TOKEN: {
-      NAME: `${APP.NAMESPACE}RefreshToken`,
+      NAME: `${NAMESPACE}RefreshToken`,
     },
   },
 };

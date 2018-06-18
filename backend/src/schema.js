@@ -5,11 +5,15 @@ import mapValues from 'lodash.mapvalues';
 import { userTypes, userResolvers } from '@/components/User';
 import { variousTypes, variousResolvers } from '@/components/Various';
 
-import { PUBLIC_PREFIX } from '#/common/strategies';
+import QUERY_SETTINGS from '$/settings/queries.json';
 import { UNAUTHORIZED } from '@/environment';
 
 import { directives, attachDirectives } from '@/directives';
 import { setPublicResolvers } from './graphql';
+
+
+
+const { PUBLIC_PREFIX = 'public' } = QUERY_SETTINGS;
 
 const typeDefs = mergeTypes([
   directives,

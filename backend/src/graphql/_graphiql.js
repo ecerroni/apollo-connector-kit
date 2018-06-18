@@ -1,6 +1,8 @@
 import { graphiqlExpress } from 'apollo-server-express';
 import { AUTH, SERVER } from '@/config';
-import { PUBLIC_PREFIX } from '#/common/strategies';
+import QUERY_SETTINGS from '$/settings/queries.json';
+
+const { PUBLIC_PREFIX = 'public' } = QUERY_SETTINGS;
 
 // If using GraphiQL put the token in the request headers
 // This Chrome extension is a good fit for the task: https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj

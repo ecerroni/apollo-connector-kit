@@ -11,10 +11,15 @@ import {
   VERSION,
   CLIENT_AUTH_REQUEST_TYPE,
   CLIENT_AUTHENTICATION_METHOD,
-  UNAUTHORIZED,
-  FORBIDDEN,
 } from '@/environment';
 import router from '@/router';
+
+const {
+  CONSTANTS: {
+    UNAUTHORIZED,
+    FORBIDDEN,
+  } = {},
+} = APP;
 
 const opts = {
   credentials: 'same-origin',
