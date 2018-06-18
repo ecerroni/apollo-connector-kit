@@ -1,24 +1,27 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
+import OKGGraphQLScalars from '@okgrow/graphql-scalars'; // eslint-disable-line
 import mapValues from 'lodash.mapvalues';
-
 import components from '~/components';
-
 import QUERY_SETTINGS from '$/settings/queries.json';
 import { UNAUTHORIZED } from '~/environment';
-
 import { directives, attachDirectives } from '~/directives';
 import { setPublicResolvers } from './graphql';
 
+const { PUBLIC_PREFIX } = QUERY_SETTINGS;
 
-
-const { PUBLIC_PREFIX = 'public' } = QUERY_SETTINGS;
+// Add more okgrow/graphql-scalars if you need
+const oKGGraphQLScalars = `
+  scalar DateTime
+  scalar NonNegativeFloat
+  scalar EmailAddress
+`;
 
 const typeDefs = mergeTypes([
   directives,
+  oKGGraphQLScalars,
   ...components.types,
 ]);
-
 
 /************* PROTECTING YOUR QUERIES/MUTATIONS ***************/
 
@@ -58,6 +61,17 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
 export const schema = makeExecutableSchema({
   typeDefs,
   resolvers: authResolvers,
+});
+
+
+// The following code is needed since schemas built with makeExecutableSchema (or other client tools)
+// do not have handler functions for serialize, parseValue, and parseLiteral bound.
+// ref: https://stackoverflow.com/a/47827818
+Object.keys(OKGGraphQLScalars).forEach(key => {
+  // eslint-disable-next-line no-underscore-dangle
+  if (schema._typeMap[key]) {
+    Object.assign(schema._typeMap[key], OKGGraphQLScalars[key]); // eslint-disable-line no-underscore-dangle
+  }
 });
 
 attachDirectives(schema);
