@@ -4,6 +4,7 @@ import Home from '@/components/Home';
 import Login from '@/components/Login';
 
 const AsyncForbidden = () => import('@/components/Forbidden');
+const AsyncError = () => import('@/components/Error');
 
 const AsyncNotFound = () => ({
   component: import('@/components/NotFound'),
@@ -36,6 +37,12 @@ export default new Router({
       path: '/forbidden',
       name: 'Forbidden',
       component: AsyncForbidden,
+    },
+    {
+      path: '/error/:status',
+      name: 'Error',
+      component: AsyncError,
+      props: true,
     },
     { path: '/40x', component: AsyncNotFound },
     { path: '*', redirect: '/40x' },

@@ -79,6 +79,7 @@ const errorLink = onError(({ networkError }) => {
   if ((networkError.statusCode >= 500)) {
     // eslint-disable-next-line
     console.warn('SERVER ERROR');
+    router.push(`/error/${networkError.statusCode}`);
     // DO SOMETHING. HANDLE THIS ONE.
   }
 });
