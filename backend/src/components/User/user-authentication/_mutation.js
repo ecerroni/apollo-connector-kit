@@ -1,7 +1,7 @@
-import { PUBLIC_PREFIX } from '#/common/strategies';
 import { createTokens } from '@/authentication';
 import { User } from '@/models';
 import { AUTH } from '@/config';
+import { makePublicResolver } from '../../../graphql';
 
 export const mutationTypes = `
   type Mutation {
@@ -17,7 +17,8 @@ export const mutationResolvers = {
       return 'ok'; // This is gonna be taken care in server > formatResponse
     },
     // [`${PUBLIC_PREFIX}Login`] <--- this will not work
-    publicLogin: async (_, { input }) => {
+    [makePublicResolver('login')]: async (_, { input }) => {
+    // publicLogin: async (_, { input }) => {
       const { username, password } = input;
       const user = await User.validate(username, password);
       if (user) {

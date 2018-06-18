@@ -1,10 +1,11 @@
-import { PUBLIC_PREFIX } from '#/common/strategies';
 import { createTokens } from '@/authentication';
 import { User } from '@/models';
 import { AUTH } from '@/config';
+import { setPublicResolvers } from '@/graphql';
+import { makePublicResolver } from '../../../graphql'
 
 const PUBLIC_MUTATIONS = {
-  CREATE_VALID_TOKEN: `${PUBLIC_PREFIX}CreateValidToken`,
+  CREATE_VALID_TOKEN: makePublicResolver('createValidToken'),
 };
 
 

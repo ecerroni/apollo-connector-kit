@@ -1,13 +1,12 @@
-import { PUBLIC_PREFIX } from '#/common/strategies';
 import { isAdmin } from '@/directives';
-import { makeQueryPublic } from '@/graphql'
+import { makePublicResolver } from '@/graphql';
 
 // right after cloning the repo
 // isAdmin ---> only user ric0 is allowed
 // canReadProfile ---> both users ric0 and kris are allowed
 
 const PUBLIC_QUERIES = {
-  PUBLIC_TEST: `${PUBLIC_PREFIX}Test`,
+  PUBLIC_TEST: makePublicResolver('test'),
 };
 
 export const queryTypes = `
