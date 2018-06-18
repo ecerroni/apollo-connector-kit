@@ -2,8 +2,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import mapValues from 'lodash.mapvalues';
 
-import { userTypes, userResolvers } from '@/components/User';
-import { variousTypes, variousResolvers } from '@/components/Various';
+import components from '@/components';
 
 import QUERY_SETTINGS from '$/settings/queries.json';
 import { UNAUTHORIZED } from '@/environment';
@@ -17,8 +16,7 @@ const { PUBLIC_PREFIX = 'public' } = QUERY_SETTINGS;
 
 const typeDefs = mergeTypes([
   directives,
-  ...variousTypes,
-  ...userTypes,
+  ...components.types,
 ]);
 
 
@@ -32,10 +30,7 @@ const authenticated = resolver => (parent, args, context, info) => {
   throw new Error(UNAUTHORIZED); // this is gonna be handled in _format-errors
 };
 
-const resolvers = [
-  ...userResolvers,
-  ...variousResolvers,
-];
+const resolvers = [...components.resolvers];
 
 setPublicResolvers(resolvers);
 
