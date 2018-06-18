@@ -67,10 +67,10 @@ The above will create under `components` a new folder named `User` with a subfol
 
 `user-authentication` has all files needed to implement your component. You just need to fill them;
 
-`_input.js`: input types you need for your component part's mutations
-`_mutation.js`: all mutations for this component part go here
-`_query.js`: all queries for this component part go here
-`_type.js`: all types and type resolvers for this component part go here
+- `_input.js`: input types you need for your component part's mutations
+- `_mutation.js`: all mutations for this component part go here
+- `_query.js`: all queries for this component part go here
+- `_type.js`: all types and type resolvers for this component part go here
 
 You may implement only what you need, though you should never delete any of these files. For example
 if you have no mutations and no inputs for a component part you should not delete _input.js and
@@ -80,10 +80,12 @@ Each component has at least one part, though it can have many.
 
 Ex.
 components
+```
+- components
 -- User
----- user-authentication
----- user-data
-
+--- user-authentication
+--- user-data
+```
 
 
 
