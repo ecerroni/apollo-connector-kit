@@ -11,7 +11,7 @@ import {
 import VueApollo from 'vue-apollo';
 import App from './App';
 import router from './router';
-import { apolloClient } from './utils';
+import apolloClient from './apollo';
 
 Vue.use(Button);
 Vue.use(Form);

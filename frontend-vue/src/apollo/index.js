@@ -69,7 +69,9 @@ const errorLink = onError(({ networkError }) => {
   if (networkError.statusCode === 401) {
     // eslint-disable-next-line
     console.warn(UNAUTHORIZED);
-    router.push('/login');
+    if (router.history.current.path && router.history.current.path !== '/login') {
+      router.push('/login');
+    }
   }
   if (networkError.statusCode === 403) {
     // Do something
