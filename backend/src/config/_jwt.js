@@ -1,4 +1,3 @@
-import { WHITELISTED_QUERIES } from './_queries';
 import APP from '$/settings/app.json';
 import JWT_SETTINGS from '$/settings/jwt.json';
 import COOKIE_SETTINGS from '$/settings/cookie.json';
@@ -18,7 +17,7 @@ const TOKEN_NAME = `x-${NAMESPACE}-token`;
 const REFRESH_TOKEN_NAME = `x-${NAMESPACE}-refresh-token`;
 
 // YOU MAY NOT CHANGE THESE SETTINGS BELOW
-export const JWT = {
+export default {
   HEADER: {
     TOKEN: {
       NAME: TOKEN_NAME,
@@ -43,19 +42,6 @@ export const JWT = {
       httpOnly: true,
       // Best cookie atm `Set-Cookie: __Host-sess=123; path=/; Secure; HttpOnly; SameSite`
       // ref: https://scotthelme.co.uk/tough-cookies/
-    },
-  },
-};
-
-export const AUTH = {
-  WHITELISTED_QUERIES,
-  STRATEGIES: {
-    HTTP_ONLY: true,
-    LOCAL_STORAGE: true,
-    CLIENT: {
-      AUTH_HEADER: `x-${NAMESPACE}-auth-request-type`,
-      HTTP_ONLY: 'HTTP_ONLY',
-      LOCAL_STORAGE: 'LOCAL_STORAGE',
     },
   },
 };
