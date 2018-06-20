@@ -11,10 +11,15 @@ const {
   COOKIE_EXP = 365 * 24 * 60 * 60 * 1000, // one year (ms)
 } = COOKIE_SETTINGS;
 
-const { NAMESPACE = '_' } = APP;
+const {
+  NAMESPACE = '_',
+  PREFIX = '-x',
+  TOKEN_SUFFIX = '-token',
+  REFRESH_TOKEN_SUFFIX = '-refresh-token',
+} = APP;
 
-const TOKEN_NAME = `x-${NAMESPACE}-token`;
-const REFRESH_TOKEN_NAME = `x-${NAMESPACE}-refresh-token`;
+const TOKEN_NAME = `${PREFIX}${NAMESPACE}${TOKEN_SUFFIX}`;
+const REFRESH_TOKEN_NAME = `${PREFIX}${NAMESPACE}${REFRESH_TOKEN_SUFFIX}`;
 
 // YOU MAY NOT CHANGE THESE SETTINGS BELOW
 export default {
