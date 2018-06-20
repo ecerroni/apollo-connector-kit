@@ -7,6 +7,3 @@ export { default as SCOPES } from './_scopes';
 export { default as ROLES_PERMISSIONS } from './_roles-permissions';
 export { PUBLIC_PREFIX, WHITELISTED_QUERIES } from './_queries';
 
-import APP from './_app';
-import AUTH from './_authentication';
-console.log(APP, AUTH);
