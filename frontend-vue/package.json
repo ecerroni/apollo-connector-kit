@@ -18,7 +18,7 @@
     "apollo-link-context": "1.0.0",
     "apollo-link-error": "1.0.0",
     "apollo-link-http": "1.1.0",
-    "element-ui": "2.0.3",
+    "element-ui": "^2.4.1",
     "graphql": "0.11.7",
     "graphql-tag": "2.5.0",
     "hash.js": "1.1.3",
