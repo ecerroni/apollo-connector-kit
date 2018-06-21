@@ -5,6 +5,7 @@
   "main": "./src/server.js",
   "scripts": {
     "start": "bash start.sh",
+    "start-docker": "bash start-docker.sh",
     "launch": "nodemon ./src/server.js --exec babel-node -e js",
     "add-component-part": "cd ./src/scripts && bash create-graphql-component.sh",
     "build": "babel -d ./build ./src -s",
