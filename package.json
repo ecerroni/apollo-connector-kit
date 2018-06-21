@@ -24,8 +24,5 @@
     "start-apollo-vue": "yarn run dev-apollo-vue",
     "start-apollo-react": "yarn run dev-apollo-react",
     "start": "yarn run dev"
-  },
-  "dependencies": {
-    "create-react-app": "1.5.2"
   }
 }
