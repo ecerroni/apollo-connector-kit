@@ -74,19 +74,6 @@ Ex. `yarn add-component-part User user-authentication`
 The above will create under `components` a new folder named `User` with a subfolder named
 `user-authentication`
 
-You may want to delete an existing graphql components just by typing from project's root folder:
-
-`cd backend`
-
-`yarn remove-component-part <component_name> <component_part>`
-
-Ex. `yarn add-component-part User user-authentication`
-
-The above will delete under `components` in the folder named `User` the subfolder named
-`user-authentication`
-
-Moreover if the folder named `User` has no more sub-part it will be deleted by the script as well
-
 `user-authentication` has all files needed to implement your component. You just need to fill them;
 
 - `_input.js`: input types you need for your component part's mutations
@@ -109,6 +96,21 @@ components
 --- user-data
 ```
 
+You may want to delete an existing graphql components just by typing from project's root folder:
+
+`cd backend`
+
+`yarn remove-component-part <component_name> <component_part>`
+
+Ex. `yarn remove-component-part User user-authentication`
+
+The above will delete under `components` in the folder named `User` the subfolder named
+`user-authentication`
+
+Moreover if the folder named `User` has no more sub-part it will be deleted by the script as well
+
+Otherwise the server/nodemon may not immediately pick up changes in components' structure and even
+throw errors (for example adding/deleting components manually),
 
 
 ## Additional:
