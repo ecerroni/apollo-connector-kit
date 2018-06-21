@@ -1,4 +1,4 @@
-import { ROLES_PERMISSIONS, SCOPES } from '@/config';
+import { ROLES_PERMISSIONS, SCOPES } from '~/config';
 
 // online hash.js emulator
 // http://www.xorbin.com/tools/sha256-hash-calculator

@@ -1,5 +1,5 @@
 import cors from 'cors';
-import { JWT } from '@/config';
+import { JWT } from '~/config';
 
 
 // FIXES EITHER CORS ERROR OR APOLLO SERVER METHOD NOT ALLOWED (405) WHEN FRONTEND WEBPACK DEV

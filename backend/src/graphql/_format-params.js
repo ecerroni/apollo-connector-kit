@@ -1,8 +1,8 @@
 import { OperationStore } from 'graphql-server-module-operation-store/dist/index';
-import { AUTH } from '@/config';
-import { schema } from '@/schema';
+import { AUTH } from '~/config';
+import { schema } from '~/schema';
 import { whitelistedOperations } from './_operations';
-import { RESPONSE } from '@/environment';
+import { RESPONSE } from '~/environment';
 
 let store;
 if (AUTH.WHITELISTED_QUERIES) {

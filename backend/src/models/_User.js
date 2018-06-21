@@ -1,6 +1,6 @@
-import users from '@/connectors';
-import { encryptor } from '@/utils/';
-import { ERROR } from '@/environment';
+import users from '~/connectors';
+import { encryptor } from '~/utils/';
+import { ERROR } from '~/environment';
 
 export default {
   validate: async (username, password) => {

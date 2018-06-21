@@ -3,18 +3,18 @@
 import express from 'express';
 import { graphqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
-import { SERVER, AUTH, JWT } from '@/config';
-import { schema } from '@/schema';
-import { handleAuthentication } from '@/authentication';
-import enableCors from '@/cors';
+import { SERVER, AUTH, JWT } from '~/config';
+import { schema } from '~/schema';
+import { handleAuthentication } from '~/authentication';
+import enableCors from '~/cors';
 import {
   context as buildContext,
   formatResponse,
   formatError,
   formatParams,
   graphiql,
-} from '@/graphql';
-import { startupMessages, RESPONSE } from '@/environment';
+} from '~/graphql';
+import { startupMessages, RESPONSE } from '~/environment';
 
 const expressServer = express();
 

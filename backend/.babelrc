@@ -1,8 +1,9 @@
 {
   presets: ['latest'],
   plugins: [
+    ["babel-plugin-bulk-import"],
     ["babel-plugin-root-import", [{
-      "rootPathPrefix": "@",
+      "rootPathPrefix": "~",
       "rootPathSuffix": "./src"
     }, {
       "rootPathPrefix": "#",
