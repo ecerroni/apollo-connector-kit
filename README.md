@@ -52,13 +52,17 @@ from the project's root folder
 There are 2 mock users:
 
 [Admin role]
+
 username: ric0
+
 password: 123456
 
 --------------
 
 [Limited permissions role]
+
 username: kris
+
 password: 123456
 
 ### SETTINGS
