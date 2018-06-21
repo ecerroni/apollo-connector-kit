@@ -1,6 +1,7 @@
 {
   "NAMESPACE": "connector",
   "ENDPOINT": {
+    "PROTOCOL": "http",
     "HOST": "localhost",
     "PORT": 3000,
     "GRAPHQL": "/graphql",

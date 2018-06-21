@@ -34,7 +34,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       [APP.ENDPOINT.GRAPHQL]: {
-        target: 'http://' + APP.ENDPOINT.HOST + ':' + APP.ENDPOINT.PORT + APP.ENDPOINT.GRAPHQL,
+        target: APP.ENDPOINT.PROTOCOL + '://' + APP.ENDPOINT.HOST + ':' + APP.ENDPOINT.PORT + APP.ENDPOINT.GRAPHQL,
         changeOrigin: false,
       },
        /*
