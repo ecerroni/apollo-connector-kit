@@ -53,6 +53,15 @@ All essentials settings are under the `settings` folder.
 You may change them as you see fit and they will propagate to the backend as well as across
 all client folders.
 
+N.B. Because of how CRA works the frontend react will not pickup changes even after restarting the
+server (like Vue does, but for few changes related to the endpoint);
+
+As a workaround you should always stop the server and run from the root project:
+
+`cd frontend-react && yarn install`
+
+Then restart the server
+
 ### APOLLO GRAPHQL COMPONENTS
 You may create new graphql components just by typing from project's root folder:
 
