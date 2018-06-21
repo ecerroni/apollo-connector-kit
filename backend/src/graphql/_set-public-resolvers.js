@@ -1,4 +1,6 @@
-import { PUBLIC_PREFIX } from '#/common/strategies';
+import QUERY_SETTINGS from '$/settings/queries.json';
+
+const { PUBLIC_PREFIX = 'public' } = QUERY_SETTINGS;
 
 export default (resolvers) => {
   resolvers.forEach(resolver => Object.keys(resolver).forEach((type) => {

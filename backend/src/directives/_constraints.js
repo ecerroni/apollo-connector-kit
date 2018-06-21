@@ -1,5 +1,5 @@
-import { SCOPES } from '@/config';
-import { DIRECTIVES } from '@/directives';
+import { SCOPES } from '~/config';
+import { DIRECTIVES } from '~/directives';
 
 export const canReadComments = `${DIRECTIVES.IS_ALLOWED.FUNC_NAME}(${DIRECTIVES.IS_ALLOWED.SCOPE}: ["${SCOPES.OPERATION.READ}:${SCOPES.TYPE.COMMENTS}"])`;
 export const canReadProfile = `${DIRECTIVES.IS_ALLOWED.FUNC_NAME}(${DIRECTIVES.IS_ALLOWED.SCOPE}: ["${SCOPES.OPERATION.READ}:${SCOPES.TYPE.PROFILE}"])`;

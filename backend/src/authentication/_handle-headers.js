@@ -1,4 +1,4 @@
-import { JWT } from '@/config';
+import { JWT } from '~/config';
 
 export const setCookies = (res, newToken, newRefreshToken) => {
   res

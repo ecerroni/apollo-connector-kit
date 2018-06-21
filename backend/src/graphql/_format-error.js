@@ -1,4 +1,4 @@
-import { UNAUTHORIZED, FORBIDDEN } from '@/environment'
+import { UNAUTHORIZED, FORBIDDEN } from '~/environment'
 import { ERROR } from '../environment';
 
 const e401s = [
