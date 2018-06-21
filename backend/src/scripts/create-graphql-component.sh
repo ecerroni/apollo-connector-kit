@@ -21,14 +21,14 @@ echo "Creating new component part"
 
 DIRECTORY="../components/${COMPONENT}/${COMPONENT_PART}"
 if [ -d "$DIRECTORY" ]; then
-    echo "Component part [$COMPONENT_PART] of '$COMPONENT' already exist]"
+    echo "Component part [$COMPONENT_PART] of '$COMPONENT' already exist"
     read -p "Press Enter To Continue or Ctrl + C to abort"
 fi
 
 mkdir -p ../components/${COMPONENT}/${COMPONENT_PART}
 
 cd ../components/${COMPONENT}/${COMPONENT_PART}
-#if index does exist?
+
 cat > _input.js <<EOF
 export default \`
 
@@ -91,7 +91,7 @@ export default {
 EOF
 
 
-echo "Component part [$COMPONENT_PART] of '$COMPONENT' has been created]"
+echo "Component part [$COMPONENT_PART] of '$COMPONENT' has been created"
 
 ########### REHYDRATE COMPONENTS INDEX ###########
 
