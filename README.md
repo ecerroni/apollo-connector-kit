@@ -44,7 +44,7 @@ from the project's root folder
 ### APOLLO
 from the project's root folder
 
-`cd backend && yarn launch`
+`cd backend && yarn start`
 
 ## Usage
 

@@ -39,7 +39,7 @@ echo "Component part [$COMPONENT_PART] of '$COMPONENT' successfully deleted"
 
 ########### REHYDRATE COMPONENTS INDEX ###########
 
-cd ../../
+cd ../../src/components
 
 cat > index.js <<EOF
 import * as all from './**/**/index.js';
