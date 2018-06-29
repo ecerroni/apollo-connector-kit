@@ -11,13 +11,14 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "apollo": "0.2.2",
-    "apollo-cache-inmemory": "1.1.0",
+    "apollo": "^1.1.1",
+    "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "2.0.2",
-    "apollo-link": "1.0.0",
+    "apollo-link": "^1.2.2",
     "apollo-link-context": "1.0.0",
     "apollo-link-error": "1.0.0",
     "apollo-link-http": "1.1.0",
+    "apollo-link-state": "^0.4.1",
     "element-ui": "^2.4.1",
     "graphql": "0.11.7",
     "graphql-tag": "2.5.0",

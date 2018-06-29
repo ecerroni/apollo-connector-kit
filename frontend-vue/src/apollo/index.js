@@ -1,18 +1,23 @@
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
-import {
-  AUTH,
-  APP,
-  JWT,
-  VERSION,
-  CLIENT_AUTH_REQUEST_TYPE,
-  CLIENT_AUTHENTICATION_METHOD,
-} from '@/environment';
-import router from '@/router';
+import { ApolloClient } from 'apollo-client'
+import { withClientState } from 'apollo-link-state'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { setContext } from 'apollo-link-context'
+import { onError } from 'apollo-link-error'
+import { ApolloLink } from 'apollo-link'
+import { APP, AUTH, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, JWT, VERSION, } from '@/environment'
+import router from '@/router'
+import { defaults, resolvers } from '../api'
+
+const apolloCache = new InMemoryCache({
+  dataIdFromObject: e => `${e.__typename}_${e.id}` || null, // eslint-disable-line no-underscore-dangle
+});
+
+const stateLink = withClientState({
+  cache: apolloCache,
+  defaults,
+  resolvers,
+});
 
 const {
   CONSTANTS: {
@@ -88,12 +93,14 @@ const errorLink = onError(({ networkError }) => {
 
 let links = [
   errorLink,
+  stateLink,
   httpLink,
 ];
 
 if (useLocalStorage) {
   links = [
     errorLink,
+    stateLink,
     afterwareLink,
     authMiddlewareLink,
     httpLink,
