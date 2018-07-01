@@ -8,7 +8,6 @@ import { ApolloLink } from 'apollo-link'
 import decode from 'jwt-decode'
 import history from '../history'
 import { APP, AUTH, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, JWT, VERSION, } from '../environment'
-// import { defaults, resolvers, responseResolvers, watchedMutations } from '../../api';
 import { defaults, resolvers } from '../api'
 
 const {
