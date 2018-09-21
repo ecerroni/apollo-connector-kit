@@ -34,7 +34,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/",
     "lint-fix": "eslint --fix src/",
-    "postinstall": "ln -s $(dirname $(pwd))/settings './src/settings'"
+    "postinstall": "ln -sfn $(dirname $(pwd))/settings './src/settings'"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
