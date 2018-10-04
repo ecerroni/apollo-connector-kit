@@ -80,6 +80,39 @@ As a workaround you should always stop the server and run from the root project:
 
 Then restart the server
 
+### AUHENTICATION STRATEGIES
+
+#### Server
+By default it accepts both LOCAL_STORAGE and HTTP_ONLY requests from clients.
+
+If you want to narrow it down to just on type of authentication request being accepted you will need to set either one of the following to `false` in `./settings/app.json`:
+
+```
+  "STRATEGIES": {
+    "HTTP_ONLY": true,
+    "LOCAL_STORAGE": true
+  },
+```
+
+If you set them both to `false` the server will stop accepting requests altogether.
+
+#### Client
+The client to have its requests accepted by the server it needs to declare what authentication strategy it is willing to use. The choosen strategy should match one of those allowed by the server, otherwise client's requests will be always rejected.
+
+To set which type of authentication requests the client is willing to use set it here:
+- For React: `./frontend-react/src/environment/_auth.js`
+- For Vue: `./frontend-vue/src/environment/_auth.js`
+
+Choose local storage
+
+`export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.LOCAL_STORAGE;`
+
+OR 
+
+Choose cookies
+
+`export const CLIENT_AUTH_REQUEST_TYPE = AUTH.STRATEGIES.CLIENT.HTTP_ONLY`
+
 ### APOLLO GRAPHQL COMPONENTS
 You may create new graphql components just by typing from project's root folder:
 
