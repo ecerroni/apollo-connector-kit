@@ -1,9 +1,8 @@
 // TODO: ADD GRAPHQL TESTER (WITH AUTH SKIP FOR TESTING)
 
 import express from 'express';
-import { graphqlExpress } from 'apollo-server-express';
-import bodyParser from 'body-parser';
-import { SERVER, AUTH, JWT } from '~/config';
+import { ApolloServer } from 'apollo-server-express';
+import { SERVER } from '~/config';
 import { schema } from '~/schema';
 import { handleAuthentication } from '~/authentication';
 import enableCors from '~/cors';
@@ -12,36 +11,35 @@ import {
   formatResponse,
   formatError,
   formatParams,
-  graphiql,
 } from '~/graphql';
 import { startupMessages, RESPONSE } from '~/environment';
 
-const expressServer = express();
+const app = express();
 
-expressServer.use(enableCors());
+// app.use(enableCors());
 
 
-expressServer.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.writeHead(200, { Connection: 'close' });
   res.end(RESPONSE.MESSAGES.UP_RUNNING);
 });
 
 
-expressServer.use(handleAuthentication);
+app.use(handleAuthentication);
 
-expressServer.use(SERVER.GRAPHQL, bodyParser.json(), graphqlExpress(async (request, response) => ({
+const server = new ApolloServer({
   schema,
-  context: await buildContext(request),
-  formatResponse: (res, { context }) => formatResponse(res, { context }, response, request),
-  formatError: err => formatError(err, response),
+  path: SERVER.GRAPHQL,
+  cors: enableCors(),
+  context: ({ res, req }) => buildContext({ res, req }),
+  // formatResponse: ({ req, res, context }) => formatResponse(res, { context }, res, req),
+  formatError: err => formatError(err),
   formatParams: params => formatParams(params),
-})));
-
-// Graphiql + some initial queries
-expressServer.use(graphiql.path, graphiql.server);
-
+  formatResponse: (response, query) => formatResponse({ response, query }),
+});
+server.applyMiddleware({ app });
 
 const { PORT } = SERVER;
-expressServer.listen(PORT, () => {
-  startupMessages();
+app.listen({ port: PORT }, () => {
+  startupMessages({ port: PORT });
 });
