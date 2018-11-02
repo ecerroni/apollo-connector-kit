@@ -4,7 +4,7 @@ const { PORT } = SERVER;
 
 const localAuthCheck = () => AUTH.ENDPOINT === 'localhost' || AUTH.ENDPOINT === '127.0.0.1' || AUTH.ENDPOINT === '0.0.0.0';
 
-export const startupMessages = () => {
+export const startupMessages = ({ port }) => {
   if (typeof AUTH.SECRET_TOKEN === 'undefined' || typeof AUTH.SECRET_REFRESH_TOKEN === 'undefined') {
     console.warn(`WARNING: NOT ALL ENV SECRETS HAVE BEEN PROVIDED. Check README.md
       for more information`);
@@ -19,6 +19,6 @@ export const startupMessages = () => {
       console.log('ALL SET >> SERVER CONFIGURATION READY');
     }
   }
-  console.log(`GraphQL Server is now running on http://localhost:${PORT}/graphql`);
-  console.log(`View GraphiQL at http://localhost:${PORT}/graphiql`);
+  console.log(`🚀  GraphQL Server is now running on http://localhost:${port}/graphql 🚀`);
+  console.log(`View GraphiQL at http://localhost:${port}/graphiql`);
 }
