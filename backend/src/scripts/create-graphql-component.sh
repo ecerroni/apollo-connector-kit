@@ -97,6 +97,9 @@ echo "Component part [$COMPONENT_PART] of '$COMPONENT' has been created"
 
 cd ../../
 
+arrayOfComponentsDirs=`find . -maxdepth 2 -type d ! -name '.*' -printf '%f\n'`
+footer=`echo ${arrayOfComponentsDirs[@]}`
+
 cat > index.js <<EOF
 import * as all from './**/**/index.js';
 
@@ -119,6 +122,12 @@ export default {
     ...allComponents.reduce((arr, i) => [...arr, ...i.resolvers], [])
   ],
 };
+
+
+// Tracked Components and Components' parts:
+// eslint-disable-next-line
+// $footer
+
 EOF
 
 ################
