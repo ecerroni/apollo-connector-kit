@@ -1,4 +1,4 @@
-import { OperationStore } from 'graphql-server-module-operation-store/dist/index';
+import { OperationStore } from 'apollo-server-module-operation-store/dist/index';
 import { AUTH } from '~/config';
 import { schema } from '~/schema';
 import { whitelistedOperations } from './_operations';
