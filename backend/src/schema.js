@@ -1,4 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
+import { AuthenticationError } from 'apollo-server-express';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import OKGGraphQLScalars from '@okgrow/graphql-scalars'; // eslint-disable-line
 import mapValues from 'lodash.mapvalues';
@@ -30,7 +31,8 @@ const authenticated = resolver => (parent, args, context, info) => {
   if (context.user) {
     return resolver(parent, args, context, info);
   }
-  throw new Error(UNAUTHORIZED); // this is gonna be handled in _format-errors
+  throw new AuthenticationError(UNAUTHORIZED);
+  // throw new Error(UNAUTHORIZED); // this is gonna be handled in _format-errors
 };
 
 const resolvers = [...components.resolvers];

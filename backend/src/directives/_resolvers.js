@@ -1,3 +1,4 @@
+import { ForbiddenError } from 'apollo-server-express';
 import { FORBIDDEN } from '~/environment';
 import { DIRECTIVES } from './_directives';
 
@@ -20,6 +21,6 @@ export const directiveResolvers = {
     if (roles && expectedRoles.some(role => roles.indexOf(role) !== -1)) {
       return result;
     }
-    throw Error(FORBIDDEN);
+    throw new ForbiddenError(FORBIDDEN);
   },
 };

@@ -13,13 +13,27 @@ export const formatError = err => { // eslint-disable-line
   let error = err;
   if (e401s.includes(err.message)) {
     // We need this response status in the apollo client afterware
-    // response.status(401); // this seems not to work as expecetd: needs further investigations
-    error = { ...err, status: 401 }; // thus set the status in the error
+    error = {
+      message: err.message,
+      status: 401,
+      location: err.location,
+      path: err.path,  
+      extensions: {
+        code: err.extensions.code,
+      },
+    }; // thus set the status in the error
   }
   if (e403s.includes(err.message)) {
     // We need this response status in the apollo client afterware
-    // response.status(403); // this seems not to work as expecetd: needs further investigations
-    error = { ...err, status: 403 };
+    error = {
+      message: err.message,
+      status: 403,
+      location: err.location,
+      path: err.path,
+      extensions: {
+        code: err.extensions.code,
+      },
+    }; // thus set the status in the error
   }
   return error;
 };
