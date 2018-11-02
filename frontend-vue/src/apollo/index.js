@@ -70,24 +70,38 @@ const afterwareLink = new ApolloLink((operation, forward) =>
   }),
 );
 
-const errorLink = onError(({ networkError }) => {
-  if (networkError.statusCode === 401) {
-    // eslint-disable-next-line
-    console.warn(UNAUTHORIZED);
-    if (router.history.current.path && router.history.current.path !== '/login') {
-      router.push('/login');
+const errorLink = onError(({ response, networkError = {}, graphQLErrors = [] }) => {
+  const redirect = (networkError && networkError.statusCode) ||
+    (graphQLErrors && graphQLErrors.length > 0);
+  if (redirect) {
+    let { statusCode } = networkError;
+    if (!statusCode) {
+      const errors = graphQLErrors
+        .filter(e => e.status === 403 || e.status === 401);
+      const { status = 200 } = errors[0];
+      statusCode = status;
     }
-  }
-  if (networkError.statusCode === 403) {
-    // Do something
-    console.warn(FORBIDDEN);
-    router.push('/forbidden');
-  }
-  if ((networkError.statusCode >= 500)) {
-    // eslint-disable-next-line
-    console.warn('SERVER ERROR');
-    router.push(`/error/${networkError.statusCode}`);
-    // DO SOMETHING. HANDLE THIS ONE.
+    if (statusCode === 401) {
+      // eslint-disable-next-line
+      console.warn(UNAUTHORIZED);
+      if (router.history.current.path && router.history.current.path !== '/login') {
+        router.push('/login');
+      }
+    }
+    if (statusCode === 403) {
+      // Do something
+      console.warn(FORBIDDEN);
+      router.push('/forbidden');
+    }
+    if ((statusCode >= 500)) {
+      // eslint-disable-next-line
+      console.warn('SERVER ERROR');
+      router.push(`/error/${statusCode}`);
+      // DO SOMETHING. HANDLE THIS ONE.
+    }
+    if (response.errors && response.errors.length > 0 && response.errors[0].extensions) {
+      response.errors = { ...response.errors[0].extensions };
+    }
   }
 });
 
