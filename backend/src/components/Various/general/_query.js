@@ -1,33 +1,27 @@
 import { isAdmin } from '~/directives';
-import { makePublicResolver } from '~/graphql';
 
 // right after cloning the repo
 // isAdmin ---> only user ric0 is allowed
 // canReadProfile ---> both users ric0 and kris are allowed
 
-const PUBLIC_QUERIES = {
-  PUBLIC_TEST: makePublicResolver('test'),
-};
 
 export const queryTypes = `
   type Query {
-    ${PUBLIC_QUERIES.PUBLIC_TEST}: String
+    test: String
     connection: String!
-    checkAuth: String  @${isAdmin}
+    _checkAuth: String @${isAdmin}
   }
 `;
 
 // NOTE:
-// Keep in mind  that "checkAuth: String!  @${isAdmin}" if not allowed would also throw
+// Keep in mind  that "_checkAuth: String!  @${isAdmin}" if not allowed would also throw
 // TypeError: Cannot convert undefined or null to object
 // when using non nullable objects
 
 export const queryResolvers = {
   Query: {
-    [PUBLIC_QUERIES.PUBLIC_TEST]: () => 'Server is up and running... working smoothly',
+    test: () => 'Server is up and running... working smoothly',
     connection: () => 'Connected',
-    checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,
+    _checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,
   },
 };
-
-// makeQueryPublic(queryResolvers.Query);

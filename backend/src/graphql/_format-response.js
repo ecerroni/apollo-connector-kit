@@ -3,7 +3,7 @@ import { AUTH } from '~/config'
 import { setCookies, setHeaders, unsetCookies } from '~/authentication';
 
 // TODO: MOVE THEM TO ENUMS OR CONFIG
-const login = ['publicLogin', 'publicRegister'];
+const login = ['login', 'publicRegister'];
 const logout = 'logout';
 
 export const formatResponse = ({ response, query}) => {

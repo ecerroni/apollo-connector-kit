@@ -3,6 +3,6 @@ export const whitelistedOperations = [
     publicTest
   }`,
   `query auth {
-    checkAuth
+    _checkAuth
   }`,
 ];

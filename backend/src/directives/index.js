@@ -4,6 +4,7 @@ export {
   canReadProfile,
   canReadComments,
   isAdmin,
+  isUser,
 } from './_constraints';
 
 // TODO: Switch to attachDirectiveResolvers when it becomes a thing

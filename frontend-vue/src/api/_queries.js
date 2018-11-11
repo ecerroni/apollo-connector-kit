@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
 
-export const checkAuthQuery = gql`
+// eslint-disable-next-line
+export const _checkAuthQuery = gql`
   query auth {
-    checkAuth
+    _checkAuth
   }
 `;
 

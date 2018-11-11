@@ -1,5 +1,5 @@
 export {
-  checkAuthQuery,
+  _checkAuthQuery,
   connectionQuery,
 } from './_queries';
 export {

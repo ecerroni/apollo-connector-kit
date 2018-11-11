@@ -13,6 +13,6 @@ export const storeMutation = gql`
 // REMOTE
 export const loginMutation = gql`
   mutation login($userCredentials: userCredentials!) {
-    publicLogin(input: $userCredentials)
+    login(input: $userCredentials)
   }
 `;

@@ -1,11 +1,10 @@
 import { createTokens } from '~/authentication';
 import { User } from '~/models';
 import { AUTH } from '~/config';
-import { makePublicResolver } from '../../../graphql';
 
 export const mutationTypes = `
   type Mutation {
-    publicLogin(input: userCredentials): String
+    login(input: userCredentials): String
     logout: String
   }
 `;
@@ -16,9 +15,7 @@ export const mutationResolvers = {
     logout: () => {
       return 'ok'; // This is gonna be taken care in server > formatResponse
     },
-    // [`${PUBLIC_PREFIX}Login`] <--- this will not work
-    [makePublicResolver('login')]: async (_, { input }) => {
-    // publicLogin: async (_, { input }) => {
+    login: async (_, { input }) => {
       const { username, password } = input;
       const user = await User.validate(username, password);
       if (user) {

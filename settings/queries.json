@@ -1,4 +1,4 @@
 {
   "WHITELISTED_QUERIES": false,
-  "PUBLIC_PREFIX": "public"
+  "PRIVATE_PREFIX": "_"
 }

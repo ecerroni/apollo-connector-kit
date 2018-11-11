@@ -1,5 +1,4 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { AuthenticationError } from 'apollo-server-express';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import OKGGraphQLScalars from '@okgrow/graphql-scalars'; // eslint-disable-line
 import mapValues from 'lodash.mapvalues';
@@ -7,9 +6,8 @@ import components from '~/components';
 import QUERY_SETTINGS from '$/settings/queries.json';
 import { UNAUTHORIZED } from '~/environment';
 import { directives, attachDirectives } from '~/directives';
-import { setPublicResolvers } from './graphql';
 
-const { PUBLIC_PREFIX } = QUERY_SETTINGS;
+const { PRIVATE_PREFIX } = QUERY_SETTINGS;
 
 // Add more okgrow/graphql-scalars if you need
 const oKGGraphQLScalars = `
@@ -31,29 +29,26 @@ const authenticated = resolver => (parent, args, context, info) => {
   if (context.user) {
     return resolver(parent, args, context, info);
   }
-  throw new AuthenticationError(UNAUTHORIZED);
-  // throw new Error(UNAUTHORIZED); // this is gonna be handled in _format-errors
+  throw new Error(UNAUTHORIZED); // this is gonna be handled in _format-errors
 };
 
 const resolvers = [...components.resolvers];
 
-setPublicResolvers(resolvers);
-
 /*
-* ANYTHING CONTAINING THE PUBLIC_PREFIX STRING IN THE RESOLVER NAME
+* ANYTHING CONTAINING THE PRIVATE_PREFIX STRING IN THE RESOLVER NAME
 * DOESN'T GO THROUGH THE AUTHORIZATION CHECK */
 // Credit: zach.codes https://zach.codes/handling-auth-in-graphql-the-right-way/
-
-const publicPrefixRegex = new RegExp(`^${PUBLIC_PREFIX}`);
 
 const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
   mapValues(resolver, (item) => {
     if (type !== 'Mutation' && type !== 'Query') return item; // skip type resolvers
-    if (publicPrefixRegex.test(item.name)) return item;
+    const { name = '' } = item;
+    const isPrivate = name.substring(0, PRIVATE_PREFIX.length) === PRIVATE_PREFIX;
+    if (isPrivate) return authenticated(item);
     if (process.env.NODE_ENV === 'testing') { // skip auth for graphql-tester
       return item;
     }
-    return authenticated(item);
+    return item;
   }),
 );
 

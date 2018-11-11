@@ -19,6 +19,6 @@ export const connectionQuery = gql`
 
 export const authQuery = gql`
   query authenticate {
-    checkAuth
+    _checkAuth
   }
 `;
