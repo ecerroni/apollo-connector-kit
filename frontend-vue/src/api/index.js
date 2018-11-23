@@ -1,4 +1,8 @@
 export {
+  UserData,
+} from './_fragments';
+
+export {
   _checkAuthQuery,
   connectionQuery,
 } from './_queries';
