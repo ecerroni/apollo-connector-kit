@@ -30,7 +30,7 @@
     "eslint-loader": "1.9.0",
     "eslint-plugin-html": "4.0.2",
     "eslint-plugin-import": "2.9.0",
-    "nodemon": "1.15.1"
+    "nodemon": "1.18.7"
   },
   "dependencies": {
     "@okgrow/graphql-scalars": "^0.4.2",
@@ -49,5 +49,5 @@
     "lodash.mapvalues": "4.6.0",
     "merge-graphql-schemas": "^1.5.7"
   },
-  "license" : "MIT"
+  "license": "MIT"
 }
