@@ -12,7 +12,7 @@
     "build": "babel -d ./build ./src -s",
     "serve-staging": "NODE_ENV=staging node ./server.js",
     "serve-production": "NODE_ENV=production node ./server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "devDependencies": {
@@ -30,6 +30,9 @@
     "eslint-loader": "1.9.0",
     "eslint-plugin-html": "4.0.2",
     "eslint-plugin-import": "2.9.0",
+    "graphql-tester": "0.0.5",
+    "jest": "23.6.0",
+    "jwt-decode": "2.2.0",
     "nodemon": "1.18.7"
   },
   "dependencies": {
