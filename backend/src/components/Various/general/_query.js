@@ -1,20 +1,22 @@
-import { isAdmin } from '~/directives';
+import { roles, permissions } from '~/directives';
 
 // right after cloning the repo
-// isAdmin ---> only user ric0 is allowed
-// canReadProfile ---> both users ric0 and kris are allowed
+// roles.is.admin ---> only user ric0 is allowed
+// permissions.can.read.profile ---> both users ric0 and kris are allowed
 
 
 export const queryTypes = `
   type Query {
     test: String
     connection: String!
-    _checkAuth: String @${isAdmin}
+    _checkAuth: String
+    testPermissionsHasRole: String @${roles.is.admin}
+    testPermissionsIsAllowed: String @${permissions.can.read.profile}
   }
 `;
 
 // NOTE:
-// Keep in mind  that "_checkAuth: String!  @${isAdmin}" if not allowed would also throw
+// Keep in mind  that "_checkAuth: String!  @${roles.is.admin}" if not allowed would also throw
 // TypeError: Cannot convert undefined or null to object
 // when using non nullable objects
 
@@ -23,5 +25,7 @@ export const queryResolvers = {
     test: () => 'Server is up and running... working smoothly',
     connection: () => 'Connected',
     _checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,
+    testPermissionsHasRole: () => 'ok role',
+    testPermissionsIsAllowed: () => 'ok permission',
   },
 };

@@ -1,6 +1,6 @@
 import { default as SCOPES } from './_scopes';
 
-export default {
+const rolesAndPermissions = {
   ADMIN: {
     NAME: SCOPES.ROLES.ADMIN,
     PERMISSIONS: {
@@ -31,3 +31,20 @@ export default {
   },
   // add more
 };
+console.log('####################################################');
+console.log('ROLES AND PERMISSIONS BINDING');
+console.log('####################################################');
+console.log(Object.entries(rolesAndPermissions).reduce((obj, entry) => ({
+  ...obj,
+  [entry[0]]: {
+    permissions: {
+      ...Object.entries(entry[1].PERMISSIONS).reduce((o, e) => ({
+        ...o,
+        [e[0]]: e[1].join(', '),
+      }), {}),
+    },
+  },
+}), {}));
+console.log('####################################################');
+console.log('####################################################');
+export default rolesAndPermissions;

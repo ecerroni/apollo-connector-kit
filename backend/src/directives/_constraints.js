@@ -1,8 +1,36 @@
 import { SCOPES } from '~/config';
 import { DIRECTIVES } from '~/directives';
 
-export const canReadComments = `${DIRECTIVES.IS_ALLOWED.FUNC_NAME}(${DIRECTIVES.IS_ALLOWED.SCOPE}: ["${SCOPES.OPERATION.READ}:${SCOPES.TYPE.COMMENTS}"])`;
-export const canReadProfile = `${DIRECTIVES.IS_ALLOWED.FUNC_NAME}(${DIRECTIVES.IS_ALLOWED.SCOPE}: ["${SCOPES.OPERATION.READ}:${SCOPES.TYPE.PROFILE}"])`;
-export const isAdmin = `${DIRECTIVES.HAS_ROLE.FUNC_NAME}(${DIRECTIVES.HAS_ROLE.SCOPE}: ["${SCOPES.ROLES.ADMIN}"])`;
-export const isUser = `${DIRECTIVES.HAS_ROLE.FUNC_NAME}(${DIRECTIVES.HAS_ROLE.SCOPE}: ["${SCOPES.ROLES.USER}"])`;
+const buildPermission = (operation, type) => `${DIRECTIVES.IS_ALLOWED.FUNC_NAME}(${DIRECTIVES.IS_ALLOWED.SCOPE}: ["${operation}_${type}"])`;
+// Permissions
+const allOperations = Object.keys(SCOPES.OPERATION);
+const allTypes = Object.keys(SCOPES.TYPE);
+const allOperationTypeCombinations = allOperations.reduce((obj, operation) => ({
+  ...obj,
+  [operation.toLowerCase()]: allTypes.reduce((o, type) => ({
+    ...o,
+    [type.toLowerCase()]: buildPermission(SCOPES.OPERATION[operation], SCOPES.TYPE[type]),
+  }), {}),
+}), {});
 
+export const permissions = {
+  can: {
+    ...allOperationTypeCombinations,
+  },
+};
+
+
+// Roles
+
+const buildRole = role => `${DIRECTIVES.HAS_ROLE.FUNC_NAME}(${DIRECTIVES.HAS_ROLE.SCOPE}: ["${role}"])`;
+
+const allRoles = Object.keys(SCOPES.ROLES);
+const allRolesAvailable = allRoles.reduce((obj, role) => ({
+  ...obj,
+  [role.toLowerCase()]: buildRole(role),
+}), {});
+export const roles = {
+  is: {
+    ...allRolesAvailable,
+  },
+};

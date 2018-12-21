@@ -1,10 +1,8 @@
 export { directives, DIRECTIVES } from './_directives';
 export { attachDirectives } from './_attach-schema';
 export {
-  canReadProfile,
-  canReadComments,
-  isAdmin,
-  isUser,
+  roles,
+  permissions,
 } from './_constraints';
 
 // TODO: Switch to attachDirectiveResolvers when it becomes a thing

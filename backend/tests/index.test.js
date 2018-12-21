@@ -2,7 +2,7 @@ import { tester } from 'graphql-tester';
 import decode from 'jwt-decode';
 import { SERVER } from '../src/config';
 // import { to, asyncArray } from '../src/utils';
-import { ERROR, UNAUTHORIZED } from '../src/environment';
+import { ERROR, UNAUTHORIZED, FORBIDDEN, NOT_ALLOWED } from '../src/environment';
 
 
 const {
@@ -28,6 +28,19 @@ const privateAuthQuery = `
     _checkAuth
   }
 `;
+
+const testPermissionsQuery = {
+  hasRole: `
+    query testPermissions {
+      testPermissionsHasRole
+    }
+  `,
+  isAllowed: `
+    query testPermissions {
+      testPermissionsIsAllowed
+    }
+  `,
+};
 
 // USERS
 describe('A user', function () {
@@ -82,7 +95,7 @@ describe('A user', function () {
         expect(res.errors[0].message).toBe(ERROR.USER.WRONG_PASSWORD);
         done();
       })
-      .catch(err => {
+      .catch((err) => {
         expect(err).toBe(null);
         done();
       });
@@ -107,15 +120,15 @@ describe('A user', function () {
         const { data: { login = null } = {} } = res;
         expect(typeof login).toBe('string');
         const tokens = login.includes('token') && login.includes('refreshToken');
-        expect(tokens).toBe(true)
+        expect(tokens).toBe(true);
         const { token } = JSON.parse(login);
-        const decodedToken = decode(token)
-        const { user: { roles, permissions } = {}} = decodedToken
-        expect(Array.isArray(permissions)).toBe(true)
-        expect(Array.isArray(roles)).toBe(true)
-        expect(roles).toHaveLength(2)
-        const rightRoles = roles.includes('ADMIN') && roles.includes('USER')
-        expect(rightRoles).toBe(true)
+        const decodedToken = decode(token);
+        const { user: { roles, permissions } = {} } = decodedToken;
+        expect(Array.isArray(permissions)).toBe(true);
+        expect(Array.isArray(roles)).toBe(true);
+        expect(roles).toHaveLength(2);
+        const rightRoles = roles.includes('ADMIN') && roles.includes('USER');
+        expect(rightRoles).toBe(true);
         done();
       })
       .catch((err) => {
@@ -138,7 +151,7 @@ describe('A user', function () {
         expect(test).toBe('Server is up and running... working smoothly');
         done();
       })
-      .catch(err => {
+      .catch((err) => {
         expect(err).toBe(null);
         done();
       });
@@ -153,13 +166,56 @@ describe('A user', function () {
       )
       .then((res) => {
         expect(res.status).toBe(200);
-        expect(res.success).toBe(true);
+        expect(res.success).toBe(false);
         const { errors } = res;
         expect(Array.isArray(errors)).toBe(true);
         expect(res.errors[0].message).toBe(UNAUTHORIZED);
         done();
       })
-      .catch(err => {
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+  it('should be NOT have permissions with hasRole', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: testPermissionsQuery.hasRole,
+        }),
+        { jar: true },
+      )
+      .then((res) => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(false);
+        const { errors } = res;
+        expect(Array.isArray(errors)).toBe(true);
+        expect(res.errors[0].message).toBe(FORBIDDEN);
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+  it('should be NOT have permissions with isAllowed', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: testPermissionsQuery.isAllowed,
+        }),
+        { jar: true },
+      )
+      .then((res) => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(false);
+        const { errors } = res;
+        expect(Array.isArray(errors)).toBe(true);
+        expect(res.errors[0].message).toBe(NOT_ALLOWED);
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
         done();
       });
   });

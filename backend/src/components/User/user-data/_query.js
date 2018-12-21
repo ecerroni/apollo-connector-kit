@@ -1,9 +1,8 @@
 import { mockUsers } from '~/mocks';
-import { canReadProfile } from '~/directives';
 
 export const queryTypes = `
   type Query {
-    _currentUser: User  @${canReadProfile}
+    _currentUser: User
   }`;
 
 export const queryResolvers = {

@@ -1,26 +1,21 @@
-import { ForbiddenError } from 'apollo-server-express';
-import { FORBIDDEN } from '~/environment';
 import { DIRECTIVES } from './_directives';
 
 export const directiveResolvers = {
-  [DIRECTIVES.IS_ALLOWED.FUNC_NAME](result, source, args, context) {
-    const expectedScopes = args[DIRECTIVES.IS_ALLOWED.SCOPE];
-
+  [DIRECTIVES.IS_ALLOWED.FUNC_NAME]({ expectedScopes, context }) {
     const scopes = context.user
       && context.user.permissions;
     if (scopes && expectedScopes.some(scope => scopes.indexOf(scope) !== -1)) {
-      return result;
+      return true;
     }
-    // throw Error(FORBIDDEN);
-    return null; // if scope is not allowed return null instead of 403
+    return false;
   },
-  [DIRECTIVES.HAS_ROLE.FUNC_NAME](result, source, args, context) {
-    const expectedRoles = args[DIRECTIVES.HAS_ROLE.SCOPE];
+  [DIRECTIVES.HAS_ROLE.FUNC_NAME]({ expectedScopes, context }) {
+    const expectedRoles = expectedScopes;
     const roles = context.user
       && context.user.roles;
     if (roles && expectedRoles.some(role => roles.indexOf(role) !== -1)) {
-      return result;
+      return true;
     }
-    throw new ForbiddenError(FORBIDDEN);
+    return false;
   },
 };

@@ -11,7 +11,8 @@
     "HTTP_ONLY": "HTTP_ONLY",
     "LOCAL_STORAGE": "LOCAL_STORAGE",
     "FORBIDDEN": "Forbidden",
-    "UNAUTHORIZED": "Unauthorized!"
+    "UNAUTHORIZED": "Unauthorized!",
+    "NOT_ALLOWED": "Not allowed"
   },
   "STRATEGIES": {
     "HTTP_ONLY": true,
