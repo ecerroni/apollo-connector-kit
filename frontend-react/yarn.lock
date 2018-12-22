@@ -4167,6 +4167,13 @@ jest-environment-node@^20.0.3:
 jest-haste-map@^20.0.4:
   version "20.0.5"
   resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-20.0.5.tgz#abad74efb1a005974a7b6517e11010709cab9112"
+  dependencies:
+    fb-watchman "^2.0.0"
+    graceful-fs "^4.1.11"
+    jest-docblock "^20.0.3"
+    micromatch "^2.3.11"
+    sane "~1.6.0"
+    worker-farm "^1.3.1"
 
 jest-jasmine2@^20.0.4:
   version "20.0.4"
@@ -5391,6 +5398,8 @@ postcss-discard-duplicates@^2.0.1:
 postcss-discard-empty@^2.0.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/postcss-discard-empty/-/postcss-discard-empty-2.1.0.tgz#d2b4bd9d5ced5ebd8dcade7640c7d7cd7f4f92b5"
+  dependencies:
+    postcss "^5.0.14"
 
 postcss-discard-overridden@^0.1.1:
   version "0.1.1"
@@ -5865,6 +5874,13 @@ react-app-rewired@1.4.1:
   dependencies:
     cross-spawn "^5.1.0"
     dotenv "^4.0.0"
+
+react-delay-render@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-delay-render/-/react-delay-render-0.1.2.tgz#f771003044a3772e8ff11084577633e34f3e9a6f"
+  integrity sha512-OB+by1CMwakv8OHl3qvInb6ReA1NydI1AEKNaESMRVJnmfylolH5S4m1nZV65yVqBfZLEwjx33L3J4YTM1p0oA==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-dev-utils@^5.0.0:
   version "5.0.0"
