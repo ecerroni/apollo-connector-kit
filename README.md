@@ -1,10 +1,13 @@
 # APOLLO CONNECTOR KIT
+
+[![Build Status](https://img.shields.io/travis/ecerroni/apollo-connector-kit/master.svg?style=flat-square)](https://travis-ci.org/ecerroni/apollo-connector-kit) [![Coverage Status](https://img.shields.io/codecov/c/github/ecerroni/apollo-connector-kit/master.svg?style=flat-square)](https://codecov.io/gh/ecerroni/apollo-connector-kit/branch/master)
+
 Boilerplate for Apollo authentication/authorization
 
 ![demo](./apollo-connector-kit.gif "Apollo Connector Kit")
 
 Ecosystem:
-- Apollo Server (with Express)
+- Apollo 2 Server (with Express)
 - Apollo Client 2.0
 - Vue.js (frontend web client)
 - React (frontend web client)
@@ -168,9 +171,6 @@ throw errors (for example adding/deleting components manually),
 [Medium post](https://blog.mvp-space.com/authentication-and-authorization-boilerplate-with-apollo-2-0-b77042aba3f6)
 
 ## TODO:
-- add graphql-tester package and initial tests
-- Swap ElementUI with KeenUI (if is it worth)
-
 
 
 ## Thanks To
