@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-
+/* eslint-disable no-underscore-dangle */
 import {
   UserData,
 } from './_fragments';
