@@ -23,7 +23,8 @@ export const attachDirectives = (schema) => {
         const args = getArgumentValues(Directive, directive);
         field.resolve = async function resolve() {
           const [source, _, context, info] = arguments;
-          if (!directiveResolvers[directiveName]({ expectedScopes, context })) {
+          const { user } = context;
+          if (user && !directiveResolvers[directiveName]({ expectedScopes, context })) {
             switch (directiveName) {
               case DIRECTIVES.HAS_ROLE.FUNC_NAME:
                 throw Error(FORBIDDEN); // this will redirect the client
