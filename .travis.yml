@@ -7,7 +7,7 @@ node_js:
 install:
   - cd backend && npm install && cd ..
 script:
-  - cd backend && yarn serve-testing && yarn test --coverage
+  - cd backend && yarn test --coverage
 cache:
   - yarn
 after_success:
