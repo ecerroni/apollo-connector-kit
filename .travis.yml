@@ -8,6 +8,7 @@ install:
   - cd backend && npm install && cd ..
 before_script:
   - yarn start-dev-apollo &
+  - sleep 5
 script:
   - cd backend && yarn test-travis --coverage
 cache:
