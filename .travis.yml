@@ -6,8 +6,10 @@ node_js:
   - v8
 install:
   - cd backend && npm install && cd ..
+before_script:
+  - yarn start-dev-apollo &
 script:
-  - cd backend && yarn test --coverage
+  - cd backend && yarn test-travis --coverage
 cache:
   - yarn
 after_success:
