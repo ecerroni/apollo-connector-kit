@@ -16,7 +16,6 @@ export const attachDirectives = (schema) => {
       if (!expectedScopes || (expectedScopes && expectedScopes.length < 1)) throw Error('A custom directive constraint not recognized. Please check the correctness of its name');
 
       const resolver = directiveResolvers[directiveName];
-
       if (resolver) {
         const originalResolve = field.resolve;
         const Directive = schema.getDirective(directiveName);
@@ -24,12 +23,19 @@ export const attachDirectives = (schema) => {
         field.resolve = async function resolve() {
           const [source, _, context, info] = arguments;
           const { user } = context;
+          let mutateField = false;
           if (user && !directiveResolvers[directiveName]({ expectedScopes, context })) {
             switch (directiveName) {
               case DIRECTIVES.HAS_ROLE.FUNC_NAME:
-                throw Error(FORBIDDEN); // this will redirect the client
+                if (info && info.parentType && info.parentType.toString() !== 'Query' && info.parentType.toString() !== 'Mutation') {
+                  mutateField = true;
+                  break;
+                } else throw Error(FORBIDDEN); // this will redirect the client but only for Query and Mutation
               case DIRECTIVES.IS_ALLOWED.FUNC_NAME:
-                throw Error(NOT_ALLOWED); // this will NOT redirect the client
+                if (info && info.parentType && info.parentType.toString() !== 'Query' && info.parentType.toString() !== 'Mutation') {
+                  mutateField = true;
+                  break;
+                } else throw Error(NOT_ALLOWED); // this will NOT redirect the client but only for Query and Mutation
               default:
                 throw Error(FORBIDDEN); // this will redirect the client
             }
@@ -40,6 +46,10 @@ export const attachDirectives = (schema) => {
             promise = Promise.resolve(promise);
           }
           const result = originalResolve ? await promise : source[field.name];
+
+          if (mutateField) {
+            return null; // if the permission is set on a field we just want to null the field. No errors should be thrown
+          }
           return result;
         };
       }

@@ -3,6 +3,7 @@ import { mockUsers } from '~/mocks';
 export const queryTypes = `
   type Query {
     _currentUser: User
+    users: [User]
   }`;
 
 export const queryResolvers = {
@@ -14,5 +15,6 @@ export const queryResolvers = {
         : undefined;
       return user;
     },
+    users: () => mockUsers,
   },
 };

@@ -2984,10 +2984,10 @@ graphql-tag@^2.9.2:
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.0.tgz#87da024be863e357551b2b8700e496ee2d4353ae"
   integrity sha512-9FD6cw976TLLf9WYIUPCaaTpniawIjHWZSwIRZSjrfufJamcXbVVYfN2TWvJYbw0Xf2JjYbl1/f2+wDnBVw3/w==
 
-graphql-tester@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/graphql-tester/-/graphql-tester-0.0.5.tgz#570c2f114c319ac1389c4312796db39d5223af65"
-  integrity sha1-VwwvEUwxmsE4nEMSeW2znVIjr2U=
+graphql-tester-options@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/graphql-tester-options/-/graphql-tester-options-0.0.6.tgz#b589f7ad319e287976e6490adc3e9f6cdcdd4127"
+  integrity sha512-Czuc6xg5aAqK6Oib4Fb/oCh205DIkTpLtigwADpg7vI6a20QxujLY49jEtaNzbL7HXG9gBEgwEFdI1y8HGjA+Q==
   dependencies:
     freeport "^1.0.5"
     request "^2.69.0"

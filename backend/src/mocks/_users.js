@@ -18,7 +18,7 @@ export const mockUsers = [
     ],
     permissions: [
       ...ROLES_PERMISSIONS.ADMIN.PERMISSIONS[SCOPES.OPERATION.READ].map(permission =>
-       `${SCOPES.OPERATION.READ}:${permission}`),
+        `${SCOPES.OPERATION.READ}_${permission}`),
       ...ROLES_PERMISSIONS.USER.PERMISSIONS[SCOPES.OPERATION.READ].map(permission => `${SCOPES.OPERATION.READ}:${permission}`),
     ],
   },
@@ -33,7 +33,7 @@ export const mockUsers = [
     ],
     permissions: [
       ...ROLES_PERMISSIONS.USER.PERMISSIONS[SCOPES.OPERATION.READ].map(permission =>
-        `${SCOPES.OPERATION.READ}:${permission}`),
+        `${SCOPES.OPERATION.READ}_${permission}`),
     ],
   },
 ];
