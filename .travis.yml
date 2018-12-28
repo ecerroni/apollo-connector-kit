@@ -4,9 +4,10 @@ notifications:
   email: false
 node_js:
   - v8
+install:
+  - cd backend && npm install & cd ..
 script:
-  - yarn lint
-  - yarn test --coverage
+  - cd backend && yarn serve-testing && yarn test --coverage
 cache:
   - yarn
 after_success:

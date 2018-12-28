@@ -13,7 +13,7 @@
     "serve-staging": "NODE_ENV=staging node ./server.js",
     "serve-production": "NODE_ENV=production node ./server.js",
     "serve-testing": "yarn start",
-    "test": "jest --watch"
+    "test": "jest"
   },
   "author": "",
   "devDependencies": {
