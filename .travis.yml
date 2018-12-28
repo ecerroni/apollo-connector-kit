@@ -5,7 +5,7 @@ notifications:
 node_js:
   - v8
 install:
-  - cd backend && npm install & cd ..
+  - cd backend && npm install && cd ..
 script:
   - cd backend && yarn serve-testing && yarn test --coverage
 cache:
