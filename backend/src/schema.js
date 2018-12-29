@@ -3,11 +3,9 @@ import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import OKGGraphQLScalars from '@okgrow/graphql-scalars'; // eslint-disable-line
 import mapValues from 'lodash.mapvalues';
 import components from '~/components';
-import QUERY_SETTINGS from '$/settings/queries.json';
 import { UNAUTHORIZED } from '~/environment';
+import { isPrivateOperation } from '~/utils';
 import { directives, attachDirectives } from '~/directives';
-
-const { PRIVATE_PREFIX } = QUERY_SETTINGS;
 
 // Add more okgrow/graphql-scalars if you need
 const oKGGraphQLScalars = `
@@ -22,7 +20,7 @@ const typeDefs = mergeTypes([
   ...components.types,
 ]);
 
-/************* PROTECTING YOUR QUERIES/MUTATIONS ***************/
+/************* PROTECTING YOUR QUERIES/MUTATIONS ************** */
 
 const authenticated = resolver => (parent, args, context, info) => {
   // console.log('context user', context.user);
@@ -43,17 +41,16 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
   mapValues(resolver, (item) => {
     if (type !== 'Mutation' && type !== 'Query') return item; // skip type resolvers
     const { name = '' } = item;
-    const isPrivate = name.substring(0, PRIVATE_PREFIX.length) === PRIVATE_PREFIX;
+    const isPrivate = isPrivateOperation(name);
     if (isPrivate) return authenticated(item);
     if (process.env.NODE_ENV === 'testing') { // skip auth for graphql-tester
       return item;
     }
     return item;
-  }),
-);
+  }),);
 
 
-/***************************************************/
+/** *************************************************/
 
 export const schema = makeExecutableSchema({
   typeDefs,
@@ -64,7 +61,7 @@ export const schema = makeExecutableSchema({
 // The following code is needed since schemas built with makeExecutableSchema (or other client tools)
 // do not have handler functions for serialize, parseValue, and parseLiteral bound.
 // ref: https://stackoverflow.com/a/47827818
-Object.keys(OKGGraphQLScalars).forEach(key => {
+Object.keys(OKGGraphQLScalars).forEach((key) => {
   // eslint-disable-next-line no-underscore-dangle
   if (schema._typeMap[key]) {
     Object.assign(schema._typeMap[key], OKGGraphQLScalars[key]); // eslint-disable-line no-underscore-dangle

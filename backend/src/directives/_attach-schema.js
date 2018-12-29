@@ -3,6 +3,7 @@ import { getArgumentValues } from 'graphql/execution/values';
 import { directiveResolvers } from './_resolvers';
 import { DIRECTIVES } from './_directives';
 import { FORBIDDEN, NOT_ALLOWED } from '~/environment';
+import { isPrivateOperation } from '~/utils';
 
 // Credit: agonbina https://github.com/apollographql/graphql-tools/issues/212
 // Credit: chenkie https://github.com/graphql-auth/blob/master/directives/index.js
@@ -23,19 +24,18 @@ export const attachDirectives = (schema) => {
         field.resolve = async function resolve() {
           const [source, _, context, info] = arguments;
           const { user } = context;
-          let mutateField = false;
-          if (user && !directiveResolvers[directiveName]({ expectedScopes, context })) {
+          const isPrivate = isPrivateOperation(info.fieldName);
+          const process = isPrivate && user || !isPrivate;
+          if (process && !directiveResolvers[directiveName]({ expectedScopes, context })) {
             switch (directiveName) {
               case DIRECTIVES.HAS_ROLE.FUNC_NAME:
                 if (info && info.parentType && info.parentType.toString() !== 'Query' && info.parentType.toString() !== 'Mutation') {
-                  mutateField = true;
-                  break;
-                } else throw Error(FORBIDDEN); // this will redirect the client but only for Query and Mutation
+                  return null; // if the permission is set on a field we just want to null the field. No errors should be thrown
+                } throw Error(FORBIDDEN); // this will redirect the client but only for Query and Mutation
               case DIRECTIVES.IS_ALLOWED.FUNC_NAME:
                 if (info && info.parentType && info.parentType.toString() !== 'Query' && info.parentType.toString() !== 'Mutation') {
-                  mutateField = true;
-                  break;
-                } else throw Error(NOT_ALLOWED); // this will NOT redirect the client but only for Query and Mutation
+                  return null; // if the permission is set on a field we just want to null the field. No errors should be thrown
+                } throw Error(NOT_ALLOWED); // this will NOT redirect the client but only for Query and Mutation
               default:
                 throw Error(FORBIDDEN); // this will redirect the client
             }
@@ -47,9 +47,6 @@ export const attachDirectives = (schema) => {
           }
           const result = originalResolve ? await promise : source[field.name];
 
-          if (mutateField) {
-            return null; // if the permission is set on a field we just want to null the field. No errors should be thrown
-          }
           return result;
         };
       }

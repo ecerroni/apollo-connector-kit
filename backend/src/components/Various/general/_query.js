@@ -9,7 +9,7 @@ export const queryTypes = `
   type Query {
     test: String
     connection: String!
-    _checkAuth: String
+    _checkAuth: String @${roles.is.user}
     testPermissionsHasRole: String @${roles.is.admin}
     testPermissionsIsAllowed: String @${permissions.can.read.profile}
   }
