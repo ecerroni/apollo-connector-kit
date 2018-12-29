@@ -35,6 +35,12 @@ const testPermissionsQuery = {
   `,
 };
 
+const privateAuthQuery = `
+  query _checkAuth {
+    _checkAuth
+  }
+`;
+
 let sharedToken;
 let sharedRefreshToken;
 let sharedRestrictedToken;
@@ -275,6 +281,32 @@ describe('A user', function () {
         const { errors } = res;
         expect(Array.isArray(errors)).toBe(true);
         expect(res.errors[0].message).toBe(NOT_ALLOWED);
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+  it('should NOT be allowed to call private queries [Return FOIRBIDDEN]', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: privateAuthQuery,
+        }),
+        {
+          jar: true,
+          headers: {
+            'Content-Type': 'application/json', 'x-connector-auth-request-type': 'LOCAL_STORAGE', 'x-connector-token': sharedRestrictedToken, 'x-connector-refresh-token': sharedRestrictedRefreshToken,
+          },
+        },
+      )
+      .then((res) => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(false);
+        const { errors } = res;
+        expect(Array.isArray(errors)).toBe(true);
+        expect(res.errors[0].message).toBe(FORBIDDEN);
         done();
       })
       .catch((err) => {

@@ -86,7 +86,6 @@ describe('A user', function () {
         },
       )
       .then((res) => {
-        console.log(res);
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
         done();
