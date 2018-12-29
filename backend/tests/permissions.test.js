@@ -54,7 +54,7 @@ describe('A user', function () {
           query: loginQuery,
           variables: {
             userCredentials: {
-              username: 'ric0',
+              username: 'rico',
               password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', // 'this 123456' hashed
             },
           },
@@ -85,7 +85,7 @@ describe('A user', function () {
           query: loginQuery,
           variables: {
             userCredentials: {
-              username: 'kris',
+              username: 'george',
               password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', // 'this 123456' hashed
             },
           },
@@ -234,7 +234,7 @@ describe('A user', function () {
         done();
       });
   });
-  it('should NOT have permissions with isAllowed on Field [Reurn null for the field]', (done) => {
+  it('should NOT have permissions with isAllowed on Field [Reutrn null for the field]', (done) => {
     this
       .test(
         JSON.stringify({
@@ -252,6 +252,29 @@ describe('A user', function () {
         expect(res.success).toBe(true);
         expect(res.data.users).toHaveLength(2);
         expect(res.data.users.filter(u => !!u.email)).toHaveLength(0);
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+  it('should NOT have permissions with isAllowed if not logged in at all', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: testPermissionsQuery.isAllowed,
+        }),
+        {
+          jar: true,
+        },
+      )
+      .then((res) => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(false);
+        const { errors } = res;
+        expect(Array.isArray(errors)).toBe(true);
+        expect(res.errors[0].message).toBe(NOT_ALLOWED);
         done();
       })
       .catch((err) => {

@@ -1,8 +1,8 @@
 import { roles, permissions } from '~/directives';
 
 // right after cloning the repo
-// roles.is.admin ---> only user ric0 is allowed
-// permissions.can.read.profile ---> both users ric0 and kris are allowed
+// roles.is.admin ---> only user rico is allowed
+// permissions.can.read.profile ---> both users rico and george are allowed
 
 
 export const queryTypes = `

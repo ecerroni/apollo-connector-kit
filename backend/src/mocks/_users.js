@@ -9,7 +9,7 @@ export const mockUsers = [
   {
     id: 1,
     name: 'Enrico',
-    username: 'ric0',
+    username: 'rico',
     email: 'admin@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna', // this is === 123456
     roles: [
@@ -24,8 +24,8 @@ export const mockUsers = [
   },
   {
     id: 2,
-    name: 'Kris',
-    username: 'kris',
+    name: 'George',
+    username: 'george',
     email: 'test@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
     roles: [

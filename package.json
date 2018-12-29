@@ -4,7 +4,7 @@
   "description": "Mono repo for EURES newsletter manager",
   "private": true,
   "license": "ISC",
-  "author": "Waat <enrico@waat.eu>",
+  "author": "ric0 <rico@enricocerroni.com>",
   "devDependencies": {
     "concurrently": "^4.1.0"
   },

@@ -56,7 +56,7 @@ There are 2 mock users:
 
 [Admin role]
 
-username: ric0
+username: rico
 
 password: 123456
 
@@ -64,7 +64,7 @@ password: 123456
 
 [Limited permissions role]
 
-username: kris
+username: george
 
 password: 123456
 
@@ -166,6 +166,8 @@ Moreover if the folder named `User` has no more sub-part it will be deleted by t
 Otherwise the server/nodemon may not immediately pick up changes in components' structure and even
 throw errors (for example adding/deleting components manually),
 
+## Related projects:
+[Apollo Cache Updater](https://github.com/ecerroni/apollo-cache-updater)
 
 ## Additional:
 [Medium post](https://blog.mvp-space.com/authentication-and-authorization-boilerplate-with-apollo-2-0-b77042aba3f6)
