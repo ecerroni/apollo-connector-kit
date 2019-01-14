@@ -12,6 +12,7 @@ build/
 
 /env/.env.staging
 /env/.env.production
+/env/.env
 
 npm-debug.log*
 yarn-debug.log*

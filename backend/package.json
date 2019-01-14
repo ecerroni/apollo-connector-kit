@@ -4,9 +4,8 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "start": "bash start.sh",
+    "start": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- nodemon ./src/server.js --exec babel-node -r 'node_modules/dotenv/config' -e js",
     "start-docker": "bash start-docker.sh",
-    "launch": "nodemon ./src/server.js --exec babel-node -e js",
     "add-component-part": "cd ./src/scripts && bash create-graphql-component.sh",
     "remove-component-part": "cd ./src/scripts && bash delete-graphql-component.sh",
     "build": "babel -d ./build ./src -s",
@@ -28,6 +27,7 @@
     "babel-jest": "^23.4.2",
     "babel-plugin-bulk-import": "ecerroni/babel-plugin-bulk-import#patch-1",
     "babel-plugin-root-import": "6.1.0",
+    "dotenv": "6.2.0",
     "eslint": "4.18.1",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-friendly-formatter": "3.0.0",
@@ -54,6 +54,7 @@
     "graphql-tools": "4.0.3",
     "jsonwebtoken": "8.1.1",
     "lodash.mapvalues": "4.6.0",
+    "lookenv": "1.0.1",
     "merge-graphql-schemas": "^1.5.7"
   },
   "license": "MIT"
