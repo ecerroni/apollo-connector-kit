@@ -4,9 +4,8 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "start": "bash start.sh",
+    "start": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- nodemon ./src/server.js --exec babel-node -r 'node_modules/dotenv/config' -e js",
     "start-docker": "bash start-docker.sh",
-    "launch": "nodemon ./src/server.js --exec babel-node -e js",
     "add-component-part": "cd ./src/scripts && bash create-graphql-component.sh",
     "remove-component-part": "cd ./src/scripts && bash delete-graphql-component.sh",
     "build": "babel -d ./build ./src -s",
@@ -20,12 +19,15 @@
   "devDependencies": {
     "@babel/cli": "7.2.3",
     "@babel/core": "7.2.2",
-    "babel-plugin-bulk-import": "1.0.2",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-async-generator-functions": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-jest": "^23.4.2",
+    "babel-plugin-bulk-import": "ecerroni/babel-plugin-bulk-import#patch-1",
     "babel-plugin-root-import": "6.1.0",
-    "babel-plugin-transform-async-generator-functions": "6.24.1",
-    "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-plugin-transform-runtime": "6.23.0",
-    "babel-preset-env": "1.7.0",
+    "dotenv": "6.2.0",
     "eslint": "4.18.1",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-friendly-formatter": "3.0.0",
@@ -38,6 +40,7 @@
     "nodemon": "1.18.7"
   },
   "dependencies": {
+    "@babel/runtime": "7.2.0",
     "@okgrow/graphql-scalars": "^0.4.2",
     "apollo-server-express": "2.1.0",
     "apollo-server-module-operation-store": "1.3.2",
@@ -51,6 +54,7 @@
     "graphql-tools": "4.0.3",
     "jsonwebtoken": "8.1.1",
     "lodash.mapvalues": "4.6.0",
+    "lookenv": "1.0.1",
     "merge-graphql-schemas": "^1.5.7"
   },
   "license": "MIT"
