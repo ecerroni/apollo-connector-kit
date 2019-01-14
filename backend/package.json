@@ -10,10 +10,10 @@
     "remove-component-part": "cd ./src/scripts && bash delete-graphql-component.sh",
     "build": "babel -d ./build ./src -s",
     "serve-staging": "NODE_ENV=staging node ./server.js",
-    "serve-production": "NODE_ENV=production node ./server.js",
-    "serve-testing": "yarn start",
-    "test": "yarn serve-testing && wait %1 & jest",
-    "test-travis": "jest"
+    "serve-production": "NODE_ENV=production node -r 'node_modules/dotenv/config' ./server.js",
+    "serve-testing": "babel-node ./src/server.js",
+    "start-jest": "jest",
+    "test": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- yarn start-test serve-testing 3000 start-jest"
   },
   "author": "",
   "devDependencies": {
@@ -24,7 +24,8 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
-    "babel-jest": "^23.4.2",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
     "babel-plugin-bulk-import": "ecerroni/babel-plugin-bulk-import#patch-1",
     "babel-plugin-root-import": "6.1.0",
     "dotenv": "6.2.0",
@@ -37,7 +38,8 @@
     "graphql-tester-options": "0.0.6",
     "jest": "23.6.0",
     "jwt-decode": "2.2.0",
-    "nodemon": "1.18.7"
+    "nodemon": "1.18.7",
+    "start-server-and-test": "1.7.11"
   },
   "dependencies": {
     "@babel/runtime": "7.2.0",
