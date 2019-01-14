@@ -1,19 +1,29 @@
 {
-  "presets": ["env"],
+  "presets": [
+    "@babel/preset-env"
+  ],
   "plugins": [
-    ["babel-plugin-bulk-import"],
-    ["babel-plugin-root-import", [{
-      "rootPathPrefix": "~",
-      "rootPathSuffix": "./src"
-    }, {
-      "rootPathPrefix": "#",
-      "rootPathSuffix": "./"
-    }, {
-      "rootPathPrefix": "$",
-      "rootPathSuffix": "../" // since we suport relative paths you can also go into a parent directory
-    }]],
-    "babel-plugin-transform-runtime",
-    "babel-plugin-transform-async-generator-functions",
-    "babel-plugin-transform-object-rest-spread"
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-async-generator-functions",
+    "@babel/plugin-proposal-object-rest-spread",
+    [
+      "babel-plugin-bulk-import"
+    ],
+    [
+      "babel-plugin-root-import", {
+      "paths": [{
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "./src"
+        },
+        {
+          "rootPathPrefix": "#",
+          "rootPathSuffix": "./"
+        },
+        {
+          "rootPathPrefix": "$",
+          "rootPathSuffix": "../"
+        }
+      ]}
+    ]
   ]
 }
