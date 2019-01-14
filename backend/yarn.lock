@@ -1295,10 +1295,9 @@ babel-messages@^6.23.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-bulk-import@1.0.2:
+babel-plugin-bulk-import@ecerroni/babel-plugin-bulk-import#patch-1:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-bulk-import/-/babel-plugin-bulk-import-1.0.2.tgz#503565129d8b4c0312ee73a92ba102eb7c98e1ab"
-  integrity sha1-UDVlEp2LTAMS7nOpK6EC63yY4as=
+  resolved "https://codeload.github.com/ecerroni/babel-plugin-bulk-import/tar.gz/6e6fe0bcd2eae9c8e7c93d2cf1854fcca3b4f3e8"
 
 babel-plugin-istanbul@^4.1.6:
   version "4.1.6"
