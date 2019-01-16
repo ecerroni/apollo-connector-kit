@@ -1,4 +1,6 @@
 {
   "WHITELISTED_QUERIES": false,
-  "PRIVATE_PREFIX": "_"
+  "PRIVATE_PREFIX": "_",
+  "LOGIN_RESOLVERS": ["login", "register"],
+  "LOGOUT_RESOLVERS": ["logout"]
 }

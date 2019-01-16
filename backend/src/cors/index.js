@@ -14,9 +14,7 @@ const corsOptions = {
     const originIsWhitelisted = originWhitelist.indexOf(origin) !== -1;
     callback(null, originIsWhitelisted);
   },
-  exposedHeaders: [ // Expose the headers that the JS client needs to access
-    ...Object.keys(JWT.HEADER).map(h => JWT.HEADER[h].name).join(','),
-  ],
+  exposedHeaders: Object.keys(JWT.HEADER).map(h => JWT.HEADER[h].NAME).join(','), // Expose the headers that the JS client needs to access
   credentials: false, // Set true if response to preflight request doesn't pass access control check
 };
 

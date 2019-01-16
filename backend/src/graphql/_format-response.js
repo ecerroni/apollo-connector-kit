@@ -1,10 +1,10 @@
 import { selectAuthStrategy } from '~/authentication';
-import { AUTH } from '~/config';
+import QUERIES from '$/settings/queries.json';
 import { setCookies, setHeaders, unsetCookies } from '~/authentication';
 
 // TODO: MOVE THEM TO ENUMS OR CONFIG
-const login = ['login', 'publicRegister'];
-const logout = 'logout';
+const login = QUERIES.LOGIN_RESOLVERS;
+const logout = QUERIES.LOGOUT_RESOLVERS;
 
 export const formatResponse = ({ response, query }) => {
   const { context } = query;
@@ -12,7 +12,7 @@ export const formatResponse = ({ response, query }) => {
   const { data } = response;
   const { headers = {} } = request;
   const operationName = data && Object.keys(data)[0];
-  if (operationName && operationName === logout) {
+  if (operationName && logout.includes(operationName)) {
     const [httpOnly] = selectAuthStrategy(headers);
     if (httpOnly) {
       unsetCookies(res);
