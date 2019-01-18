@@ -5,7 +5,7 @@ import { User } from '~/models';
 const verifyToken = async (token, secret, addSecurityChecks = {}) => new Promise(resolve =>
   jwt.verify(token, secret, { ...addSecurityChecks }, (err, result) => {
     if (err) {
-      console.log('VERIFY: JWT ERROR: ', err.message)
+      console.log('VERIFY: JWT ERROR: ', err.message);
       resolve({
         ok: false,
         user: err,
@@ -16,8 +16,7 @@ const verifyToken = async (token, secret, addSecurityChecks = {}) => new Promise
         user: result.user,
       });
     }
-  }),
-);
+  }));
 
 const signToken = async (user, secret, expiration = 60 * 60, additionalClaims = {}) => new Promise(resolve =>
   jwt.sign(
@@ -27,17 +26,18 @@ const signToken = async (user, secret, expiration = 60 * 60, additionalClaims = 
       expiresIn: expiration,
       ...additionalClaims,
     }, (err, result) => {
-    if (err) {
-      console.log('SIGN: JWT ERROR: ', err.message)
-    } else {
-      resolve(result);
-    }
-  }),
-);
+      if (err) {
+        console.log('SIGN: JWT ERROR: ', err.message);
+        resolve(undefined);
+      } else {
+        resolve(result);
+      }
+    },
+  ));
 
 export const createTokens = async (data, additionalClaims = {}) => {
   const {
-    user,
+    user = {},
     refreshTokenSecret = AUTH.SECRET_REFRESH_TOKEN,
   } = data;
   const createToken = await signToken(user, AUTH.SECRET_TOKEN, JWT.HEADER.TOKEN.EXP, additionalClaims);
@@ -51,12 +51,11 @@ export const createTokens = async (data, additionalClaims = {}) => {
 // TODO: CONSIDER ALSO OTHER STRATEGIES FOR REVOKING TOKEN BESIDES CONCATENATING USER'S PASSWORD
 // TO THE REFRESH SECRET
 export const refreshTokens = async (refreshToken) => {
-
   const addSecurityChecks = {};
 
   let userId = 0;
   try {
-    const { user: { id } } = jwt.decode(refreshToken);
+    const { user: { id } = {} } = jwt.decode(refreshToken);
     userId = id;
   } catch (err) {
     return {};
