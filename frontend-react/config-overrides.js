@@ -1,4 +1,8 @@
 const { injectBabelPlugin } = require('react-app-rewired');
+const {
+  override,
+  addBabelPlugins,
+} = require("customize-cra");
 const APP = require('../settings/app.json');
 
 const { ENDPOINT: { HOST, PORT, PROTOCOL } } = APP;
@@ -13,20 +17,5 @@ const rootImport = ['root-import', {
 
 
 module.exports = {
-  webpack: function override(config, env) {
-    config = injectBabelPlugin("styled-jsx/babel", config);
-    config = injectBabelPlugin(rootImport, config);
-    return config;
-  },
-  devServer: function(configFunction) {
-    return function(proxy, allowedHost) {
-      const config = configFunction(proxy, allowedHost);
-      config.proxy.forEach(p => {
-        if (p.target === 'graphql') {
-          p.target = `${PROTOCOL}://${HOST}:${PORT}`;
-        }
-      });
-      return config;
-    };
-  }
+  webpack: override(...addBabelPlugins('styled-jsx/babel', rootImport)),
 };
