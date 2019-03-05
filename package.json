@@ -2,8 +2,7 @@
   "name": "apollo-all",
   "version": "0.0.2",
   "description": "Apollo boilerplate with authentication. Works with vue, react and nextjs",
-  "private": true,
-  "license": "ISC",
+  "license": "MIT",
   "author": "ric0 <rico@enricocerroni.com>",
   "devDependencies": {
     "concurrently": "^4.1.0"

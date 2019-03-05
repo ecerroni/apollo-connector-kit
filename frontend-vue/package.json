@@ -1,9 +1,8 @@
 {
   "name": "connector",
   "version": "1.0.0",
-  "description": "apollo-vue connector",
-  "author": "Rico <e.cerroni@gmail.com>",
-  "private": true,
+  "description": "apollo connector",
+  "author": "ric0 <rico@enricocerroni.com>",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
