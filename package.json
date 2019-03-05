@@ -1,7 +1,7 @@
 {
-  "name": "vue-apollo-all",
+  "name": "apollo-all",
   "version": "0.0.2",
-  "description": "Mono repo for EURES newsletter manager",
+  "description": "Apollo boilerplate with authentication. Works with vue, react and nextjs",
   "private": true,
   "license": "ISC",
   "author": "ric0 <rico@enricocerroni.com>",
