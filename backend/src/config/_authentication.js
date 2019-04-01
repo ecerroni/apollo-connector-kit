@@ -1,16 +1,14 @@
-import { WHITELISTED_QUERIES } from './_queries';
 import APP from '$/settings/app.json';
 
 const {
   NAMESPACE = '_',
   STRATEGIES = {},
-  CONSTANTS: { HTTP_ONLY = 'HTTP_ONLY', LOCAL_STORAGE = 'LOCAL_STORAGE'} = {},
+  CONSTANTS: { HTTP_ONLY = 'HTTP_ONLY', LOCAL_STORAGE = 'LOCAL_STORAGE' } = {},
   PREFIX = '-x',
   AUTH_HEADER_SUFFIX = '-auth-request-type',
 } = APP;
 
 const BASE_AUTH = {
-  WHITELISTED_QUERIES,
   STRATEGIES: {
     ...STRATEGIES,
     CLIENT: {

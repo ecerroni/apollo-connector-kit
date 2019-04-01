@@ -34,7 +34,6 @@ const server = new ApolloServer({
   context: ({ res, req }) => buildContext({ res, req }),
   // formatResponse: ({ req, res, context }) => formatResponse(res, { context }, res, req),
   formatError: err => formatError(err),
-  formatParams: params => formatParams(params),
   formatResponse: (response, query) => formatResponse({ response, query }),
 });
 server.applyMiddleware({ app });
