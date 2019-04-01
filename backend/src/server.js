@@ -39,6 +39,13 @@ const errorHandler = (err, req, res, next) => {
 };
 app.use(errorHandler);
 
+app.use(express.json({ limit: SERVER.PAYLOAD.JSON.LIMIT }));
+app.use(express.urlencoded({
+  limit: SERVER.PAYLOAD.URL_ENCODED.LIMIT,
+  parameterLimit: SERVER.PAYLOAD.URL_ENCODED.PARAMTER_LIMIT,
+  extended: true,
+}));
+
 const server = new ApolloServer({
   schema,
   path: SERVER.GRAPHQL,
