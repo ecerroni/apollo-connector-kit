@@ -21,9 +21,6 @@ import { startupMessages, RESPONSE } from '~/environment';
 
 const app = express();
 
-// app.use(enableCors());
-
-
 app.get('/', (req, res) => {
   res.writeHead(200, { Connection: 'close' });
   res.end(RESPONSE.MESSAGES.UP_RUNNING);
@@ -31,6 +28,16 @@ app.get('/', (req, res) => {
 
 
 app.use(handleAuthentication);
+
+// Error handler
+const errorHandler = (err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+  const { status } = err;
+  res.status(status).json(err);
+};
+app.use(errorHandler);
 
 const server = new ApolloServer({
   schema,
