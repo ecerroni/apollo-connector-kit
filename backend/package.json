@@ -53,6 +53,7 @@
     "cors": "2.8.4",
     "express": "4.16.2",
     "graphql": "14.1.1",
+    "graphql-cost-analysis": "1.0.3",
     "graphql-depth-limit": "1.1.0",
     "graphql-input-number": "0.0.10",
     "graphql-input-string": "0.0.16",

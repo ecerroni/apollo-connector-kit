@@ -12,9 +12,9 @@ export const attachDirectives = (schema) => {
     const directives = field.astNode.directives;
     directives.forEach(async (directive) => {
       const directiveName = directive.name.value;
-      const expectedScopes = directive.arguments.reduce((arr, arg) => [...arr, ...arg.value.values.map(v => v.value)], []);
-
-      if (!expectedScopes || (expectedScopes && expectedScopes.length < 1)) throw Error('A custom directive constraint not recognized. Please check the correctness of its name');
+      const expectedScopes = directiveName === 'cost' ? [] : directive.arguments.reduce((arr, arg) => [...arr, ...arg.value.values.map(v => v.value)], []);
+      const isCostDirective = directiveName === 'cost';
+      if ((!expectedScopes && !isCostDirective) || (expectedScopes && expectedScopes.length < 1 && !isCostDirective)) throw Error('A custom (role/permission) directive constraint not recognized. Please check the correctness of its name');
 
       const resolver = directiveResolvers[directiveName];
       if (resolver) {

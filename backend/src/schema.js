@@ -95,5 +95,4 @@ Object.keys(TYPE_CONSTRAINTS).forEach((k) => {
     Object.assign(schema._typeMap[key], TYPE_CONSTRAINTS[k]); // eslint-disable-line no-underscore-dangle
   }
 });
-console.log(schema._typeMap);
 attachDirectives(schema);

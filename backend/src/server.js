@@ -3,7 +3,12 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
-import { SERVER, DEPTH_LIMIT as QUERY_DEPTH_LIMIT } from '~/config';
+import costAnalysis from 'graphql-cost-analysis';
+import {
+  SERVER,
+  DEPTH_LIMIT as QUERY_DEPTH_LIMIT,
+  MAX_COST as QUERY_MAX_COST,
+} from '~/config';
 import { schema } from '~/schema';
 import { handleAuthentication } from '~/authentication';
 import enableCors from '~/cors';
@@ -37,6 +42,10 @@ const server = new ApolloServer({
       // { ignore: [ /_trusted$/, 'idontcare' ] },
       // depths => console.log(depths)
     ),
+    // ref: https://github.com/pa-bru/graphql-cost-analysis
+    costAnalysis({
+      maximumCost: QUERY_MAX_COST,
+    }),
   ],
   formatError: err => formatError(err),
   formatResponse: (response, query) => formatResponse({ response, query }),

@@ -8,6 +8,7 @@ import { roles, permissions } from '~/directives';
 export const queryTypes = `
   type Query {
     test: String
+    expensiveQuery: String @cost (complexity: 10000)
     connection: String!
     _checkAuth: String @${roles.is.admin}
     testPermissionsHasRole: String @${roles.is.admin}
@@ -22,7 +23,7 @@ export const queryTypes = `
 
 export const queryResolvers = {
   Query: {
-    test: (_, { b }) => `Server is up and running... working smoothly ${b}`,
+    test: () => `Server is up and running... working smoothly`,
     connection: () => 'Connected',
     _checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,
     testPermissionsHasRole: () => 'ok role',
