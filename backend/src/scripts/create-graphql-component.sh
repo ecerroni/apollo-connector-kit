@@ -38,7 +38,7 @@ EOF
 cat > _mutation.js <<EOF
 export const mutationTypes = \`
   type Mutation {
-
+    placeholder: String
   }
 \`;
 
@@ -52,7 +52,7 @@ EOF
 cat > _query.js <<EOF
 export const queryTypes = \`
   type Query {
-
+    placeholder: String
   }
 \`;
 
