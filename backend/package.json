@@ -61,7 +61,8 @@
     "jsonwebtoken": "8.1.1",
     "lodash.mapvalues": "4.6.0",
     "lookenv": "1.0.1",
-    "merge-graphql-schemas": "^1.5.7"
+    "merge-graphql-schemas": "^1.5.7",
+    "uuid": "3.3.2"
   },
   "license": "MIT"
 }
