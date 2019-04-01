@@ -1,3 +1,4 @@
 {
-  "PRIVATE_PREFIX": "_"
+  "PRIVATE_PREFIX": "_",
+  "DEPTH_LIMIT": 5
 }

@@ -1,6 +1,11 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import OKGGraphQLScalars from '@okgrow/graphql-scalars'; // eslint-disable-line
+import {
+  GraphQLInputInt,
+  // GraphQLInputFloat,
+} from 'graphql-input-number';
+import GraphQLInputString from 'graphql-input-string';
 import mapValues from 'lodash.mapvalues';
 import components from '~/components';
 import { UNAUTHORIZED } from '~/environment';
@@ -13,14 +18,30 @@ const oKGGraphQLScalars = `
   scalar NonNegativeFloat
   scalar EmailAddress
 `;
+const TYPE_CONSTRAINTS = [
+  // ref: https://github.com/joonhocho/graphql-input-number
+  GraphQLInputInt({
+    name: 'PaginationAmount',
+    min: 1,
+    max: 100,
+  }),
+  // ref: https://github.com/joonhocho/graphql-input-string
+  GraphQLInputString({
+    name: 'TrimmedString',
+    trim: true,
+  }),
+];
+
+const CONSTRAINT_SCALARS = TYPE_CONSTRAINTS.reduce((type, input) => `${type} scalar ${input}`, '');
 
 const typeDefs = mergeTypes([
   directives,
   oKGGraphQLScalars,
+  CONSTRAINT_SCALARS,
   ...components.types,
 ]);
 
-/************* PROTECTING YOUR QUERIES/MUTATIONS ************** */
+/** *********** PROTECTING YOUR QUERIES/MUTATIONS ************** */
 
 const authenticated = resolver => (parent, args, context, info) => {
   // console.log('context user', context.user);
@@ -47,10 +68,10 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
       return item;
     }
     return item;
-  }),);
+  }));
 
 
-/** *************************************************/
+/** ************************************************ */
 
 export const schema = makeExecutableSchema({
   typeDefs,
@@ -67,5 +88,12 @@ Object.keys(OKGGraphQLScalars).forEach((key) => {
     Object.assign(schema._typeMap[key], OKGGraphQLScalars[key]); // eslint-disable-line no-underscore-dangle
   }
 });
-
+Object.keys(TYPE_CONSTRAINTS).forEach((k) => {
+  // eslint-disable-next-line no-underscore-dangle
+  const key = TYPE_CONSTRAINTS[k];
+  if (schema._typeMap[key]) {
+    Object.assign(schema._typeMap[key], TYPE_CONSTRAINTS[k]); // eslint-disable-line no-underscore-dangle
+  }
+});
+console.log(schema._typeMap);
 attachDirectives(schema);

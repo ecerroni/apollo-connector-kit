@@ -3330,6 +3330,13 @@ graphql-config@^2.0.1:
     lodash "^4.17.4"
     minimatch "^3.0.4"
 
+graphql-depth-limit@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-depth-limit/-/graphql-depth-limit-1.1.0.tgz#59fe6b2acea0ab30ee7344f4c75df39cc18244e8"
+  integrity sha512-+3B2BaG8qQ8E18kzk9yiSdAa75i/hnnOwgSeAxVJctGQPvmeiLtqKOYF6HETCyRjiF7Xfsyal0HbLlxCQkgkrw==
+  dependencies:
+    arrify "^1.0.1"
+
 graphql-extensions@0.5.4:
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/graphql-extensions/-/graphql-extensions-0.5.4.tgz#18a9674f9adb11aa6c0737485887ea8877914cff"
@@ -3351,6 +3358,16 @@ graphql-import@^0.7.1:
   dependencies:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
+
+graphql-input-number@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/graphql-input-number/-/graphql-input-number-0.0.10.tgz#509b1c1fb5baeef8ab516a7c82c40dcebb8f8358"
+  integrity sha1-UJscH7W67virUWp8gsQNzruPg1g=
+
+graphql-input-string@0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/graphql-input-string/-/graphql-input-string-0.0.16.tgz#6c7908a5c21c5d1c24d79ddd29ae4829b4095949"
+  integrity sha1-bHkIpcIcXRwk153dKa5IKbQJWUk=
 
 graphql-request@^1.5.0:
   version "1.8.2"

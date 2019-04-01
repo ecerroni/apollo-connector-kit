@@ -22,7 +22,7 @@ export const queryTypes = `
 
 export const queryResolvers = {
   Query: {
-    test: () => 'Server is up and running... working smoothly',
+    test: (_, { b }) => `Server is up and running... working smoothly ${b}`,
     connection: () => 'Connected',
     _checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,
     testPermissionsHasRole: () => 'ok role',

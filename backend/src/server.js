@@ -2,7 +2,8 @@
 
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { SERVER } from '~/config';
+import depthLimit from 'graphql-depth-limit';
+import { SERVER, DEPTH_LIMIT as QUERY_DEPTH_LIMIT } from '~/config';
 import { schema } from '~/schema';
 import { handleAuthentication } from '~/authentication';
 import enableCors from '~/cors';
@@ -10,7 +11,6 @@ import {
   context as buildContext,
   formatResponse,
   formatError,
-  formatParams,
 } from '~/graphql';
 import { startupMessages, RESPONSE } from '~/environment';
 
@@ -32,7 +32,12 @@ const server = new ApolloServer({
   path: SERVER.GRAPHQL,
   cors: enableCors(),
   context: ({ res, req }) => buildContext({ res, req }),
-  // formatResponse: ({ req, res, context }) => formatResponse(res, { context }, res, req),
+  validationRules: [
+    depthLimit(QUERY_DEPTH_LIMIT,
+      // { ignore: [ /_trusted$/, 'idontcare' ] },
+      // depths => console.log(depths)
+    ),
+  ],
   formatError: err => formatError(err),
   formatResponse: (response, query) => formatResponse({ response, query }),
 });
