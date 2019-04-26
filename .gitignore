@@ -2,5 +2,7 @@
 /node_modules
 /.vscode
 /.history
+**/yarn.lock
+**/package-lock.json
 ToDo.txt
 yarn-error.log

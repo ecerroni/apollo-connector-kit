@@ -7,9 +7,9 @@ export const resolvers = {
           anotherField,
           __typename: 'Store',
         },
-      };
-      cache.writeData({ data });
-      return null;
+      }
+      cache.writeData({ data })
+      return null
     },
   },
-};
+}

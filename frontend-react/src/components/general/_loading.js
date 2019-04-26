@@ -1,6 +1,4 @@
 import React from 'react'
-import { branch, renderComponent } from 'recompose'
-import Delay from 'react-delay-render'
 
 const Loading = ({ loadingMessage = '' }) => (
   <div className="spinnerWrapper">
@@ -72,7 +70,4 @@ const Loading = ({ loadingMessage = '' }) => (
   </div>
 );
 
-export default branch(
-  ({ data: { loading = false } = {} }) => loading,
-  renderComponent(Delay({ delay: 200 })(Loading)),
-);
+export default Loading

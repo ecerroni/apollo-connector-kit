@@ -8,11 +8,11 @@ export const storeMutation = gql`
       anotherField: $anotherField
     ) @client
   }
-`;
+`
 
 // REMOTE
 export const loginMutation = gql`
   mutation login($userCredentials: userCredentials!) {
     login(input: $userCredentials)
   }
-`;
+`

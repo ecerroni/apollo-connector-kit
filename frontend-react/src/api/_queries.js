@@ -1,4 +1,7 @@
 import gql from 'graphql-tag'
+import {
+  User,
+} from './_fragments'
 /* eslint-disable no-underscore-dangle */
 // LOCAL
 export const storeQuery = gql`
@@ -8,17 +11,26 @@ export const storeQuery = gql`
       anotherField
     }
   }
-`;
+`
 
 // REMOTE
 export const connectionQuery = gql`
   query connection {
     connection
   }
-`;
+`
 
 export const authQuery = gql`
   query authenticate {
     _checkAuth
   }
-`;
+`
+
+export const currentUserQuery = gql`
+  query currentUser {
+    currentUser {
+      ...UserBasicData
+    }
+  }
+  ${User.fragments.UserBasicData}
+`

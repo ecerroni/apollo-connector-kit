@@ -1,58 +1,13 @@
 import React from 'react'
-import { compose, withHandlers, withState } from 'recompose'
-import { graphql } from 'react-apollo'
-import Alert from 'react-s-alert'
-import history from '../history'
-import { loginMutation } from '../api'
-import { hashString } from '../utils'
+import { Form } from './form'
+import { useAuth } from './general'
 
-const withLoginMutation = graphql(loginMutation);
+const Login = () => {
+  const auth = useAuth();
 
-const recomposeStates = compose(
-  withState('username', 'setUsername', ''),
-  withState('password', 'setPassword', ''),
-);
-
-const recomposeHandlers = withHandlers({
-  submitLogin: ({mutate, username, password}) => () => {
-    mutate({
-      variables: {
-        userCredentials: {
-          username,
-          password: hashString(password).digest,
-        }
-      },
-    }).then(() => {
-      history.push('/');
-      Alert.success('Login successful', {
-        position: 'top',
-        effect: 'stackslide',
-        timeout: 1500,
-      });
-    }).catch(e => Alert.error('The username/password combination is wrong', { position: 'bottom' }));
-  },
-});
-
-const Login = ({ username, setUsername, password, setPassword, submitLogin }) =>
-  <div className="login-wrapper">
+  return (<div className="login-wrapper">
     <h1>Login</h1>
-    <form className="login-form">
-      <input
-        type="text"
-        placeholder="username"
-        value={username}
-        onChange={e => setUsername(e.target.value) }
-      />
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)
-        }/>
-    </form>
-    <div className={`submit-button ${username === '' || password === '' ? 'disabled' : ''}`} onClick={() => submitLogin()}>
-      <span>Submit</span>
-    </div>
+    <Form callback={(values) => auth.login({ ...values })} />
     <style jsx>{`
     .login-wrapper {
       display: flex;
@@ -103,10 +58,7 @@ const Login = ({ username, setUsername, password, setPassword, submitLogin }) =>
       color: #fff;
     }
   `}</style>
-  </div>
+  </div>)
+}
 
-export default compose(
-  withLoginMutation,
-  recomposeStates,
-  recomposeHandlers,
-)(Login);
+export default Login;

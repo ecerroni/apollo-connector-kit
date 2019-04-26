@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
 import Alert from 'react-s-alert'
 import 'react-s-alert/dist/s-alert-default.css'
 import 'react-s-alert/dist/s-alert-css-effects/slide.css'
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css'
-import apolloClient from './apollo'
+import { apolloClient } from './apollo'
 import App from './App'
 import { Login } from './components'
 import { ErrorBoundary, ErrorPage } from './components/general'
@@ -14,7 +14,7 @@ import registerServiceWorker from './registerServiceWorker'
 import history from './history'
 
 ReactDOM.render(
-  <ApolloProvider client={apolloClient}>
+  <ApolloHooksProvider client={apolloClient}>
     <ErrorBoundary>
       <Router history={history}>
         <div className="container">
@@ -61,7 +61,7 @@ ReactDOM.render(
         </div>
       </Router>
     </ErrorBoundary>
-  </ApolloProvider>,
+  </ApolloHooksProvider>,
   document.getElementById('root'),
 );
 registerServiceWorker();

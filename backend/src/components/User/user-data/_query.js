@@ -2,17 +2,17 @@ import { mockUsers } from '~/mocks';
 
 export const queryTypes = `
   type Query {
-    _currentUser: User
+    currentUser: User
     users: [User]
   }`;
 
 export const queryResolvers = {
   Query: {
-    _currentUser: (_, args, context) => {
+    currentUser: (_, __, { user: contextUser }) => {
       const users = mockUsers;
-      const user = users.filter(u => u.id === context.user.id).length > 0
-        ? users.filter(u => u.id === context.user.id)[0]
-        : undefined;
+      const user = contextUser && users.filter(u => u.id === contextUser.id).length > 0
+        ? users.filter(u => u.id === contextUser.id)[0]
+        : null;
       return user;
     },
     users: () => mockUsers,

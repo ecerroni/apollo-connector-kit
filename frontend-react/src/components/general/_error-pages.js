@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { pure } from 'recompose'
 import { Link } from 'react-router-dom'
 
 const errorPage = code => {
@@ -75,4 +74,4 @@ Page.defaultProps = {
   },
 };
 
-export default pure(Page);
+export default Page;

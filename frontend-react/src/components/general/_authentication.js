@@ -1,11 +1,18 @@
-import { compose, pure } from 'recompose'
-import { graphql } from 'react-apollo'
+import { useQuery } from 'react-apollo-hooks';
+import React, { Suspense } from 'react'
 import { authQuery } from '../../api'
 import { default as Loading } from './_loading'
 
-const connectionData = graphql(authQuery, {
-  options: { fetchPolicy: 'network-only' },
-});
-const ConnectionResult = ({ children }) => children;
+const ConnectionResult = ({ children }) => {
+  useQuery(authQuery, {
+    suspend: true,
+    options: { fetchPolicy: 'network-only' },
+  });
+  return children
+};
 
-export default compose(connectionData, Loading, pure)(ConnectionResult);
+const Authenticate = (props) => <Suspense fallback={<Loading />}>
+  <ConnectionResult {...props} />
+</Suspense>
+
+export default Authenticate;

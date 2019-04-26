@@ -2,11 +2,12 @@ export {
   connectionQuery,
   storeQuery,
   authQuery,
-} from './_queries';
+  currentUserQuery,
+} from './_queries'
 
 export {
   loginMutation,
   storeMutation,
-} from './_mutations';
+} from './_mutations'
 
-export { defaults, resolvers } from './local-state';
+export { defaults, resolvers } from './local-state'
