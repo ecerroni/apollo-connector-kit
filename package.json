@@ -21,7 +21,8 @@
     "dev-docker": "concurrently  --kill-others 'yarn:start-docker-dev-*'",
     "install-all": "yarn install && concurrently 'yarn:install-dev-*'",
     "start": "yarn run dev",
-    "start-docker": "yarn run dev-docker"    
+    "start-docker": "yarn run dev-docker",
+    "reset-install": "bash reset-install.sh"
   },
   "dependencies": {
     "graphql-tester": "git+https://github.com/sazzer/graphql-tester.git"
