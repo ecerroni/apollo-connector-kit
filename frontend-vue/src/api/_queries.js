@@ -1,27 +1,36 @@
-import gql from 'graphql-tag';
-/* eslint-disable no-underscore-dangle */
+import gql from 'graphql-tag'
 import {
-  UserData,
-} from './_fragments';
-
-// eslint-disable-next-line
-export const _checkAuthQuery = gql`
-  query auth {
-    _checkAuth
+  User,
+} from './_fragments'
+/* eslint-disable no-underscore-dangle */
+// LOCAL
+export const storeQuery = gql`
+  query store {
+    store @client {
+      field
+      anotherField
+    }
   }
-`;
+`
 
+// REMOTE
 export const connectionQuery = gql`
   query connection {
     connection
   }
-`;
+`
 
-export const _currentUserQuery = gql`
-  query __currentUser {
-    _currentUser {
-      ...UserData
+export const authQuery = gql`
+  query authenticate {
+    _checkAuth
+  }
+`
+
+export const currentUserQuery = gql`
+  query currentUser {
+    currentUser {
+      ...UserBasicData
     }
   }
-  ${UserData.fragments.user}
-`;
+  ${User.fragments.UserBasicData}
+`

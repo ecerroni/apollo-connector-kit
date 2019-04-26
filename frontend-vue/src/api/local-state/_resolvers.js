@@ -1,4 +1,4 @@
-export default {
+export const resolvers = {
   Mutation: {
     setStore: (_, { field, anotherField = '' }, { cache }) => {
       const data = {
@@ -7,9 +7,9 @@ export default {
           anotherField,
           __typename: 'Store',
         },
-      };
-      cache.writeData({ data });
-      return null;
+      }
+      cache.writeData({ data })
+      return null
     },
   },
-};
+}

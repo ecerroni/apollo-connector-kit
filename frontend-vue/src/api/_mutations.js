@@ -1,8 +1,18 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
-// eslint-disable-next-line
-export const login = gql`
-  mutation login ($userCredentials: userCredentials!) {
+// LOCAL
+export const storeMutation = gql`
+  mutation setStore($field: String!, $anotherField: String) {
+    setStore(
+      field: $field
+      anotherField: $anotherField
+    ) @client
+  }
+`
+
+// REMOTE
+export const loginMutation = gql`
+  mutation login($userCredentials: userCredentials!) {
     login(input: $userCredentials)
   }
-`;
+`

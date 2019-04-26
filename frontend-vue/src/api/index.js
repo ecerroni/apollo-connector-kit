@@ -1,13 +1,13 @@
 export {
-  UserData,
-} from './_fragments';
-
-export {
-  _checkAuthQuery,
   connectionQuery,
-} from './_queries';
-export {
-  login,
-} from './_mutations';
+  storeQuery,
+  authQuery,
+  currentUserQuery,
+} from './_queries'
 
-export { defaults, resolvers } from './local-state';
+export {
+  loginMutation,
+  storeMutation,
+} from './_mutations'
+
+export { defaults, resolvers } from './local-state'
