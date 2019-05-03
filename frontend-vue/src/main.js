@@ -10,7 +10,9 @@ import { apolloClient } from './apollo';
 Vue.use(Notifications)
 
 
+
 Vue.use(VueFormly);
+Vue.use(VueFormlyBootstrap);
 
 Vue.config.productionTip = false;
 

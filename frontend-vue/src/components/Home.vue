@@ -3,9 +3,12 @@
     <h1>{{ intro }}</h1>
     <h2>Ecosystem</h2>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">VueJs</a></li>
-      <li><a href="https://www.apollographql.com/" target="_blank">Apollo Graphql</a></li>
-      <li><a href="http://element.eleme.io/" target="_blank">Element UI</a></li>
+      <li><a href="https://vuejs.org"
+target="_blank">VueJs</a></li>
+      <li><a href="https://www.apollographql.com/"
+target="_blank">Apollo Graphql</a></li>
+      <li><a href="http://element.eleme.io/"
+target="_blank">Element UI</a></li>
     </ul>
   </div>
 </template>
@@ -14,7 +17,7 @@
 import { apolloAuthentication } from '@/mixins';
 
 export default {
-  name: 'home',
+  name: 'Home',
   mixins: [apolloAuthentication], /* call this only if there are no
   other apollo queries in the component that are not public and you want to protect this route
   anyway */
