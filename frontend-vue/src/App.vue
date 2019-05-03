@@ -36,6 +36,7 @@ export default {
 </script>
 
 <style>
+@import './assets/styles/tailwind.postcss';
 html, body {
   margin: 0;
 }
