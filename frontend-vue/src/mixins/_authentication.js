@@ -1,4 +1,4 @@
-import { _checkAuthQuery } from '@/api';
+import { authQuery } from '@/api';
 
 export default {
   data() {
@@ -8,7 +8,7 @@ export default {
   },
   apollo: {
     authorized: {
-      query: _checkAuthQuery,
+      query: authQuery,
       fetchPolicy: 'network-only',
       update({ _checkAuth }) {
         return typeof _checkAuth === 'string';
