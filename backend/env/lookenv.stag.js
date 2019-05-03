@@ -5,7 +5,7 @@ module.exports = {
   AWS_SECRET_ACCESS_KEY: {
     required: true,
   },
-  DB_CONNECTION_STING: {
+  DB_CONNECTION_STRING: {
     required: true,
   },
   AUTH_SECRET_TOKEN: {

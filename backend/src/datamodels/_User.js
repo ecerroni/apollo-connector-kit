@@ -1,4 +1,4 @@
-import users from '~/connectors';
+import users from '~/dataconnectors';
 import { encryptor } from '~/utils/';
 import { ERROR } from '~/environment';
 

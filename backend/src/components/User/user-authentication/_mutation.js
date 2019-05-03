@@ -1,5 +1,5 @@
 import { createTokens } from '~/authentication';
-import { User } from '~/models';
+import { User } from '~/datamodels';
 import { AUTH } from '~/config';
 
 export const mutationTypes = `
@@ -12,9 +12,9 @@ export const mutationTypes = `
 
 export const mutationResolvers = {
   Mutation: {
-    logout: () => {
-      return 'ok'; // This is gonna be taken care in server > formatResponse
-    },
+    logout: () => 
+       'ok' // This is gonna be taken care in server > formatResponse
+    ,
     login: async (_, { input }) => {
       const { username, password } = input;
       const user = await User.validate(username, password);

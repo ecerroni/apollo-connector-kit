@@ -1,4 +1,3 @@
-export { default as DATABASE } from './_db';
 export { default as JWT } from './_jwt';
 export { default as APP } from './_app';
 export { default as SERVER } from './_server';

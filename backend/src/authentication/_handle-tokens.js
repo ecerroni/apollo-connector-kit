@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { AUTH, JWT } from '~/config';
-import { User } from '~/models';
+import { User } from '~/datamodels';
 
 const verifyToken = async (token, secret, addSecurityChecks = {}) => new Promise(resolve =>
   jwt.verify(token, secret, { ...addSecurityChecks }, (err, result) => {

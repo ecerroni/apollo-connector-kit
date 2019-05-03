@@ -1,19 +1,28 @@
 export default {
   OPERATION: {
     READ: 'read',
-    WRITE: 'write',
+    EDIT: 'edit',
+    CREATE: 'create',
+    DELETE: 'delete',
     // add more
   },
   TYPE: {
-    COMMENTS: 'comments',
     PROFILE: 'profile',
-    SETTINGS: 'settings',
     // add more
   },
   ROLES: {
-    ADMIN: 'ADMIN',
-    USER: 'USER',
+    OWNER: {
+      RANK: 0,
+      VALUE: 'OWNER',
+    },
+    ADMIN: {
+      RANK: 1,
+      VALUE: 'ADMIN',
+    },
+    USER: {
+      RANK: 2,
+      VALUE: 'USER',
+    },
     // add more
   },
-
 };

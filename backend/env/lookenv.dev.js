@@ -5,7 +5,7 @@ module.exports = {
   AWS_SECRET_ACCESS_KEY: {
     default: '',
   },
-  DB_CONNECTION_STING: {
+  DB_CONNECTION_STRING: {
     default: 'mongodb://localhost:27017/myproject',
   },
   AUTH_SECRET_TOKEN: {
