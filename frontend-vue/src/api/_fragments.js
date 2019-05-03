@@ -1,12 +1,12 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
-export const UserData = { // eslint-disable-line
+export const User = {
   fragments: {
-    user: gql`
-      fragment UserData on User {
-        id
-        username
+    UserBasicData: gql`
+      fragment UserBasicData on User {
+        id     
+        name  
+        email
       }
-    `,
-  },
-};
+    ` },
+}

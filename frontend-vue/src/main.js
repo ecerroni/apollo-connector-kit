@@ -1,24 +1,18 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import {
-  Button,
-  Form,
-  FormItem,
-  Input,
-  Notification,
-} from 'element-ui';
+import VueFormly from 'vue-formly';
+import VueFormlyBootstrap from 'vue-formly-bootstrap';
+import Notifications from 'vue-notification'
 import VueApollo from 'vue-apollo';
 import App from './App';
 import router from './router';
-import apolloClient from './apollo';
+import { apolloClient } from './apollo';
 
-Vue.use(Button);
-Vue.use(Form);
-Vue.use(FormItem);
-Vue.use(Input);
+Vue.use(Notifications)
 
-Vue.prototype.$notify = Notification;
+
+
+Vue.use(VueFormly);
+Vue.use(VueFormlyBootstrap);
 
 Vue.config.productionTip = false;
 

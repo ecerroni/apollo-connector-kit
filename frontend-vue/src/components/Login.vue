@@ -1,49 +1,57 @@
 <template>
-  <div class="form-container">
-    <el-form
-      class="form"
-      :model="validateForm"
-      ref="validateForm" label-width="120px"
-    >
-      <el-form-item
-        prop="email"
-        label="User"
-        :rules="[
-  { required: true, message: 'Please input your username', trigger: 'blur' },
-  { message: 'Please input correct email address', trigger: 'blur,change' }
-]"
+  <div
+    class="
+    container
+    w-screen
+    pt-20
+    flex
+    items-center
+    justify-center
+  "
+  >
+    <div class="w-full max-w-xs">
+      <formly-form
+        ref="loginForm"
+        :form="form"
+        :model="model"
+        :fields="fields"
+        class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      />
+      <button
+        class="
+          bg-blue
+          hover:bg-blue-dark
+          text-white
+          font-bold
+          py-2
+          px-4
+          rounded
+          focus:outline-none
+          focus:shadow-outline
+          "
+        type="button"
+        @click.prevent="submitForm('loginForm')"
       >
-        <el-input @keyup.13.native="submitForm('validateForm')" v-model="validateForm.email"></el-input>
-      </el-form-item>
-      <el-form-item
-        prop="password"
-        label="Password"
-        :rules="[
-  { required: true, message: 'Please input your password', trigger: 'blur' },
-]"
-      >
-        <el-input @keyup.enter.native="submitForm('validateForm')"  type="password" v-model="validateForm.password"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('validateForm')">Submit</el-button>
-        <el-button @click="resetForm('validateForm')">Reset</el-button>
-      </el-form-item>
-    </el-form>
+        Submit
+      </button>
+    </div>
   </div>
 </template>
 <script>
-import { login } from '@/api';
+import { loginMutation, storeQuery } from '@/api';
 import router from '@/router';
 import { hashString } from '@/utils';
-import { CLIENT_AUTHENTICATION_METHOD, JWT } from '@/environment';
 
 export default {
-  name: 'login',
+  name: 'Login',
   mounted() {
-    if (CLIENT_AUTHENTICATION_METHOD.LOCAL_STORAGE) {
-      localStorage.removeItem(JWT.LOCAL_STORAGE.TOKEN.NAME);
-      localStorage.removeItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME);
-    }
+    this.$apollo.provider.defaultClient.clearStore();
+  },
+  apollo: {
+    store: {
+      query: storeQuery,
+    result: res => console.log(res)
+    },
   },
   data() {
     return {
@@ -51,40 +59,85 @@ export default {
         email: '',
         password: '',
       },
+      model: {
+         email: '',
+         password: ''
+      },
+      form: {},
+      fields: [
+        {
+          key: 'email',
+          type: 'input',
+          templateOptions: {
+            label: 'Username',
+            wrapperClasses: { 'required-input': true },
+          },
+          validators: {
+              validEmail: {
+                expression: (field, model, next) => {
+                  next(model[field.key] === 'rico' || model[field.key] === 'george');
+                },
+                message: 'Valid users: "rico", "george"',
+              }
+            
+          }
+        },
+        {
+          key: 'password',
+          type: 'input',
+          templateOptions: {
+            inputType: 'password',
+            label: 'Password',
+            wrapperClasses: { 'required-input': true },
+            onKeyup: (e) => {
+              if (e.keyCode === 13) this.submitForm('loginForm');
+            },
+          },
+          required: true
+        }
+      ],
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        const params = new URLSearchParams();
-        params.append('username', this.validateForm.email);
-        params.append('password', this.validateForm.password);
-        if (valid) {
+      this.$refs[formName].validate()
+        .then(() => {
+          if (!this.form.$valid) {
+            return null
+          }
           this.$apollo.mutate({
             // Query
-            mutation: login,
+            mutation: loginMutation,
             // Parameters
             variables: {
               userCredentials: {
-                username: this.validateForm.email,
-                password: hashString(this.validateForm.password).digest,
+                username: this.model.email,
+                password: hashString(this.model.password).digest,
               },
             },
           })
           .then(() => {
+            this.$notify({
+              group: 'default',
+              title: 'WELCOME',
+              text: `You've been logged in`,
+              duration: 2000,
+              type: 'success'
+            });
             router.push('/');
           })
           .catch((e) => {
-            console.log(e);
+            console.log(e); // eslint-disable-line
             this.$notify({
+              group: 'errors',
               title: 'Wrong credentials',
-              message: 'Cannot login. Try again',
+              text: 'Cannot login. Try again',
               duration: 2000,
+              type: 'warn'
             });
           });
-        }
-        return false;
-      });
+        })
+        .catch(e => console.log(e));
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -92,14 +145,33 @@ export default {
   },
 };
 </script>
-<style scoped>
-  .form-container {
-    margin: 30px auto;
+<style lang="postcss">
+  .formly-input {
+    @apply flex flex-wrap h-24 leading-loose text-lg shadow appearance-none border rounded w-full my-2 p-3 text-grey-darker leading-tight;
   }
-  .form {
-    margin-left: -30%;
-    margin-top: 50px;
-    min-width: 300px;
-    max-width: 600px;
+  .formly-input > label {
+    margin-right: 1em;
+  }
+  .formly-input input:focus {
+    
+    outline: none;
+  }
+  .formly-input > input {   
+    
+  }
+  .formly-input:focus-within {
+    border: 1px solid gold;
+  }
+  .formly-input.has-error > span {
+    color: darkred;
+    font-size: .7em;
+  }
+  .formly-input.has-error {
+    border: 1px solid red;
+  }
+  .required-input > label:after {
+    content: '*';
+    padding-left: .2em;
+    color: darkred;
   }
 </style>

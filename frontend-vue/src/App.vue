@@ -1,5 +1,16 @@
 <template>
-  <div id="app" v-cloak>
+  <div
+    id="app"
+    v-cloak
+  >
+    <notifications
+      group="default"
+    />
+    <notifications
+      group="errors"
+      position="bottom center"
+      width="100%"
+    />
     <transition
       appear
       appear-class="fade-enter"
@@ -7,14 +18,20 @@
       appear-active-class="fade-enter-active"
     >
       <Layout>
-        <Top slot="header"/>
+        <Top slot="header" />
         <div slot="body">
-          <img class="logo" src="./assets/logo.png">
-          <transition name="slide" mode="out-in">
-            <router-view></router-view>
+          <img
+            class="logo"
+            src="./assets/logo.png"
+          >
+          <transition
+            name="slide"
+            mode="out-in"
+          >
+            <router-view />
           </transition>
         </div>
-        <Bottom slot="footer"/>
+        <Bottom slot="footer" />
       </Layout>
     </transition>
   </div>
@@ -25,7 +42,7 @@ import { Header, Footer } from '@/components/_layout';
 import Layout from '@/components/Layout';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     Layout,
     Top: Header,
@@ -36,6 +53,7 @@ export default {
 </script>
 
 <style>
+@import './assets/styles/tailwind.postcss';
 html, body {
   margin: 0;
 }
@@ -84,6 +102,33 @@ html, body {
 @media only screen and (max-width:767px ){
   .logo {
     display: none;
+  }
+}
+</style>
+<style lang="postcss">
+.vue-notification {
+  padding: 10px;
+  margin: 0 5px 5px;
+
+  font-size: 1.3em;
+
+  color: #ffffff;
+  background: #44A4FC;
+  border-left: 5px solid #187FE7;
+
+  &.warn {
+    background: #ffb648;
+    border-left-color: #f48a06;
+  }
+
+  &.error {
+    background: #E54D42;
+    border-left-color: #B82E24;
+  }
+
+  &.success {
+    background: #68CD86;
+    border-left-color: #42A85F;
   }
 }
 </style>
