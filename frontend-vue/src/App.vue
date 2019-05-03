@@ -5,7 +5,6 @@
   >
     <notifications
       group="default"
-      position="top center"
     />
     <notifications
       group="errors"

@@ -75,9 +75,9 @@ export default {
           validators: {
               validEmail: {
                 expression: (field, model, next) => {
-                  next(model[field.key].includes('r'));
+                  next(model[field.key] === 'rico' || model[field.key] === 'george');
                 },
-                message: 'Please enter a valid email'
+                message: 'Valid users: "rico", "george"',
               }
             
           }
