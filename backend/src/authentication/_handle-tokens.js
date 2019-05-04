@@ -66,13 +66,15 @@ export const refreshTokens = async (refreshToken) => {
   }
 
 
-  const userPassword = await User.getPassword(userId);
+  const validUser = User.getPassword({ userId, delta: true });
+  const { password: userPassword = null, delta: userDelta = 0 } = validUser;
+
 
   if (!userPassword) {
     return {};
   }
 
-  const refreshTokenSecret = userPassword + AUTH.SECRET_REFRESH_TOKEN;
+  const refreshTokenSecret = userPassword + userDelta + AUTH.SECRET_REFRESH_TOKEN;
   const { ok, user } = await verifyToken(refreshToken, refreshTokenSecret, addSecurityChecks);
   if (ok) {
     const [newToken, newRefreshToken] = await createTokens({ user, refreshTokenSecret }, addSecurityChecks);

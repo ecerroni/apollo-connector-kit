@@ -12,15 +12,12 @@ export const mockUsers = [
     username: 'rico',
     email: 'admin@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna', // this is === 123456
-    roles: [
-      ROLES_PERMISSIONS.ADMIN.NAME,
-      ROLES_PERMISSIONS.USER.NAME,
-    ],
-    permissions: [
-      ...ROLES_PERMISSIONS.ADMIN.PERMISSIONS[SCOPES.OPERATION.READ].map(permission =>
-        `${SCOPES.OPERATION.READ}_${permission}`),
-      ...ROLES_PERMISSIONS.USER.PERMISSIONS[SCOPES.OPERATION.READ].map(permission => `${SCOPES.OPERATION.READ}:${permission}`),
-    ],
+    delta: 0,
+    role: {
+      value: SCOPES.ROLES.ADMIN.VALUE,
+      rank: SCOPES.ROLES.ADMIN.RANK,
+      permissions: Object.entries(ROLES_PERMISSIONS.ADMIN.PERMISSIONS).map(entry => `${entry[0]}_${entry[1]}`),
+    },
   },
   {
     id: 2,
@@ -28,13 +25,12 @@ export const mockUsers = [
     username: 'george',
     email: 'test@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
-    roles: [
-      ROLES_PERMISSIONS.USER.NAME,
-    ],
-    permissions: [
-      ...ROLES_PERMISSIONS.USER.PERMISSIONS[SCOPES.OPERATION.READ].map(permission =>
-        `${SCOPES.OPERATION.READ}_${permission}`),
-    ],
+    delta: 0,
+    role: {
+      value: SCOPES.ROLES.USER.VALUE,
+      rank: SCOPES.ROLES.USER.RANK,
+      permissions: Object.entries(ROLES_PERMISSIONS.USER.PERMISSIONS).map(entry => `${entry[0]}_${entry[1]}`),
+    },
   },
 ];
 

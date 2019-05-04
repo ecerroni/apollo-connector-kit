@@ -8,6 +8,7 @@ export default {
   },
   TYPE: {
     PROFILE: 'profile',
+    BILLING: 'profile',
     // add more
   },
   ROLES: {

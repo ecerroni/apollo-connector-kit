@@ -2,29 +2,25 @@ import { default as SCOPES } from './_scopes';
 
 const rolesAndPermissions = {
   ADMIN: {
-    NAME: SCOPES.ROLES.ADMIN,
+    SPEC: SCOPES.ROLES.ADMIN,
     PERMISSIONS: {
       [SCOPES.OPERATION.READ]: [
-        SCOPES.TYPE.COMMENTS,
         SCOPES.TYPE.PROFILE,
         // add more
       ],
-      [SCOPES.OPERATION.WRITE]: [
-        SCOPES.TYPE.COMMENTS,
+      [SCOPES.OPERATION.CREATE]: [
         SCOPES.TYPE.PROFILE,
         // add more
       ],
     },
   },
   USER: {
-    NAME: SCOPES.ROLES.USER,
+    SPEC: SCOPES.ROLES.USER,
     PERMISSIONS: {
       [SCOPES.OPERATION.READ]: [
-        SCOPES.TYPE.COMMENTS,
         // add more
       ],
-      [SCOPES.OPERATION.WRITE]: [
-        SCOPES.TYPE.COMMENTS,
+      [SCOPES.OPERATION.CREATE]: [
         // add more
       ],
     },

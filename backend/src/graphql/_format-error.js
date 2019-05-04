@@ -15,7 +15,7 @@ const e403s = [FORBIDDEN];
 export const formatError = err => { // eslint-disable-line
   let error = err;
   const maskError = !(error.originalError instanceof ApolloError) && !e401s.includes(err.message) && !e403s.includes(err.message);
-  if (maskError) {
+  if (process.env.NODE_ENV === 'production' && maskError) {
     const errId = v4();
     console.log('errId: ', errId);
     console.log(error);

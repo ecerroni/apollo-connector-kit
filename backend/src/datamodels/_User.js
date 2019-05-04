@@ -16,12 +16,16 @@ export default {
     }
     throw new Error(ERROR.USER.WRONG_CREDENTIALS);
   },
-  getPassword: async (id) => {
+  getPassword: async ({ id, delta = false }) => {
     const validUser = users.filter(u => u.id === id).length > 0
       ? users.filter(u => u.id === id)[0]
       : undefined;
     if (validUser) {
-      return validUser.password;
+      const response = {
+        password: validUser.password,
+        ...delta && { delta: validUser.delta },
+      };
+      return response;
     }
     throw new Error(ERROR.USER.DOES_NOT_EXIST);
   },
