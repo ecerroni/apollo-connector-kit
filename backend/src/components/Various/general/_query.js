@@ -4,6 +4,8 @@ import { roles, permissions } from '~/directives';
 // roles.is.admin ---> only user rico is allowed
 // permissions.can.read.profile ---> both users rico and george are allowed
 
+// branches: [Branch]
+// branchProfessionsByQuery(sourceId: Int!): [Profession]
 
 export const queryTypes = `
   type Query {
@@ -23,6 +25,10 @@ export const queryTypes = `
 
 export const queryResolvers = {
   Query: {
+    // branches: async (_, __, { dataSources: { dbBranches: branches } }) => branches.getAll(),
+    // branchProfessionsByQuery: async (_, { sourceId }, { dataSources: { dbProfessions: professions } }) => professions.getProfessionsByQuery({
+    //   branchSourceId: sourceId,
+    // }),
     test: () => 'Server is up and running... working smoothly',
     connection: () => 'Connected',
     _checkAuth: (_, args, context) => `Authorized | CurentUserId ${context.user.id}!`,

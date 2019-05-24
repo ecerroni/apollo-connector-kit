@@ -1,8 +1,11 @@
+
+// import { MongoDataSource } from 'apollo-datasource-mongo';
+// import users from './_schema';
 import users from '~/dataconnectors';
 import { encryptor } from '~/utils/';
 import { ERROR } from '~/environment';
 
-export default {
+export const UserHelper = {
   validate: async (username, password) => {
     const validUser = users.filter(u => u.username === username).length > 0
       ? users.filter(u => u.username === username)[0]
@@ -29,5 +32,30 @@ export default {
     }
     throw new Error(ERROR.USER.DOES_NOT_EXIST);
   },
-  all: async () => users,
 };
+
+
+// export User class extends MongoDataSource {
+//   constructor() {
+//     super();
+//     this.collections = [users];
+//     this.mongoose = true;
+//     this.debug = true;
+//   }
+
+//   getUser(userId) {
+//     return users.findOneById(userId);
+//   }
+
+//   async getUsers(usersIds) {
+//     // await users.deleteFromCacheById({ userId: 4 });
+//     // await users.flushCollectionCache();
+//     return users.findManyByIds(usersIds, { ttl: 60 });
+//   }
+//   async getusersByQuery(query) {
+//     // await users.deleteFromCacheById({ userId: 4 });
+//     // await users.flushCollectionCache();
+//     return users.findManyByQuery(query, { ttl: 3 });
+//   }
+// }
+

@@ -1,5 +1,5 @@
 import { createTokens } from '~/authentication';
-import { User } from '~/datamodels';
+import { UserHelper as User } from '~/datasources';
 import { AUTH, ROLES_PERMISSIONS as FULL_ROLES } from '~/config';
 import { sortItems, assignCascadeRoles } from '../../../utils';
 

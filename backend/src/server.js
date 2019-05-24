@@ -1,5 +1,5 @@
-// TODO: ADD GRAPHQL TESTER (WITH AUTH SKIP FOR TESTING)
-
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
@@ -17,6 +17,7 @@ import {
   formatResponse,
   formatError,
 } from '~/graphql';
+// import { Branch, Profession } from './datasources';
 import { startupMessages, RESPONSE } from '~/environment';
 
 const app = express();
@@ -50,6 +51,10 @@ const server = new ApolloServer({
   schema,
   path: SERVER.GRAPHQL,
   cors: enableCors(),
+  dataSources: () => ({
+  //   dbBranches: new Branch(),
+  //   dbProfessions: new Profession(),
+  }),
   context: ({ res, req }) => buildContext({ res, req }),
   validationRules: [
     depthLimit(QUERY_DEPTH_LIMIT,
