@@ -45,7 +45,7 @@ arrayOfComponentsDirs=`find . -maxdepth 2 -type d ! -name '.*' -printf '%f\n'`
 footer=`echo ${arrayOfComponentsDirs[@]}`
 
 
-cat > index.js <<EOF
+cat > index.js <<\EOF
 import * as all from './**/**/index.js';
 
 const allPaths = Object.entries(all).reduce((arr, entry) => {
