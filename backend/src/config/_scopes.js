@@ -3,27 +3,27 @@ export default {
     READ: 'read',
     EDIT: 'edit',
     CREATE: 'create',
-    DELETE: 'delete',
+    DELETE: 'delete'
     // add more
   },
   TYPE: {
     PROFILE: 'profile',
-    BILLING: 'profile',
+    BILLING: 'profile'
     // add more
   },
   ROLES: {
     OWNER: {
       RANK: 0,
-      VALUE: 'OWNER',
+      VALUE: 'OWNER'
     },
     ADMIN: {
       RANK: 1,
-      VALUE: 'ADMIN',
+      VALUE: 'ADMIN'
     },
     USER: {
       RANK: 2,
-      VALUE: 'USER',
-    },
+      VALUE: 'USER'
+    }
     // add more
-  },
+  }
 };

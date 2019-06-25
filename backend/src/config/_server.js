@@ -1,5 +1,5 @@
-import { default as APP } from './_app';
+import APP from './_app';
 
 export default {
-  ...APP.ENDPOINT,
+  ...APP.ENDPOINT
 };

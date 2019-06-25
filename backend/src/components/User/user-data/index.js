@@ -10,5 +10,5 @@ export default {
     ${inputTypes}
     ${mutationTypes}
   `,
-  resolvers: Object.assign(queryResolvers, mutationResolvers, typeResolvers),
+  resolvers: Object.assign(queryResolvers, mutationResolvers, typeResolvers)
 };

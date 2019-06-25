@@ -103,6 +103,9 @@ footer=`echo ${arrayOfComponentsDirs[@]}`
 cat > index.js <<\EOF
 import * as all from './**/**/index.js';
 
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+
 const allPaths = Object.entries(all).reduce((arr, entry) => {
   if (entry && entry[1] && entry[0]) {
     return [...arr, ...Object.keys(entry[1]).map(key => ({ [key]: `${entry[0]}/${key}` }))];

@@ -1,13 +1,17 @@
 import jwt from 'jsonwebtoken';
 import { AUTH, JWT } from '~/config';
-import { refreshTokens } from './_handle-tokens';
 import { selectAuthStrategy } from '~/authentication';
+import { refreshTokens } from './_handle-tokens';
 import { setCookies, setHeaders } from './_handle-headers';
 
 const getCookie = (src, name) => {
   const value = `; ${src}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+  if (parts.length === 2)
+    return parts
+      .pop()
+      .split(';')
+      .shift();
   return null;
 };
 
@@ -38,7 +42,7 @@ export const handleAuthentication = async (req, res, next) => {
       const {
         token: newToken,
         refreshToken: newRefreshToken,
-        user,
+        user
       } = await refreshTokens(refreshToken);
       if (newToken && newRefreshToken) {
         if (httpOnly) {

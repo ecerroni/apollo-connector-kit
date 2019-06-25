@@ -16,8 +16,10 @@ export const mockUsers = [
     role: {
       value: SCOPES.ROLES.ADMIN.VALUE,
       rank: SCOPES.ROLES.ADMIN.RANK,
-      permissions: Object.entries(ROLES_PERMISSIONS.ADMIN.PERMISSIONS).map(entry => `${entry[0]}_${entry[1]}`),
-    },
+      permissions: Object.entries(ROLES_PERMISSIONS.ADMIN.PERMISSIONS).map(
+        entry => `${entry[0]}_${entry[1]}`
+      )
+    }
   },
   {
     id: 2,
@@ -29,8 +31,9 @@ export const mockUsers = [
     role: {
       value: SCOPES.ROLES.USER.VALUE,
       rank: SCOPES.ROLES.USER.RANK,
-      permissions: Object.entries(ROLES_PERMISSIONS.USER.PERMISSIONS).map(entry => `${entry[0]}_${entry[1]}`),
-    },
-  },
+      permissions: Object.entries(ROLES_PERMISSIONS.USER.PERMISSIONS).map(
+        entry => `${entry[0]}_${entry[1]}`
+      )
+    }
+  }
 ];
-

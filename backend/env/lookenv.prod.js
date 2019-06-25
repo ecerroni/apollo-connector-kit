@@ -1,18 +1,18 @@
 module.exports = {
   AWS_ACCESS_KEY_ID: {
-    required: true,
+    required: true
   },
   AWS_SECRET_ACCESS_KEY: {
-    required: true,
+    required: true
   },
   DB_CONNECTION_STRING: {
-    required: true,
+    required: true
   },
   AUTH_SECRET_TOKEN: {
-    required: true,
+    required: true
   },
   AUTH_SECRET_REFRESH_TOKEN: {
-    required: true,
+    required: true
   },
-  AUTH_ENDPOINT: 'localhost',
+  AUTH_ENDPOINT: 'localhost'
 };

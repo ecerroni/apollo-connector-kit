@@ -1,12 +1,12 @@
 export const DIRECTIVES = {
   IS_ALLOWED: {
     FUNC_NAME: 'isAllowed',
-    SCOPE: 'scope',
+    SCOPE: 'scope'
   },
   HAS_ROLE: {
     FUNC_NAME: 'hasRole',
-    SCOPE: 'role',
-  },
+    SCOPE: 'role'
+  }
 };
 
 export const directives = `

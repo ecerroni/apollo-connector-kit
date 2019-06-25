@@ -1,5 +1,5 @@
 export const RESPONSE = {
   MESSAGES: {
-    UP_RUNNING: 'Apollo GraphQL up and running...',
-  },
+    UP_RUNNING: 'Apollo GraphQL up and running...'
+  }
 };

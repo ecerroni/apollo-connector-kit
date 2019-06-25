@@ -1,6 +1,9 @@
-import { selectAuthStrategy } from '~/authentication';
-import { AUTH } from '~/config';
-import { setCookies, setHeaders, unsetCookies } from '~/authentication';
+import {
+  setCookies,
+  setHeaders,
+  unsetCookies,
+  selectAuthStrategy
+} from '~/authentication';
 
 // TODO: MOVE THEM TO ENUMS OR CONFIG
 const login = ['login', 'publicRegister'];
@@ -32,4 +35,3 @@ export const formatResponse = ({ response, query }) => {
   }
   return response;
 };
-

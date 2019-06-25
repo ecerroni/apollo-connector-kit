@@ -18,6 +18,7 @@ export const types = '';
 export const typeResolvers = {
   //
   // Branch: {
-  //   professions: async ({ sourceId, professions: professionsIds }, __, { dataSources: { dbProfessions: professions } }) => professions.getProfessions(professionsIds),
+  //   professions: async ({ sourceId, professions: professionsIds }, __, { dataSources: { dbProfessions: professions } }) =>
+  // professions.getProfessions(professionsIds),
   // },
 };

@@ -3,4 +3,3 @@ import { mockUsers } from '~/mocks';
 
 export default mockUsers;
 export { client } from './_client';
-

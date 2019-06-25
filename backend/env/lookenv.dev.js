@@ -1,18 +1,18 @@
 module.exports = {
   AWS_ACCESS_KEY_ID: {
-    default: '',
+    default: ''
   },
   AWS_SECRET_ACCESS_KEY: {
-    default: '',
+    default: ''
   },
   DB_CONNECTION_STRING: {
-    default: 'mongodb://localhost:27017/myproject',
+    default: 'mongodb://localhost:27017/myproject'
   },
   AUTH_SECRET_TOKEN: {
-    default: '1234',
+    default: '1234'
   },
   AUTH_SECRET_REFRESH_TOKEN: {
-    default: '123456789',
+    default: '123456789'
   },
-  AUTH_ENDPOINT: 'localhost',
+  AUTH_ENDPOINT: 'localhost'
 };

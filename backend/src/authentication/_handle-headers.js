@@ -6,12 +6,12 @@ export const setCookies = (res, newToken, newRefreshToken) => {
     .cookie(JWT.COOKIE.REFRESH_TOKEN.NAME, newRefreshToken, JWT.COOKIE.TYPE);
 };
 
-export const unsetCookies = response => response
-  .clearCookie(JWT.COOKIE.TOKEN.NAME, JWT.COOKIE.TYPE)
-  .clearCookie(JWT.COOKIE.REFRESH_TOKEN.NAME, JWT.COOKIE.TYPE);
+export const unsetCookies = response =>
+  response
+    .clearCookie(JWT.COOKIE.TOKEN.NAME, JWT.COOKIE.TYPE)
+    .clearCookie(JWT.COOKIE.REFRESH_TOKEN.NAME, JWT.COOKIE.TYPE);
 
 export const setHeaders = (res, newToken, newRefreshToken) => {
   res.set(JWT.HEADER.TOKEN.NAME, newToken);
   res.set(JWT.HEADER.REFRESH_TOKEN.NAME, newRefreshToken);
 };
-
