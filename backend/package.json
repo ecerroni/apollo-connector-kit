@@ -16,6 +16,12 @@
     "start-jest": "jest",
     "test": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- yarn start-test serve-testing 3000 start-jest"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test"
+    }
+  },
   "author": "",
   "devDependencies": {
     "@babel/cli": "7.2.3",
@@ -42,6 +48,7 @@
     "eslint-plugin-import": "2.9.0",
     "eslint-plugin-prettier": "^3.1.0",
     "graphql-tester-options": "0.0.6",
+    "husky": "^2.5.0",
     "jest": "24.5.0",
     "jwt-decode": "2.2.0",
     "nodemon": "1.18.7",
