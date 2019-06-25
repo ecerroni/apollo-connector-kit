@@ -1,7 +1,9 @@
 <template functional>
-   <header>
-     <p id="header-content">Apollo Boilerplate</p>
-   </header>
+  <header>
+    <p id="header-content">
+      Apollo Boilerplate
+    </p>
+  </header>
 </template>
 
 <style scoped>

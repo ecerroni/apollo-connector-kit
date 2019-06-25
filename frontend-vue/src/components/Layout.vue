@@ -1,8 +1,14 @@
 <template functional>
   <div class="container">
-    <slot name="header">{{slots.header}}</slot>
-    <slot name="body">{{slots.body}}</slot>
-    <slot name="footer">{{slots.footer}}</slot>
+    <slot name="header">
+      {{ slots.header }}
+    </slot>
+    <slot name="body">
+      {{ slots.body }}
+    </slot>
+    <slot name="footer">
+      {{ slots.footer }}
+    </slot>
   </div>
 </template>
 

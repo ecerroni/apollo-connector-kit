@@ -1,7 +1,9 @@
 <template functional>
-   <footer>
-     <p id="header-content"><i>made with &#128156; remotely</i></p>
-   </footer>
+  <footer>
+    <p id="header-content">
+      <i>made with &#128156; remotely</i>
+    </p>
+  </footer>
 </template>
 
 <style scoped>

@@ -1,16 +1,9 @@
 <template>
-  <div
-    id="app"
-    v-cloak
-  >
-    <notifications
-      group="default"
-    />
-    <notifications
-      group="errors"
-      position="bottom center"
-      width="100%"
-    />
+  <div id="app"
+v-cloak>
+    <notifications group="default" />
+    <notifications group="errors"
+position="bottom center" width="100%" />
     <transition
       appear
       appear-class="fade-enter"
@@ -20,14 +13,10 @@
       <Layout>
         <Top slot="header" />
         <div slot="body">
-          <img
-            class="logo"
-            src="./assets/logo.png"
-          >
-          <transition
-            name="slide"
-            mode="out-in"
-          >
+          <img class="logo"
+src="./assets/logo.png">
+          <transition name="slide"
+mode="out-in">
             <router-view />
           </transition>
         </div>
@@ -38,32 +27,33 @@
 </template>
 
 <script>
-import { Header, Footer } from '@/components/_layout';
-import Layout from '@/components/Layout';
+import { Header, Footer } from "@/components/_layout";
+import Layout from "@/components/Layout";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Layout,
     Top: Header,
-    Bottom: Footer,
-  },
+    Bottom: Footer
+  }
 };
 // TODO: ADD BASIC STYLING FOR ROOT APP (FLEXBOX + GRID LAYOUT)
 </script>
 
 <style>
-@import './assets/styles/tailwind.postcss';
-html, body {
+@import "./assets/styles/tailwind.postcss";
+html,
+body {
   margin: 0;
 }
-#app  {
+#app {
   display: flex;
   flex: 1;
   height: 100vh;
   flex-flow: column;
   justify-content: space-between;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -75,23 +65,34 @@ html, body {
 }
 
 .fade-enter-active {
-  transition: opacity .3s
+  transition: opacity 0.3s;
 }
 .fade-enter {
-  opacity: 0
+  opacity: 0;
 }
 
 .fade {
-
 }
 
-.slide-enter { transform: translateX(-100%); }
-.slide-leave-to { opacity: 0; }
-.slide-enter-to { transform: translateX(0) }
-.slide-leave { transform: translateY(0) }
+.slide-enter {
+  transform: translateX(-100%);
+}
+.slide-leave-to {
+  opacity: 0;
+}
+.slide-enter-to {
+  transform: translateX(0);
+}
+.slide-leave {
+  transform: translateY(0);
+}
 
-.slide-enter-active { transition: all 350ms ease-in-out }
-.slide-leave-active { transition: all 150ms ease-in-out }
+.slide-enter-active {
+  transition: all 350ms ease-in-out;
+}
+.slide-leave-active {
+  transition: all 150ms ease-in-out;
+}
 
 .logo {
   display: flex;
@@ -99,7 +100,7 @@ html, body {
   margin: 0 auto;
 }
 
-@media only screen and (max-width:767px ){
+@media only screen and (max-width: 767px) {
   .logo {
     display: none;
   }
@@ -113,8 +114,8 @@ html, body {
   font-size: 1.3em;
 
   color: #ffffff;
-  background: #44A4FC;
-  border-left: 5px solid #187FE7;
+  background: #44a4fc;
+  border-left: 5px solid #187fe7;
 
   &.warn {
     background: #ffb648;
@@ -122,13 +123,41 @@ html, body {
   }
 
   &.error {
-    background: #E54D42;
-    border-left-color: #B82E24;
+    background: #e54d42;
+    border-left-color: #b82e24;
   }
 
   &.success {
-    background: #68CD86;
-    border-left-color: #42A85F;
+    background: #68cd86;
+    border-left-color: #42a85f;
   }
+}
+.formly-input {
+  @apply flex flex-wrap h-24 leading-loose text-lg shadow appearance-none border rounded w-full my-2 p-3 text-grey-darker leading-tight;
+  height: auto;
+}
+.formly-input > label {
+  margin-right: 1em;
+}
+.formly-input input:focus {
+  outline: none;
+}
+.formly-input > input {
+  @apply w-full;
+}
+.formly-input:focus-within {
+  border: 1px solid gold;
+}
+.formly-input.has-error > span {
+  color: darkred;
+  font-size: 0.7em;
+}
+.formly-input.has-error {
+  border: 1px solid red;
+}
+.required-input > label:after {
+  content: "*";
+  padding-left: 0.2em;
+  color: darkred;
 }
 </style>

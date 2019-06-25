@@ -3,12 +3,24 @@
     <h1>{{ intro }}</h1>
     <h2>Ecosystem</h2>
     <ul>
-      <li><a href="https://vuejs.org"
-target="_blank">VueJs</a></li>
-      <li><a href="https://www.apollographql.com/"
-target="_blank">Apollo Graphql</a></li>
-      <li><a href="http://element.eleme.io/"
-target="_blank">Element UI</a></li>
+      <li>
+        <a
+          href="https://vuejs.org"
+          target="_blank"
+        >VueJs</a>
+      </li>
+      <li>
+        <a
+          href="https://www.apollographql.com/"
+          target="_blank"
+        >Apollo Graphql</a>
+      </li>
+      <li>
+        <a
+          href="http://element.eleme.io/"
+          target="_blank"
+        >Element UI</a>
+      </li>
     </ul>
   </div>
 </template>

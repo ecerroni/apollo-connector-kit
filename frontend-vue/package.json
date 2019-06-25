@@ -29,6 +29,7 @@
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^1.2.0",
     "@ky-is/vue-cli-plugin-tailwind": "^2.0.0",
+    "@tailwindcss/custom-forms": "^0.2.0",
     "@vue/cli-plugin-babel": "^3.6.0",
     "@vue/cli-plugin-eslint": "^3.6.0",
     "@vue/cli-service": "^3.6.0",
