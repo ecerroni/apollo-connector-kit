@@ -1,5 +1,6 @@
 /.idea 
 /node_modules
+/log/hooks-out.log
 /.vscode
 /.history
 **/yarn.lock

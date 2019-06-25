@@ -5,9 +5,11 @@
   "license": "MIT",
   "author": "ric0 <rico@enricocerroni.com>",
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "husky": "^2.5.0"
   },
   "scripts": {
+    "lint-backend": "cd backend && yarn lint",
     "start-dev-apollo": "cd backend && yarn start",
     "start-dev-vue": "cd frontend-vue && yarn dev",
     "start-dev-react": "cd frontend-react && yarn dev",
@@ -22,7 +24,15 @@
     "install-all": "yarn install && concurrently 'yarn:install-dev-*'",
     "start": "yarn run dev",
     "start-docker": "yarn run dev-docker",
-    "reset-install": "bash reset-install.sh"
+    "reset-install": "bash reset-install.sh",
+    "test-backend": "cd backend && yarn test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint-backend",
+      "pre-push": "yarn test-backend",
+      "post-merge": "bash post-merge.sh"
+    }
   },
   "dependencies": {
     "graphql-tester": "git+https://github.com/sazzer/graphql-tester.git"
