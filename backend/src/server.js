@@ -48,7 +48,29 @@ app.use(
   })
 );
 
-const server = new ApolloServer({
+// TODO: remove this hack when the following issue is solved
+// https://github.com/pa-bru/graphql-cost-analysis/issues/12
+class CostAnalysisApolloServer extends ApolloServer {
+  async createGraphQLServerOptions(req, res) {
+    const options = await super.createGraphQLServerOptions(req, res);
+
+    options.validationRules = options.validationRules || [];
+    options.validationRules.push(
+      costAnalysis({
+        variables: req.body.variables,
+        maximumCost: QUERY_MAX_COST,
+        defaultCost: 1,
+        ...(process.env.NODE_ENV !== 'production' && {
+          onComplete: costs =>
+            console.log(`Query costs: ${costs} (max: ${QUERY_MAX_COST})`)
+        })
+      })
+    );
+
+    return options;
+  }
+}
+const server = new CostAnalysisApolloServer({
   schema,
   path: SERVER.GRAPHQL,
   cors: enableCors(),
@@ -62,11 +84,13 @@ const server = new ApolloServer({
       QUERY_DEPTH_LIMIT
       // { ignore: [ /_trusted$/, 'idontcare' ] },
       // depths => console.log(depths)
-    ),
+    )
     // ref: https://github.com/pa-bru/graphql-cost-analysis
-    costAnalysis({
-      maximumCost: QUERY_MAX_COST
-    })
+    // TODO: get this back when the follwing issue is solved
+    // https://github.com/pa-bru/graphql-cost-analysis/issues/12
+    // costAnalysis({
+    //   maximumCost: QUERY_MAX_COST,
+    // }),
   ],
   formatError: err => formatError(err),
   formatResponse: (response, query) => formatResponse({ response, query })
