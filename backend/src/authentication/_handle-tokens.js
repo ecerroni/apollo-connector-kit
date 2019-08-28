@@ -81,7 +81,7 @@ export const refreshTokens = async refreshToken => {
     return {};
   }
 
-  const validUser = User.getPassword({ userId, delta: true });
+  const validUser = await User.getPassword({ id: userId, delta: true });
   const { password: userPassword = null, delta: userDelta = 0 } = validUser;
 
   if (!userPassword) {
