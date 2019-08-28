@@ -64,6 +64,7 @@
     "graphql-input-number": "0.0.10",
     "graphql-input-string": "0.0.16",
     "graphql-tools": "4.0.3",
+    "graphql-type-json": "^0.3.0",
     "jsonwebtoken": "8.1.1",
     "lodash.mapvalues": "4.6.0",
     "lookenv": "1.0.1",

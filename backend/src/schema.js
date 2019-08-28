@@ -6,6 +6,7 @@ import {
   // GraphQLInputFloat,
 } from 'graphql-input-number';
 import GraphQLInputString from 'graphql-input-string';
+import GraphQLJSON from 'graphql-type-json';
 import mapValues from 'lodash.mapvalues';
 import components from '~/components';
 import { UNAUTHORIZED } from '~/environment';
@@ -41,7 +42,8 @@ const typeDefs = mergeTypes([
   directives,
   oKGGraphQLScalars,
   CONSTRAINT_SCALARS,
-  ...components.types
+  ...components.types,
+  `scalar JSON` // due to GraphQLJSON | 'graphql-type-json';
 ]);
 
 /** *********** PROTECTING YOUR QUERIES/MUTATIONS ************** */
@@ -79,7 +81,7 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: authResolvers
+  resolvers: [authResolvers, { JSON: GraphQLJSON }]
 });
 
 // The following code is needed since schemas built with makeExecutableSchema (or other client tools)
