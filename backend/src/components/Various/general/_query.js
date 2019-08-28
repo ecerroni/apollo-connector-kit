@@ -1,4 +1,14 @@
 import { roles, permissions } from '~/directives';
+import { throwIfError } from '~/utils';
+
+const IsJsonString = str => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    throwIfError(e);
+  }
+  return true;
+};
 
 // right after cloning the repo
 // roles.is.admin ---> only user rico is allowed
@@ -15,6 +25,7 @@ export const queryTypes = `
     _checkAuth: String @${roles.is.admin}
     testPermissionsHasRole: String @${roles.is.admin}
     testPermissionsIsAllowed: String @${permissions.can.read.profile}
+    testJSON(where: JSON): Boolean
   }
 `;
 
@@ -34,6 +45,7 @@ export const queryResolvers = {
     _checkAuth: (_, args, context) =>
       `Authorized | CurentUserId ${context.user.id}!`,
     testPermissionsHasRole: () => 'ok role',
-    testPermissionsIsAllowed: () => 'ok permission'
+    testPermissionsIsAllowed: () => 'ok permission',
+    testJSON: (_, { where }) => IsJsonString(JSON.stringify(where))
   }
 };
