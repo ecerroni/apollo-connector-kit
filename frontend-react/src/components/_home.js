@@ -1,3 +1,4 @@
 import React from 'react'
 
-export default () => <div>Home</div>
+export default ({ match }) => <div>Home</div>
+

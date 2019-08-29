@@ -1,11 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
+import { ToastProvider } from 'react-toast-notifications'
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
-import Alert from 'react-s-alert'
-import 'react-s-alert/dist/s-alert-default.css'
-import 'react-s-alert/dist/s-alert-css-effects/slide.css'
-import 'react-s-alert/dist/s-alert-css-effects/stackslide.css'
 import { apolloClient } from './apollo'
 import App from './App'
 import { Login } from './components'
@@ -14,21 +11,21 @@ import registerServiceWorker from './registerServiceWorker'
 import history from './history'
 
 ReactDOM.render(
-  <ApolloHooksProvider client={apolloClient}>
-    <ErrorBoundary>
-      <Router history={history}>
-        <div className="container">
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/" render={() => <Redirect to="/app" />} />
-            <Route path="/app" component={App} />
-            <Route exact path="/error-page/:error" component={ErrorPage} />
-            <Route component={ErrorPage} />
-          </Switch>
-          <Alert stack={{ limit: 3 }} />
-          <div className="footer">made with 💜 remotely</div>
 
-          <style jsx global>{`
+  <ToastProvider autoDismissTimeout={3000}>
+    <ApolloHooksProvider client={apolloClient}>
+      <ErrorBoundary>
+        <Router history={history}>
+          <div className="container">
+            <Switch>
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/" render={() => <Redirect to="/app" />} />
+              <Route path="/app" component={App} />
+              <Route exact path="/error-page/:error" component={ErrorPage} />
+              <Route component={ErrorPage} />
+            </Switch>
+            <div className="footer">made with <span role="img" aria-label="love">💜</span> remotely</div>
+            <style jsx global>{`
             *,
             *::before,
             *::after {
@@ -58,10 +55,10 @@ ReactDOM.render(
               margin: 2em auto;
             }
           `}</style>
-        </div>
-      </Router>
-    </ErrorBoundary>
-  </ApolloHooksProvider>,
+          </div>
+        </Router>
+      </ErrorBoundary>
+    </ApolloHooksProvider></ToastProvider>,
   document.getElementById('root'),
 );
 registerServiceWorker();

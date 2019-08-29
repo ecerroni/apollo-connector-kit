@@ -1,5 +1,5 @@
 
-import { useQuery } from 'react-apollo-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { storeQuery } from '../../api'
 
 export default () => {

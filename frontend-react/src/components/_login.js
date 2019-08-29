@@ -1,13 +1,32 @@
 import React from 'react'
-import { Form } from './form'
+import { ToastProvider, useToasts } from 'react-toast-notifications'
+import { Redirect } from 'react-router-dom'
+import { LoginForm as Form } from './form'
 import { useAuth } from './general'
 
 const Login = () => {
+  const { addToast } = useToasts()
   const auth = useAuth();
+  const [redirect, setRedirect] = React.useState(false)
+
+  if (redirect) return <Redirect to={{
+    pathname: '/app',
+    state: {
+      welcome: true
+    }
+  }} />
 
   return (<div className="login-wrapper">
     <h1>Login</h1>
-    <Form callback={(values) => auth.login({ ...values })} />
+    <Form callback={(values) => auth.login({
+      ...values
+    }, (e) => {
+      if (e) {
+        addToast('Wrong credentials', { appearance: 'error', autoDismiss: true })
+      } else {
+        setRedirect(true)
+      }
+    })} />
     <style jsx>{`
     .login-wrapper {
       display: flex;
@@ -60,5 +79,5 @@ const Login = () => {
   `}</style>
   </div>)
 }
-
-export default Login;
+const ToastLogin = () => <ToastProvider><Login /></ToastProvider>
+export default ToastLogin;
