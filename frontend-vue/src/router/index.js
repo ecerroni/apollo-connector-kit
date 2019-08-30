@@ -1,13 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
-import Login from '@/components/Login';
-
-const AsyncForbidden = () => import('@/components/Forbidden');
-const AsyncError = () => import('@/components/Error');
+import { Home, Login, Error as E } from '@/views';
+const AsyncForbidden = () => import('@/views/_forbidden');
+const AsyncError = () => import('@/views/_error');
 
 const AsyncNotFound = () => ({
-  component: import('@/components/NotFound'),
+  component: import('@/views/_not-found'),
   // A component to use while the async component is loading
   // loading: LoadingComp,
   // A component to use if the load fails
@@ -20,7 +18,6 @@ const AsyncNotFound = () => ({
 });
 
 Vue.use(Router);
-
 export default new Router({
   routes: [
     {

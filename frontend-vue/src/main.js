@@ -1,22 +1,17 @@
 import Vue from 'vue';
-import VueFormly from 'vue-formly';
-import VueFormlyBootstrap from 'vue-formly-bootstrap';
 import Notifications from 'vue-notification'
 import VueApollo from 'vue-apollo';
+import Vuelidate from 'vuelidate'
 import App from './App';
 import router from './router';
 import { apolloClient } from './apollo';
 
 Vue.use(Notifications)
 
-
-
-Vue.use(VueFormly);
-Vue.use(VueFormlyBootstrap);
-
 Vue.config.productionTip = false;
 
 Vue.use(VueApollo);
+Vue.use(Vuelidate)
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,

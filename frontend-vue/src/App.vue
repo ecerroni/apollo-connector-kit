@@ -1,9 +1,14 @@
 <template>
-  <div id="app"
-v-cloak>
+  <div
+    v-cloak
+    id="app"
+  >
     <notifications group="default" />
-    <notifications group="errors"
-position="bottom center" width="100%" />
+    <notifications
+      group="errors"
+      position="bottom center"
+      width="100%"
+    />
     <transition
       appear
       appear-class="fade-enter"
@@ -11,12 +16,18 @@ position="bottom center" width="100%" />
       appear-active-class="fade-enter-active"
     >
       <Layout>
-        <Top slot="header" />
+        <Top
+          slot="header"
+        />
         <div slot="body">
-          <img class="logo"
-src="./assets/logo.png">
-          <transition name="slide"
-mode="out-in">
+          <img
+            class="logo"
+            src="./assets/logo.png"
+          >
+          <transition
+            name="slide"
+            mode="out-in"
+          >
             <router-view />
           </transition>
         </div>
@@ -28,8 +39,7 @@ mode="out-in">
 
 <script>
 import { Header, Footer } from "@/components/_layout";
-import Layout from "@/components/Layout";
-
+import { Layout } from "@/views";
 export default {
   name: "App",
   components: {
@@ -133,7 +143,7 @@ body {
   }
 }
 .formly-input {
-  @apply flex flex-wrap h-24 leading-loose text-lg shadow appearance-none border rounded w-full my-2 p-3 text-grey-darker leading-tight;
+  @apply flex flex-wrap h-24 leading-loose text-lg shadow appearance-none border rounded w-full my-2 p-3 text-gray-700 leading-tight;
   height: auto;
 }
 .formly-input > label {

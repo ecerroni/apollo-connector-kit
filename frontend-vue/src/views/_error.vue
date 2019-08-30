@@ -10,11 +10,15 @@
 // import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
-  name: 'Forbidden',
-  props: ['status'],
+  name: "Forbidden",
+  props: {
+    status: {
+      type: String || Number,
+      default: ""
+    }
+  }
 };
 </script>
 
 <style scoped>
-
 </style>
