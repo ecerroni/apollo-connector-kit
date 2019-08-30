@@ -23,7 +23,14 @@
           >Tailwindcss</a>
         </li>
       </ul>
-      <p>User: {{ api.data.currentUser.name }}</p>
+      <div class="mb-8">
+        <icon
+          name="home"
+          color="black"
+          size="4"
+        />
+      </div>
+      <p>Dynamic Data: {{ api.data.currentUser.name }} | {{ !!api.data.currentUser ? 'OK' : 'ERR' }}</p>
       <p>Static Data: {{ api.data.staticData }} | {{ api.data.staticData === 'test' ? 'OK' : 'ERR' }}</p>
     </div>
   </home-container>
@@ -32,11 +39,12 @@
 <script>
 import { apolloAuthentication } from "@/mixins";
 import { HomeContainer } from '@/containers'
-
+import { Icon } from '@/components'
 export default {
   name: "Home",
   components: {
     HomeContainer,
+    Icon
   },
   mixins: [
     apolloAuthentication
