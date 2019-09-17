@@ -23,7 +23,7 @@
           </button>
         </div>
         <p class="text-xs">
-          (change it in `frontend-vue/src/containers/_homeContainer.vue`)
+          (change it in `frontend-vue/src/components/home/_container.vue`)
         </p>
       </div>
     </div>

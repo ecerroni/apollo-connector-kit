@@ -1,2 +1,2 @@
-export { default as Icon } from './_vue-icon'
-export { default as Modal } from './_modal'
+export { Icon, Modal } from './general'
+export { HomeView, HomeContainer, HomeController } from './home'

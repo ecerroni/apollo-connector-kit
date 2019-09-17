@@ -38,8 +38,7 @@
 </template>
 
 <script>
-import { Header, Footer } from "@/components/_layout";
-import { Layout } from "@/views";
+import { Header, Footer, Layout } from "@/components/layout";
 export default {
   name: "App",
   components: {

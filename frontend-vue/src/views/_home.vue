@@ -32,10 +32,7 @@
 
 <script>
 import { apolloAuthentication } from "@/mixins";
-import { HomeContainer } from '@/containers'
-import { HomeController } from '@/controllers'
-import HomeView from '@/views/_home-view'
-import { Icon, Modal } from '@/components'
+import { Icon, Modal, HomeView, HomeContainer, HomeController } from '@/components'
 
 export default {
   name: "Home",
@@ -58,7 +55,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1,
 h2 {
   font-weight: normal;
