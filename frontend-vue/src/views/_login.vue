@@ -118,7 +118,7 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
+    submitForm() {
       this.$v.$touch()
       if (this.$v.$invalid) {
         console.log('form not valid')
