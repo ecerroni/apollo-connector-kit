@@ -1,6 +1,6 @@
 <template>
   <home-container v-show="authorized">
-    <div slot-scope="api">
+    <template #data="{ data: { currentUser, staticData} }">
       <h1>{{ intro }}</h1>
       <h2>Ecosystem</h2>
       <ul class="mb-8">
@@ -30,9 +30,9 @@
           size="4"
         />
       </div>
-      <p>Dynamic Data: {{ api.data.currentUser.name }} | {{ !!api.data.currentUser ? 'OK' : 'ERR' }}</p>
-      <p>Static Data: {{ api.data.staticData }} | {{ api.data.staticData === 'test' ? 'OK' : 'ERR' }}</p>
-    </div>
+      <p>Dynamic Data: {{ currentUser.name }} | {{ !!currentUser ? 'OK' : 'ERR' }}</p>
+      <p>Static Data: {{ staticData }} | {{ staticData === 'test' ? 'OK' : 'ERR' }}</p>
+    </template>
   </home-container>
 </template>
 

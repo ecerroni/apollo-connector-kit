@@ -1,7 +1,10 @@
 
 <template>
   <div>
-    <slot :data="{ currentUser, staticData }" />
+    <slot
+      name="data"
+      :data="{ currentUser, staticData }"
+    />
   </div>
 </template>
 
