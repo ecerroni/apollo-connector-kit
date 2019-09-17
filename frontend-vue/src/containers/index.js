@@ -1,1 +1,1 @@
-export { default as HomeContainer } from './_homeContainer.vue'
+export { default as HomeContainer } from './_home-container.vue'
