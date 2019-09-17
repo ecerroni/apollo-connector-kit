@@ -27,8 +27,8 @@ export const authQuery = gql`
 `
 
 export const currentUserQuery = gql`
-  query currentUser {
-    currentUser {
+  query currentUser($delay: Int) {
+    currentUser(delay: $delay) {
       ...UserBasicData
     }
   }

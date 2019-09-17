@@ -1,6 +1,11 @@
 <template>
   <home-container v-show="authorized">
-    <template #data="{ data: { currentUser, staticData} }">
+    <template
+      #loading="{ loading }"
+    >      
+      <span class="loader">Loading data | (Handle loading inside the view component using the template slot)</span>
+    </template>
+    <template #data="{ data: { currentUser, staticData, loading } }">
       <h1>{{ intro }}</h1>
       <h2>Ecosystem</h2>
       <ul class="mb-8">
@@ -30,8 +35,30 @@
           size="4"
         />
       </div>
-      <p>Dynamic Data: {{ currentUser.name }} | {{ !!currentUser ? 'OK' : 'ERR' }}</p>
-      <p>Static Data: {{ staticData }} | {{ staticData === 'test' ? 'OK' : 'ERR' }}</p>
+      <hr>
+      <span>v-if="loading" + v-else inside the data template</span>
+      <hr>
+      <div v-if="loading">
+        <span class="loader">Loading data | (Handle loading inside the view component)</span>
+      </div>
+      <div v-else>
+        <p v-if="!loading">
+          Dynamic Data: {{ currentUser.name }} | {{ !!currentUser && currentUser.id ? 'OK' : 'ERR' }}
+        </p>
+        <p>Static Data: {{ staticData }} | {{ staticData === 'test' ? 'OK' : 'ERR' }}</p>
+      </div>
+      <br>
+      <br>
+      <br>
+      <hr>
+      <span>v-if="loading", no v-else, in spefic html tag</span>
+      <hr>
+      <div>
+        <p>
+          Dynamic Data: {{ currentUser.name }} | <span :class="loading && 'loader'">{{ loading ? 'loading...' : !!currentUser && currentUser.id ? 'OK' : 'ERR' }}</span>
+        </p>
+        </p><p>Static Data: {{ staticData }} | {{ staticData === 'test' ? 'OK' : 'ERR' }}</p>
+      </div>
     </template>
   </home-container>
 </template>
@@ -78,5 +105,10 @@ li {
 
 a {
   color: #42b983;
+}
+.loader {
+  background-color: #42b983;
+  padding: .25em 1em;
+  border-radius: 1em
 }
 </style>
