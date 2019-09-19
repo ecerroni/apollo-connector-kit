@@ -1,14 +1,31 @@
 // import mongoose from 'mongoose';
 
-// mongoose.pluralize(null); // legacy db has no plulars in collections' names
+// mongoose.pluralize(null);
+// mongoose.connect('mongodb://localhost:27017/db_name', {
+//   autoReconnect: true,
+//   reconnectTries: 1000000,
+//   reconnectInterval: 3000
+// });
 
-// console.log('...connecting to MongoDB');
-// mongoose.connect('mongodb://localhost:27017/dbname');
-
-// const db = mongoose.connection;
-// db.on('error', e => console.error('MongoDB connection error.', e));
-// db.on('open', () => {
+// mongoose.connection.on('connected', () => {
+//   console.log('Connection Established');
 //   console.log('Connected to db');
 // });
 
-// export default db;
+// mongoose.connection.on('reconnected', () => {
+//   console.log('Connection Reestablished');
+// });
+
+// mongoose.connection.on('disconnected', () => {
+//   console.log('Connection Disconnected');
+// });
+
+// mongoose.connection.on('close', () => {
+//   console.log('Connection Closed');
+// });
+
+// mongoose.connection.on('error', error => {
+//   console.log(`ERROR: ${error}`);
+// });
+
+// export default mongoose;

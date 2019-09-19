@@ -2,4 +2,5 @@
 import { mockUsers } from '~/mocks';
 
 export default mockUsers;
-export { client } from './_client';
+
+export { default as db } from './_client';

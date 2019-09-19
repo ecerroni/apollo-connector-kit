@@ -47,17 +47,17 @@ export const UserHelper = {
 //   }
 
 //   getUser(userId) {
-//     return users.findOneById(userId);
+//     return users.loadOneById(userId);
 //   }
 
 //   async getUsers(usersIds) {
 //     // await users.deleteFromCacheById({ userId: 4 });
 //     // await users.flushCollectionCache();
-//     return users.findManyByIds(usersIds, { ttl: 60 });
+//     return users.loadManyByIds(usersIds, { ttl: 60 });
 //   }
 //   async getusersByQuery(query) {
 //     // await users.deleteFromCacheById({ userId: 4 });
 //     // await users.flushCollectionCache();
-//     return users.findManyByQuery(query, { ttl: 3 });
+//     return users.loadManyByQuery(query, { ttl: 3 });
 //   }
 // }

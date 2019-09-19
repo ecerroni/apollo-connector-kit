@@ -1,11 +1,9 @@
 // import mongoose from 'mongoose';
 
-// const professionSchema = mongoose.Schema({
+// export default mongoose.Schema({
 //   sourceId: {
-//     type: Number,
+//     type: Number
 //   },
 //   branchSourceId: Number,
-//   name: String,
+//   name: String
 // });
-
-// export default mongoose.model('Profession', professionSchema);

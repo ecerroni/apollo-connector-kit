@@ -9,14 +9,7 @@
 //       mongoose
 //     });
 //   }
-//   getBranch(branchId) {
-//     return this.Branch.loadOneById(branchId);
-//   }
-
-//   getBranches(branchesIds) {
-//     return this.Branch.loadManyByIds(branchesIds);
-//   }
-//   getAll() {
-//     return this.Branch.find({});
+//   getAll(limit) {
+//     return limit ? this.Job.find({}).limit(limit) : this.Job.find({});
 //   }
 // }

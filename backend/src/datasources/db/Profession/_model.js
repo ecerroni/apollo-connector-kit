@@ -1,26 +1,27 @@
+// import mongoose from 'mongoose';
 // import { MongoDataSource } from 'apollo-datasource-mongo';
-// import professions from './_schema';
 
 // export default class extends MongoDataSource {
-//   constructor() {
-//     super();
-//     this.collections = [professions];
-//     this.mongoose = true;
-//     this.debug = true;
+//   initialize(config) {
+//     super.initialize({
+//       ...config,
+//       mongoose,
+//       debug: true
+//       // allowFlushingCollectionCache: true
+//     });
 //   }
-
-//   getProfession(professionId) {
-//     return professions.findOneById(professionId);
+//   async getProfession(professionId) {
+//     return this.Profession.loadOneById(professionId, { ttl: 60 });
 //   }
 
 //   async getProfessions(professionsIds) {
-//     // await professions.deleteFromCacheById({ branchSourceId: 4 });
-//     await professions.flushCollectionCache();
-//     return professions.findManyByIds(professionsIds, { ttl: 60 });
+//     // await this.Profession.deleteFromCacheById({ branchSourceId: 4 });
+//     // await this.Profession.flushCollectionCache();
+//     return this.Profession.loadManyByIds(professionsIds, { ttl: 30 });
 //   }
 //   async getProfessionsByQuery(query) {
-//     // await professions.deleteFromCacheById({ branchSourceId: 4 });
-//     // await professions.flushCollectionCache();
-//     return professions.findManyByQuery(query, { ttl: 3 });
+//     // await this.Profession.deleteFromCacheById({ branchSourceId: 4 });
+//     // await this.Profession.flushCollectionCache();
+//     return this.Profession.loadManyByQuery(query, { ttl: 3 });
 //   }
 // }

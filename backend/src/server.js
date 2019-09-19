@@ -17,7 +17,8 @@ import {
   formatResponse,
   formatError
 } from '~/graphql';
-// import { Branch, Profession } from './datasources';
+// import { db } from '~/dataconnectors';
+// import { buildSource } from './datasources';
 import { startupMessages, RESPONSE } from '~/environment';
 
 const app = express();
@@ -74,10 +75,9 @@ const server = new CostAnalysisApolloServer({
   schema,
   path: SERVER.GRAPHQL,
   cors: enableCors(),
-  dataSources: () => ({
-    //   dbBranches: new Branch(),
-    //   dbProfessions: new Profession(),
-  }),
+  // dataSources: () => ({
+  //   ...buildSource.db(db)
+  // }),
   context: ({ res, req }) => buildContext({ res, req }),
   validationRules: [
     depthLimit(

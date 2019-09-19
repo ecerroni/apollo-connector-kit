@@ -1,11 +1,9 @@
 // import mongoose from 'mongoose';
 
-// const branchSchema = mongoose.Schema({
+// export default mongoose.Schema({
 //   sourceId: {
-//     type: Number,
+//     type: Number
 //   },
 //   name: String,
-//   professions: Array,
+//   professions: Array
 // });
-
-// export default mongoose.model('Branch', branchSchema);

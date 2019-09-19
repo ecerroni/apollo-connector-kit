@@ -12,13 +12,29 @@
 //     sourceId: Int
 //     professions: [Profession]
 //   }
+
+//   type Job {
+//     _id: ID!
+//     profession: Profession
+//   }
 // `;
 export const types = '';
 
 export const typeResolvers = {
-  //
   // Branch: {
-  //   professions: async ({ sourceId, professions: professionsIds }, __, { dataSources: { dbProfessions: professions } }) =>
-  // professions.getProfessions(professionsIds),
+  //   professions: async (
+  //     { sourceId, professions: professionsIds },
+  //     __,
+  //     { dataSources: { Profession } }
+  //   ) => Profession.getProfessions(professionsIds)
   // },
+  // Job: {
+  //   profession: async (
+  //     { _id, profession: professionId },
+  //     __,
+  //     { dataSources: { Profession } }
+  //   ) => {
+  //     return Profession.getProfession(professionId);
+  //   }
+  // }
 };
