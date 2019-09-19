@@ -71,7 +71,7 @@ const errorLink = onError(({ response, networkError = {}, graphQLErrors = [] }) 
     if (!statusCode) {
       const errors = graphQLErrors
         .filter(e => e.status === 403 || e.status === 401);
-      const { status = 200 } = errors[0];
+      const { status = 200 } = errors[0] || {};
       statusCode = status;
     }
     if (statusCode === 401) {
