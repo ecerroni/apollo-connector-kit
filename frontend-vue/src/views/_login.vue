@@ -65,10 +65,12 @@
 </template>
 <script>
 import { validationMixin } from 'vuelidate'
+import { Notyf } from 'notyf';
 import { required, minLength, email, sameAs, url } from 'vuelidate/lib/validators'
 import errorValidations from 'vuelidate-errors'
 import { loginMutation, storeQuery } from "@/api";
 import { hashString } from "@/utils";
+
 export default {
   name: "Login",
   mixins: [validationMixin],
@@ -109,6 +111,7 @@ export default {
     }
   },
   mounted() {
+    this.$fsm.logout()
     this.$apollo.provider.defaultClient.clearStore();
   },
   apollo: {
@@ -135,25 +138,13 @@ export default {
                 }
               }
             })
-            .then(() => {
-              this.$notify({
-                group: "default",
-                title: "WELCOME",
-                text: `You've been logged in`,
-                duration: 2000,
-                type: "success"
-              });
-              this.$router.push("/");
+            .then(res => {
+              if (res) this.$fsm.login()
             })
             .catch(e => {
               console.log(e); // eslint-disable-line
-              this.$notify({
-                group: "errors",
-                title: "Wrong credentials",
-                text: "Cannot login. Try again",
-                duration: 2000,
-                type: "warn"
-              });
+              let notyf = new Notyf()
+              notyf.error('Wrong credentials')
             });        
       }
     }

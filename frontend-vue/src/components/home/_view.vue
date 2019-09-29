@@ -26,6 +26,12 @@
           target="_blank"
         >Tailwindcss</a>
       </li>
+      <li>
+        <a
+          href="https://github.com/jakesgordon/javascript-state-machine"
+          target="_blank"
+        >Javascript State Machine</a>
+      </li>
     </ul>
     <div class="mb-8">
       <icon

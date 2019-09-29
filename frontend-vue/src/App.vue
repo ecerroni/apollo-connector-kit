@@ -3,12 +3,6 @@
     v-cloak
     id="app"
   >
-    <notifications group="default" />
-    <notifications
-      group="errors"
-      position="bottom center"
-      width="100%"
-    />
     <transition
       appear
       appear-class="fade-enter"
@@ -45,7 +39,7 @@ export default {
     Layout,
     Top: Header,
     Bottom: Footer
-  }
+  },
 };
 // TODO: ADD BASIC STYLING FOR ROOT APP (FLEXBOX + GRID LAYOUT)
 </script>

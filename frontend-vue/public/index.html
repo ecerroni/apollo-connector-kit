@@ -11,7 +11,8 @@
         width: 40px;
         height: 40px;
       }
-      .double-bounce1, .double-bounce2 {
+      .double-bounce1,
+      .double-bounce2 {
         width: 30px;
         height: 30px;
         border-radius: 50%;
@@ -28,17 +29,24 @@
         animation-delay: -1.0s;
       }
       @-webkit-keyframes sk-bounce {
-        0%, 100% { -webkit-transform: scale(0.0) }
-        50% { -webkit-transform: scale(1.0) }
+        0%,
+        100% {
+          -webkit-transform: scale(0.0);
+        }
+        50% {
+          -webkit-transform: scale(1.0);
+        }
       }
       @keyframes sk-bounce {
-        0%, 100% {
+        0%,
+        100% {
           transform: scale(0.0);
           -webkit-transform: scale(0.0);
-        } 50% {
-            transform: scale(1.0);
-            -webkit-transform: scale(1.0);
-          }
+        }
+        50% {
+          transform: scale(1.0);
+          -webkit-transform: scale(1.0);
+        }
       }
     </style>
   </head>

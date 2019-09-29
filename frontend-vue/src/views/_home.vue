@@ -2,7 +2,7 @@
   <home-container v-show="authorized">
     <template
       #loading="{ loading }"
-    >      
+    >
       <span class="loader">Loading data | (Handle loading inside the view component using the template slot)</span>
     </template>
     <template #data="{ currentUser, staticData, loading, delay }">
@@ -48,7 +48,7 @@ export default {
   anyway */,
   data() {
     return {
-      intro: "A basic connector for authentication/authorization"
+      intro: "A basic connector for authentication/authorization",
     };
   },
 };

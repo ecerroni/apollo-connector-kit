@@ -6,6 +6,7 @@ import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { APP, AUTH, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, JWT } from './_config';
 import router from '@/router';
+import { fsm } from '@/states';
 import { defaults as initLocalState } from '../api';
 
 const apolloCache = new InMemoryCache({
@@ -34,12 +35,18 @@ const httpLink = new HttpLink({
   ...opts,
 });
 
-const authMiddlewareLink = setContext(() => ({
-  headers: {
-    [JWT.HEADER.TOKEN.NAME]: localStorage.getItem(JWT.LOCAL_STORAGE.TOKEN.NAME) || null,
-    [JWT.HEADER.REFRESH_TOKEN.NAME]: localStorage.getItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME) || null, // eslint-disable-line
-  },
-}));
+const authMiddlewareLink = setContext(() => {
+  const token = localStorage.getItem(JWT.LOCAL_STORAGE.TOKEN.NAME);
+  if (typeof token === 'string' && token.length > 0) {
+    fsm.goto('loggedIn')
+  }
+  return {
+    headers: {
+      [JWT.HEADER.TOKEN.NAME]: localStorage.getItem(JWT.LOCAL_STORAGE.TOKEN.NAME) || null,
+      [JWT.HEADER.REFRESH_TOKEN.NAME]: localStorage.getItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME) || null, // eslint-disable-line
+    },
+  }
+});
 
 const afterwareLink = new ApolloLink((operation, forward) =>
   forward(operation).map((response) => {
@@ -75,22 +82,13 @@ const errorLink = onError(({ response, networkError = {}, graphQLErrors = [] }) 
       statusCode = status;
     }
     if (statusCode === 401) {
-      // eslint-disable-next-line
-      console.warn(UNAUTHORIZED);
-      if (router.history.current.path && router.history.current.path !== '/login') {
-        router.push('/login');
-      }
+      fsm.error40x(401)
     }
     if (statusCode === 403) {
-      // Do something
-      console.warn(FORBIDDEN);
-      router.push('/forbidden');
+      fsm.error40x(403)
     }
     if ((statusCode >= 500)) {
-      // eslint-disable-next-line
-      console.warn('SERVER ERROR');
-      router.push(`/error/${statusCode}`);
-      // DO SOMETHING. HANDLE THIS ONE.
+      fsm.error50x
     }
     // if (response.errors && response.errors.length > 0 && response.errors[0].extensions) {
     //   response.errors = { ...response.errors[0].extensions };
