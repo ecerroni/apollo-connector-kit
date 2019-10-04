@@ -1,11 +1,9 @@
-// import mongoose from 'mongoose';
 // import { MongoDataSource } from 'apollo-datasource-mongo';
 
 // export default class extends MongoDataSource {
 //   initialize(config) {
 //     super.initialize({
 //       ...config,
-//       mongoose,
 //       debug: true
 //       // allowFlushingCollectionCache: true
 //     });

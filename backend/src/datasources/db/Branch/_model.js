@@ -1,4 +1,3 @@
-// import mongoose from 'mongoose';
 // import { MongoDataSource } from 'apollo-datasource-mongo';
 
 // export default class extends MongoDataSource {
@@ -6,7 +5,6 @@
 //     super.initialize({
 //       ...config,
 //       debug: true,
-//       mongoose
 //     });
 //   }
 //   getBranch(branchId) {
