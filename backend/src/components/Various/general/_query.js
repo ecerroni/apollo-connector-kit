@@ -10,14 +10,6 @@ const IsJsonString = str => {
   return true;
 };
 
-// right after cloning the repo
-// roles.is.admin ---> only user rico is allowed
-// permissions.can.read.profile ---> both users rico and george are allowed
-
-// branches: [Branch]
-// branch(_id: ID!): Branch
-// branchProfessionsByQuery(sourceId: Int!): [Profession]
-// jobs(limit: Int): [Job]
 export const queryTypes = `
   type Query {
     test: String
@@ -37,20 +29,6 @@ export const queryTypes = `
 
 export const queryResolvers = {
   Query: {
-    // jobs: async (_, { limit }, { dataSources: { Job } }) => {
-    //   return Job.getAll(limit);
-    // },
-    // branch: async (_, { _id }, { dataSources: { Branch } }) =>
-    //   Branch.getBranch(_id),
-    // branches: async (_, __, { dataSources: { Branch } }) => Branch.getAll(),
-    // branchProfessionsByQuery: async (
-    //   _,
-    //   { sourceId },
-    //   { dataSources: { Profession } }
-    // ) =>
-    //   Profession.getProfessionsByQuery({
-    //     branchSourceId: sourceId
-    //   }),
     test: () => 'Server is up and running... working smoothly',
     connection: () => 'Connected',
     _checkAuth: (_, args, context) =>

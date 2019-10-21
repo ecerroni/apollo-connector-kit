@@ -19,7 +19,7 @@ export const mutationResolvers = {
       if (user) {
         const {
           role: { value: userRole, permissions: userPermissions }
-        } = user; // this should eventually come from a db
+        } = user;
         const roles = Object.keys(FULL_ROLES).reduce(
           (arr, key) => [
             ...arr,

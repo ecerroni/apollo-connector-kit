@@ -1,6 +1,6 @@
 // import { MongoDataSource } from 'apollo-datasource-mongo';
 // import users from './_schema';
-import users from '~/dataconnectors';
+import { mockUsers as users } from '~/mocks';
 import { encryptor } from '~/utils/';
 import { ERROR } from '~/environment';
 
