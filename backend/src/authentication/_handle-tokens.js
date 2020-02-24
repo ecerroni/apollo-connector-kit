@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import to from 'await-to-js';
 import { AUTH, JWT } from '~/config';
 import { UserHelper as User } from '~/datasources';
 
@@ -81,7 +82,12 @@ export const refreshTokens = async refreshToken => {
     return {};
   }
 
-  const validUser = await User.getPassword({ id: userId, delta: true });
+  const [err, validUser] = await to(
+    User.getPassword({ id: userId, delta: true })
+  );
+  if (err) {
+    return {};
+  }
   const { password: userPassword = null, delta: userDelta = 0 } = validUser;
 
   if (!userPassword) {
