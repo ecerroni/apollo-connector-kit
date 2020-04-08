@@ -129,11 +129,23 @@ if (useLocalStorage) {
 
 const link = ApolloLink.from(links)
 
-export default new ApolloClient({
+const client = new ApolloClient({
   link,
   cache: apolloCache,
   resolvers,
   connectToDevTools: true,
 })
 
+const resetLocalStorageTokens = () => {
+  localStorage.removeItem(JWT.LOCAL_STORAGE.TOKEN.NAME)
+  localStorage.removeItem(JWT.LOCAL_STORAGE.REFRESH_TOKEN.NAME)
+}
+
+if (useLocalStorage) {
+  client.onClearStore(() => resetLocalStorageTokens())
+  client.onResetStore(() => resetLocalStorageTokens())
+}
+
 initLocalState(apolloCache)
+
+export default client
