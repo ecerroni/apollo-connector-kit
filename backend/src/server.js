@@ -53,7 +53,9 @@ class CostAnalysisApolloServer extends ApolloServer {
   async createGraphQLServerOptions(req, res) {
     const options = await super.createGraphQLServerOptions(req, res);
 
-    options.validationRules = options.validationRules || [];
+    options.validationRules = options.validationRules
+      ? options.validationRules.slice()
+      : [];
     options.validationRules.push(
       costAnalysis({
         variables: req.body.variables,
