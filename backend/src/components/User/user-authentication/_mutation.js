@@ -36,7 +36,7 @@ export const mutationResolvers = {
           .reduce((arr, rl) => [...arr, ...rl.permissions], []);
         const additionalClaims = {};
         const userData = {
-          id: user.id,
+          id: user.id || user._id,
           username: user.username,
           email: user.email,
           roles: userFullRoles,
