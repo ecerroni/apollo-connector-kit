@@ -19,7 +19,7 @@ fi
 
 echo "Deleting existing component part"
 
-DIRECTORY="../components/${COMPONENT}/${COMPONENT_PART}"
+DIRECTORY="../datacomponents/${COMPONENT}/${COMPONENT_PART}"
 if [ -d "$DIRECTORY" ]; then
     echo "[$COMPONENT_PART] of '$COMPONENT' found in components"
     read -p "Press Enter To Continue to delete it or Ctrl + C to abort"
@@ -29,17 +29,17 @@ else
     exit 0;
 fi
 echo $(pwd)
-rm -R $(dirname $(pwd))/components/${COMPONENT}/${COMPONENT_PART}
+rm -R $(dirname $(pwd))/datacomponents/${COMPONENT}/${COMPONENT_PART}
 
-if [ ! "$(ls -A $(dirname $(pwd))/components/${COMPONENT})" ]; then
-  rm -R $(dirname $(pwd))/components/${COMPONENT};
+if [ ! "$(ls -A $(dirname $(pwd))/datacomponents/${COMPONENT})" ]; then
+  rm -R $(dirname $(pwd))/datacomponents/${COMPONENT};
 fi
 
 echo "Component part [$COMPONENT_PART] of '$COMPONENT' successfully deleted"
 
 ########### REHYDRATE COMPONENTS INDEX ###########
 
-cd ../../src/components
+cd ../../src/datacomponents
 
 arrayOfComponentsDirs=`find . -maxdepth 2 -type d ! -name '.*' -printf '%f\n'`
 footer=`echo // ${arrayOfComponentsDirs[@]}`

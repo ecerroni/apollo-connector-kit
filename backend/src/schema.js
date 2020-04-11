@@ -8,7 +8,7 @@ import {
 import GraphQLInputString from 'graphql-input-string';
 import GraphQLJSON from 'graphql-type-json';
 import mapValues from 'lodash.mapvalues';
-import components from '~/components';
+import components from '~/datacomponents';
 import { UNAUTHORIZED } from '~/environment';
 import { isPrivateOperation } from '~/utils';
 import { directives, attachDirectives } from '~/directives';
