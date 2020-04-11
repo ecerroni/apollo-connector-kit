@@ -5,7 +5,7 @@
   "main": "./src/server.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- nodemon ./src/server.js --exec babel-node -r 'node_modules/dotenv/config' -e js",
+    "start": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- nodemon ./src/server.js --exec babel-node -r './node_modules/dotenv/config' -e js",
     "start-docker": "bash start-docker.sh",
     "add-component-part": "cd ./src/scripts && bash create-graphql-component.sh",
     "remove-component-part": "cd ./src/scripts && bash delete-graphql-component.sh",
