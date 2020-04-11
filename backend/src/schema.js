@@ -1,6 +1,13 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
-import OKGGraphQLScalars from '@okgrow/graphql-scalars'; // eslint-disable-line
+import {
+  DateTimeResolver,
+  DateTimeTypeDefinition,
+  NonNegativeFloatResolver,
+  NonNegativeFloatTypeDefinition,
+  EmailAddressResolver,
+  EmailAddressTypeDefinition
+} from 'graphql-scalars'; // eslint-disable-line
 import {
   GraphQLInputInt
   // GraphQLInputFloat,
@@ -13,12 +20,6 @@ import { UNAUTHORIZED } from '~/environment';
 import { isPrivateOperation } from '~/utils';
 import { directives, attachDirectives } from '~/directives';
 
-// Add more okgrow/graphql-scalars if you need
-const oKGGraphQLScalars = `
-  scalar DateTime
-  scalar NonNegativeFloat
-  scalar EmailAddress
-`;
 const TYPE_CONSTRAINTS = [
   // ref: https://github.com/joonhocho/graphql-input-number
   GraphQLInputInt({
@@ -38,9 +39,22 @@ const CONSTRAINT_SCALARS = TYPE_CONSTRAINTS.reduce(
   ''
 );
 
+const graphqlScalars = {
+  types: [
+    EmailAddressTypeDefinition,
+    NonNegativeFloatTypeDefinition,
+    DateTimeTypeDefinition
+  ],
+  resolvers: {
+    EmailAddress: EmailAddressResolver,
+    NonNegativeFloat: NonNegativeFloatResolver,
+    DateTime: DateTimeResolver
+  }
+};
+
 const typeDefs = mergeTypes([
   directives,
-  oKGGraphQLScalars,
+  ...graphqlScalars.types,
   CONSTRAINT_SCALARS,
   ...components.types,
   `scalar JSON` // due to GraphQLJSON | 'graphql-type-json';
@@ -81,18 +95,9 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: [authResolvers, { JSON: GraphQLJSON }]
+  resolvers: [authResolvers, { ...graphqlScalars.resolvers, JSON: GraphQLJSON }]
 });
 
-// The following code is needed since schemas built with makeExecutableSchema (or other client tools)
-// do not have handler functions for serialize, parseValue, and parseLiteral bound.
-// ref: https://stackoverflow.com/a/47827818
-Object.keys(OKGGraphQLScalars).forEach(key => {
-  // eslint-disable-next-line no-underscore-dangle
-  if (schema._typeMap[key]) {
-    Object.assign(schema._typeMap[key], OKGGraphQLScalars[key]); // eslint-disable-line no-underscore-dangle
-  }
-});
 Object.keys(TYPE_CONSTRAINTS).forEach(k => {
   // eslint-disable-next-line no-underscore-dangle
   const key = TYPE_CONSTRAINTS[k];

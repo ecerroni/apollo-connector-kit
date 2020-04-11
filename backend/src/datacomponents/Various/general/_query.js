@@ -18,6 +18,7 @@ export const queryTypes = `
     _checkAuth: String @${roles.is.admin}
     testPermissionsHasRole: String @${roles.is.admin}
     testPermissionsIsAllowed: String @${permissions.can.read.profile}
+    testEmailScalar: EmailAddress
     testJSON(where: JSON): Boolean
   }
 `;
@@ -35,6 +36,7 @@ export const queryResolvers = {
       `Authorized | CurentUserId ${context.user.id}!`,
     testPermissionsHasRole: () => 'ok role',
     testPermissionsIsAllowed: () => 'ok permission',
+    testEmailScalar: () => 'info@test.com',
     testJSON: (_, { where }) => IsJsonString(JSON.stringify(where))
   }
 };
