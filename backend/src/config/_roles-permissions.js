@@ -134,7 +134,6 @@ const rolesAndPermissions = Object.entries(SCOPES.ROLES).reduce(
     ownerPermissions = {
       // eslint-disable-next-line no-shadow
       ...Object.entries(permissions).reduce((obj, [key, value]) => {
-        console.log(key, value);
         if (ownerPermissions[key])
           return {
             ...ownerPermissions,

@@ -17,7 +17,7 @@ export const queryTypes = `
     connection: String!
     _checkAuth: String @${roles.is.admin}
     testPermissionsHasRole: String @${roles.is.admin}
-    testPermissionsIsAllowed: String @${permissions.can.read.profile}
+    testPermissionsIsAllowed: String @${permissions.can.read.billing}
     testEmailScalar: EmailAddress
     testJSON(where: JSON): Boolean
   }

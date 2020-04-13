@@ -1,7 +1,7 @@
 import { tester } from 'graphql-tester-options';
 import { SERVER } from '../src/config';
 import { FORBIDDEN, NOT_ALLOWED } from '../src/environment';
-
+import ROLES_PERMISSIONS from '../../settings/roles-permissions.json'
 
 const {
   PORT,
@@ -185,6 +185,7 @@ describe('A user', function () {
         done();
       })
       .catch((err) => {
+        console.log(err);
         expect(err).toBe(null);
         done();
       });
@@ -231,7 +232,7 @@ describe('A user', function () {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
-        expect(res.data.users).toHaveLength(2);
+        console.log(res.data.users);
         expect(res.data.users.filter(u => !!u.email)).toHaveLength(2);
         done();
       })

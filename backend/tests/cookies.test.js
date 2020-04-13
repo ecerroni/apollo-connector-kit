@@ -2,7 +2,7 @@ import { tester } from 'graphql-tester-options';
 import decode from 'jwt-decode';
 import { SERVER } from '../src/config';
 // import { to, asyncArray } from '../src/utils';
-import { ERROR } from '../src/environment';
+import ROLES_PERMISSIONS from '../../settings/roles-permissions.json'
 
 
 const {
@@ -62,7 +62,10 @@ describe('A user', function () {
         const { user: { roles, permissions } = {} } = decodedToken;
         expect(Array.isArray(permissions)).toBe(true);
         expect(Array.isArray(roles)).toBe(true);
-        expect(roles).toHaveLength(2);
+        expect(roles).toHaveLength(ROLES_PERMISSIONS.USERS.reduce((count, user) => {
+          if (Array.isArray(user)) return count + user.length
+          return count + 1
+        }, 0));
         const rightRoles = roles.includes('ADMIN') && roles.includes('USER');
         expect(rightRoles).toBe(true);
         done();
