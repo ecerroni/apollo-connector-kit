@@ -1,0 +1,94 @@
+{
+  "OPERATION": {
+    "READ": "read",
+    "UPDATE": "update",
+    "CREATE": "create",
+    "DELETE": "delete"
+  },
+  "SCOPES": {
+    "PROFILE": "profile",
+    "BILLING": "billing"
+  },
+  "GROUPS": {
+    "ADMINS": {
+      "PERMISSIONS": {
+        "PROFILE": [
+          "CREATE",
+          "READ",
+          "UPDATE",
+          "DELETE"
+        ],
+        "BILLING": [
+          "CREATE",
+          "READ",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    },
+    "FINANCE": {
+      "PERMISSIONS": {
+        "BILLING": [
+          "CREATE",
+          "READ",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    }
+  },
+  "USERS": [
+    {
+      "ADMIN": {
+        "PERMISSIONS": {
+          "PROFILE": [
+            "CREATE",
+            "READ",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        "GROUPS": [
+          "ADMINS"
+        ]
+      }
+    },
+    [
+      {
+        "STAFF": {
+          "PERMISSIONS": {
+            "PROFILE": [
+              "READ",
+              "UPDATE"
+            ]
+          },
+          "GROUPS": [
+            "FINANCE"
+          ]
+        }
+      },
+      {
+        "AGENT": {
+          "PERMISSIONS": {
+            "PROFILE": [
+              "READ",
+              "UPDATE"
+            ]
+          }
+        }
+      }
+    ],
+    {
+      "USER": {
+        "PERMISSIONS": {
+          "PROFILE": [
+            "READ"
+          ],
+          "BILLING": [
+            "READ"
+          ]
+        }
+      }
+    }
+  ]
+}
