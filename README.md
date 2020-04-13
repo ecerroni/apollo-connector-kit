@@ -83,6 +83,224 @@ As a workaround you should always stop the server and run from the root project:
 
 Then restart the server
 
+#### app.json
+```
+{
+  "NAMESPACE": "connector", // Change the namespace to match your app name or anything else you like. This value will be used to build the tokens name like `connectorToken` and `connectorRefreshToken` as well as the headers' names
+  "ENDPOINT": { // this is mainly for local development
+    "PROTOCOL": "http",
+    "HOST": "localhost",
+    "PORT": 3000,
+    "GRAPHQL": "/graphql",
+    "GRAPHIQL": "/graphiql",
+    "PAYLOAD": { // this however will affect also production environment
+      "JSON": {
+        "LIMIT": "50mb"
+      },
+      "URL_ENCODED": {
+        "LIMIT": "50mb",
+        "PARAMETER_LIMIT": 100000
+      }
+    }
+  },
+  "CONSTANTS": { // change them as you need
+    "HTTP_ONLY": "HTTP_ONLY",
+    "LOCAL_STORAGE": "LOCAL_STORAGE",
+    "FORBIDDEN": "Forbidden",
+    "UNAUTHORIZED": "Unauthorized!",
+    "NOT_ALLOWED": "Not allowed"
+  },
+  "STRATEGIES": { // this affects the backend server only. Use of both strategies at the same time will work
+    "HTTP_ONLY": true, // tokens are stored in cookies
+    "LOCAL_STORAGE": true // tokens are stored in localStorage (on the client)
+  },
+  // the following builds up the headers name together with the namespace
+  "PREFIX": "x-", 
+  "TOKEN_SUFFIX": "-token",
+  "REFRESH_TOKEN_SUFFIX": "-refresh-token",
+  "AUTH_HEADER_SUFFIX": "-auth-request-type"
+}
+```
+
+#### cookie.json
+If `HTTP_ONLY` is set to `true` in `app.json` you can change the cookie's expiration time as you need
+```
+{
+  "COOKIE_EXP": 31536000000
+}
+
+```
+
+#### jwt.json
+This is the expiratin time of the tokens in seconds
+```
+{
+  "TOKEN_EXP": 360,
+  "REFRESH_TOKEN_EXP": 604800
+}
+```
+
+#### queries.json
+These are exclusively for apollo backend
+```
+{
+  "PRIVATE_PREFIX": "_", // queries and mutations that have this prefix will always throw an 401 error if they are invoke by a non-valid user
+  "DEPTH_LIMIT": 5, // max depth limit allowed in queries
+  "MAX_COST": 1000 // max cost allowed for a query
+}
+```
+#### roles-permissions.json
+All application roles and permissions are set here
+```
+{
+  "OPERATION": { // The CRUD operations allowed. You may extend this list
+    "READ": "read",
+    "UPDATE": "update",
+    "CREATE": "create",
+    "DELETE": "delete"
+  },
+  "SCOPES": {
+    "PROFILE": "profile",
+    "BILLING": "billing"
+  },
+  "GROUPS": { // Groups defined here can be added to specific user types
+    "ADMINS": {
+      "PERMISSIONS": {
+        "PROFILE": [ // There is a check at run-time to ensure that the field key is an actual SCOPE
+          "CREATE", // There is a check at run-time to ensure that the field key is an actual OPERATION
+          "READ",
+          "UPDATE",
+          "DELETE"
+        ],
+        "BILLING": [
+          "CREATE",
+          "READ",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    },
+    "FINANCE": {
+      "PERMISSIONS": {
+        "BILLING": [
+          "CREATE",
+          "READ",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    }
+  },
+  "USERS": [ // Order is important here. Higher in hierarchy  user types will inherit all permissions from lower ranks
+    {
+      "ADMIN": {
+        "PERMISSIONS": {
+          "PROFILE": [
+            "CREATE",
+            "READ",
+            "UPDATE",
+            "DELETE"
+          ]
+        },
+        "GROUPS": [
+          "ADMINS" // Admin will also inherit permissions from the ADMINS group that are not duplicates
+          // There is a check at run-time to ensure that the field key is an actual GROUP
+        ]
+      }
+    },
+    [ // f you need to have user types of the same rank you need to put them into an array like here.
+    // In this case staff and agent will both inherit the permissions of `USER`. However staff will not inherit those of AGENT as the share the same rank in the hirearchy (being they grouped in an array)
+      {
+        "STAFF": {
+          "PERMISSIONS": {
+            "PROFILE": [
+              "READ",
+              "UPDATE"
+            ]
+          },
+          "GROUPS": [
+            "FINANCE"
+          ]
+        }
+      },
+      {
+        "AGENT": {
+          "PERMISSIONS": {
+            "PROFILE": [
+              "READ",
+              "UPDATE"
+            ]
+          }
+        }
+      }
+    ],
+    {
+      "USER": {
+        "PERMISSIONS": {
+          "PROFILE": [
+            "READ"
+          ],
+          "BILLING": [
+            "READ"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+###### Ouput of the above roles/permissions
+```
+{ OWNER: // this is a special user type that it's built at run-time and inherits all existing permissions
+   { permissions:
+      { create: 'profile, billing',
+        read: 'profile, billing',
+        update: 'profile, billing',
+        delete: 'profile, billing' } },
+  ADMIN:
+   { permissions:
+      { create: 'profile, billing',
+        read: 'profile, billing',
+        update: 'profile, billing',
+        delete: 'profile, billing' } },
+  STAFF:
+   { permissions:
+      { create: 'billing',
+        read: 'profile, billing',
+        update: 'profile, billing',
+        delete: 'billing' } },
+  AGENT: { permissions: { read: 'profile', update: 'profile' } },
+  USER: { permissions: { read: 'profile, billing' } } }
+```
+
+###### How to enforce roles and permissions in queries and mutations using custom directives
+
+Once the `roles-permissions.json` is saved and the backend server started all roles and permissions custom directive get build programmatically.
+
+You will able to enforce them following this pattern:
+Roles: roles.is.{role}
+Permissions: permissions.can.{operation}.{scope}
+
+> ###### At field level
+```
+import { permissions } from '../../../directives';
+
+export const types = `
+  type User {
+    id: String!
+    name: String
+    username: String
+    email: String @${permissions.can.read.profile}
+  }`;
+```
+
+> ##### at query/mutation level
+```
+    testPermissionsHasRole: String @${roles.is.admin}
+    testPermissionsIsAllowed: String @${permissions.can.read.billing}
+```
+
 ### AUHENTICATION STRATEGIES
 
 #### Server
