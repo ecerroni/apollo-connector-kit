@@ -1,4 +1,4 @@
-import { ROLES_PERMISSIONS, SCOPES } from '~/config';
+import { SCOPES } from '~/config';
 
 // online hash.js emulator
 // http://www.xorbin.com/tools/sha256-hash-calculator
@@ -15,14 +15,14 @@ export const mockUsers = [
     delta: 0,
     role: {
       value: SCOPES.ROLES.ADMIN.VALUE,
-      rank: SCOPES.ROLES.ADMIN.RANK,
-      permissions: Object.entries(ROLES_PERMISSIONS.ADMIN.PERMISSIONS).reduce(
-        (arr, entry) => [
-          ...arr,
-          ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
-        ],
-        []
-      )
+      rank: SCOPES.ROLES.ADMIN.RANK
+      // permissions: Object.entries(ROLES_PERMISSIONS.ADMIN.PERMISSIONS).reduce(
+      //   (arr, entry) => [
+      //     ...arr,
+      //     ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
+      //   ],
+      //   []
+      // )
     }
   },
   {
@@ -34,14 +34,26 @@ export const mockUsers = [
     delta: 0,
     role: {
       value: SCOPES.ROLES.USER.VALUE,
-      rank: SCOPES.ROLES.USER.RANK,
-      permissions: Object.entries(ROLES_PERMISSIONS.USER.PERMISSIONS).reduce(
-        (arr, entry) => [
-          ...arr,
-          ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
-        ],
-        []
-      )
+      rank: SCOPES.ROLES.USER.RANK
+      // permissions: Object.entries(ROLES_PERMISSIONS.USER.PERMISSIONS).reduce(
+      //   (arr, entry) => [
+      //     ...arr,
+      //     ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
+      //   ],
+      //   []
+      // )
+    }
+  },
+  {
+    id: 2,
+    name: 'Mike',
+    username: 'mike',
+    email: 'mike@test.it',
+    password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
+    delta: 0,
+    role: {
+      value: SCOPES.ROLES.STAFF.VALUE,
+      rank: SCOPES.ROLES.STAFF.RANK
     }
   }
 ];
