@@ -82,7 +82,8 @@
       "USER": {
         "PERMISSIONS": {
           "PROFILE": [
-            "READ"
+            "READ",
+            "DELETE"
           ]
         }
       }

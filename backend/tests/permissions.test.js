@@ -1,7 +1,9 @@
 import { tester } from 'graphql-tester-options';
+import decode from 'jwt-decode'
 import { SERVER } from '../src/config';
 import { FORBIDDEN, NOT_ALLOWED } from '../src/environment';
-import ROLES_PERMISSIONS from '../../settings/roles-permissions.json'
+import { mockUsers } from '../src/mocks/_users'
+import ROLES_PERMISSIONS from '../src/config/_roles-permissions'
 
 const {
   PORT,
@@ -232,8 +234,7 @@ describe('A user', function () {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
-        console.log(res.data.users);
-        expect(res.data.users.filter(u => !!u.email)).toHaveLength(2);
+        expect(res.data.users.filter(u => !!u.email)).toHaveLength(mockUsers.length);
         done();
       })
       .catch((err) => {
@@ -257,7 +258,7 @@ describe('A user', function () {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
-        expect(res.data.users).toHaveLength(2);
+        expect(res.data.users).toHaveLength(mockUsers.length);
         expect(res.data.users.filter(u => !!u.email)).toHaveLength(0);
         done();
       })
@@ -308,6 +309,63 @@ describe('A user', function () {
         const { errors } = res;
         expect(Array.isArray(errors)).toBe(true);
         expect(res.errors[0].message).toBe(FORBIDDEN);
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+
+  it('should inherit lower rank roles', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: testPermissionsQuery.hasRole,
+        }),
+        {
+          jar: true,
+          headers: {
+            'Content-Type': 'application/json', 'x-connector-auth-request-type': 'LOCAL_STORAGE', 'x-connector-token': sharedToken, 'x-connector-refresh-token': sharedRefreshToken,
+          },
+        },
+      )
+      .then((res) => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(true);
+        expect(res.data.testPermissionsHasRole).toBe('ok role');
+        const { user: { roles } } = decode(sharedToken)
+        const allRoles = Object.keys(ROLES_PERMISSIONS).filter(role => role !== 'OWNER')
+        expect(roles).toHaveLength(allRoles.length)
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+  it('should inherit lower rank permissions', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: testPermissionsQuery.hasRole,
+        }),
+        {
+          jar: true,
+          headers: {
+            'Content-Type': 'application/json', 'x-connector-auth-request-type': 'LOCAL_STORAGE', 'x-connector-token': sharedToken, 'x-connector-refresh-token': sharedRefreshToken,
+          },
+        },
+      )
+      .then((res) => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(true);
+        expect(res.data.testPermissionsHasRole).toBe('ok role');
+        const { user: { permissions } } = decode(sharedToken)
+
+        const allPermissions = Object.entries(ROLES_PERMISSIONS).filter(([role]) => role !== 'OWNER').reduce((arr, [key, value]) => [...arr, ...Object.entries(value.PERMISSIONS).reduce((a, [k, v]) => [...a, ...v.map(i => `${k}_${i}`)], [])], [])
+
+        expect(permissions).toHaveLength(Array.from(new Set(allPermissions)).length)
         done();
       })
       .catch((err) => {
