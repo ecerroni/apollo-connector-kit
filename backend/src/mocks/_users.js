@@ -45,7 +45,7 @@ export const mockUsers = [
     }
   },
   {
-    id: 2,
+    id: 3,
     name: 'Mike',
     username: 'mike',
     email: 'mike@test.it',
