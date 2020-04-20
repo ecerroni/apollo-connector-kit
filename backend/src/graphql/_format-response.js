@@ -4,10 +4,14 @@ import {
   unsetCookies,
   selectAuthStrategy
 } from '~/authentication';
+import ROUTES_RESOLVERS from '$/settings/routes-resolvers.json';
 
-// TODO: MOVE THEM TO ENUMS OR CONFIG
-const login = ['login', 'publicRegister'];
-const logout = 'logout';
+const {
+  SERVER: {
+    RESOLVERS: { WITH_TOKEN_HEADERS: login } = {},
+    ROUTES: { LOGOUT: logout } = {}
+  } = {}
+} = ROUTES_RESOLVERS;
 
 export const formatResponse = ({ response, query }) => {
   const { context } = query;

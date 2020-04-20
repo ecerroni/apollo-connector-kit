@@ -7,6 +7,10 @@ const {
     UNAUTHORIZED,
     FORBIDDEN,
   } = {},
+  ROUTES: {
+    LOGIN = '/login',
+    LOGOUT = '/logout'
+  }
 } = APP;
 
 const notyf = new Notyf();
@@ -28,7 +32,7 @@ export default new StateMachine({
   },
   methods: {
     onLoggedIn({ from, to }) {
-      if (router.history.current.path === '/login') {
+      if (router.history.current.path === LOGIN) {
         notyf.success('Welcome')
         router.push("/");
       }
@@ -50,8 +54,8 @@ export default new StateMachine({
       const error = errorCode || 404
       if (error == 401) {
         console.warn(UNAUTHORIZED);
-        if (router.history.current.path && router.history.current.path !== '/login') {
-          router.push('/login');
+        if (router.history.current.path && router.history.current.path !== LOGIN) {
+          router.push(LOGIN);
           notyf.error('You tried to access an authorized area. Please login first');
         }
       }

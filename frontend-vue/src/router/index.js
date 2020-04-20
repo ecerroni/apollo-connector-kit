@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { Home, Login, Error as E } from '@/views';
+import { APP } from '../apollo/_config'
 const AsyncForbidden = () => import('@/views/_forbidden');
 const AsyncError = () => import('@/views/_error');
 
@@ -17,6 +18,8 @@ const AsyncNotFound = () => ({
   // timeout: 3000,
 });
 
+const { ROUTES: { LOGIN } } = APP
+
 Vue.use(Router);
 export default new Router({
   routes: [
@@ -26,7 +29,7 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/login',
+      path: LOGIN,
       name: 'Login',
       component: Login,
     },

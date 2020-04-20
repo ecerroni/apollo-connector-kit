@@ -14,6 +14,8 @@ const {
   FORBIDDEN,
 } = SERVER_MESSAGES
 
+const { ROUTES: { LOGIN, LOGOUT } = {} } = APP
+
 const opts = {
   credentials: 'same-origin',
   headers: {
@@ -49,7 +51,7 @@ const authMiddlewareLink = setContext(() => {
       headers.headers[JWT.HEADER.REFRESH_TOKEN.NAME],
     ).exp
     if (currentTime > tokenExpiration) {
-      history.push('/login')
+      history.push(LOGIN)
     }
   }
   return headers
@@ -88,9 +90,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
         if (
           history &&
           history.location &&
-          history.location.pathname !== '/login'
+          history.location.pathname !== LOGIN
         ) {
-          history.push('/login')
+          history.push(LOGIN)
         }
       }
       if (FORBIDDEN === message || status === 403) {
@@ -102,7 +104,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   }
   if (networkError && networkError.statusCode === 401) {
     // eslint-disable-next-line
-    history.push('/login');
+    history.push(LOGIN);
     console.warn(UNAUTHORIZED)
   }
   if (networkError && networkError.statusCode === 403) {

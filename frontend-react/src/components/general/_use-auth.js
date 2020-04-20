@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 import history from '../../history'
+import { APP } from '../../apollo/_config'
 import { currentUserQuery, loginMutation } from '../../api'
 import hash from 'hash.js'
 
@@ -11,6 +12,9 @@ const hashString = text => ({
     .digest('hex'),
   algorithm: 'sha-256',
 })
+
+const { ROUTES: { LOGIN } = {} } = APP
+
 
 const isFunction = (functionToCheck) => functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
 
@@ -27,7 +31,7 @@ const useAuth = () => {
     }
     if (callback && isFunction(callback)) {
       callback(null, 'success')
-    } else history.push('/login')
+    } else history.push(LOGIN)
     console.log('You have logged out')
   }
   const login = ({ email, username, password }, callback) => {

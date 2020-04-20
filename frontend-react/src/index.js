@@ -9,6 +9,9 @@ import { Login } from './components'
 import { ErrorBoundary, ErrorPage } from './components/general'
 import registerServiceWorker from './registerServiceWorker'
 import history from './history'
+import ROUTES_SETTINGS from './settings/routes-resolvers.json'
+
+const { CLIENT: { ROUTES: { LOGIN } = {} } = {} } = ROUTES_SETTINGS
 
 ReactDOM.render(
 
@@ -18,7 +21,7 @@ ReactDOM.render(
         <Router history={history}>
           <div className="container">
             <Switch>
-              <Route exact path="/login" component={Login} />
+              <Route exact path={LOGIN} component={Login} />
               <Route exact path="/" render={() => <Redirect to="/app" />} />
               <Route path="/app" component={App} />
               <Route exact path="/error-page/:error" component={ErrorPage} />
