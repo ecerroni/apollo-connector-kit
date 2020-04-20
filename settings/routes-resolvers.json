@@ -1,0 +1,19 @@
+{
+  "CLIENT": {
+    "ROUTES": {
+      "LOGIN": "/login",
+      "LOGOUT": "/logout"
+    }
+  },
+  "SERVER": {
+    "RESOLVERS": {
+      "WITH_TOKEN_HEADERS": [
+        "login",
+        "register"
+      ]
+    },
+    "ROUTES": {
+      "LOGOUT": "logout"
+    }
+  }
+}
