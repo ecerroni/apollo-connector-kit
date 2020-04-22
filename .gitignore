@@ -8,8 +8,8 @@
 ToDo.txt
 yarn-error.log
 
-**/env/.env.*
-**/env/.env
+**/.env
+**/.env.*
 
 npm-debug.log*
 yarn-debug.log*
