@@ -52,7 +52,7 @@ export const attachDirectives = schema => {
                 ) {
                   return null; // if the permission is set on a field we just want to null the field. No errors should be thrown
                 }
-                throw Error(FORBIDDEN); // this will redirect the client but only for Query and Mutation
+                throw Error(FORBIDDEN); // this will redirect the client, but only for Query and Mutation
               case DIRECTIVES.IS_ALLOWED.FUNC_NAME:
                 if (
                   info &&
@@ -62,7 +62,7 @@ export const attachDirectives = schema => {
                 ) {
                   return null; // if the permission is set on a field we just want to null the field. No errors should be thrown
                 }
-                throw Error(NOT_ALLOWED); // this will NOT redirect the client but only for Query and Mutation
+                throw Error(NOT_ALLOWED); // this will NOT redirect the client
               default:
                 throw Error(FORBIDDEN); // this will redirect the client
             }

@@ -68,7 +68,7 @@ describe('A user', function () {
         { jar: true },
       )
       .then((res) => {
-        expect(res.status).toBe(200);
+        expect(res.status).toBe(401);
         expect(res.success).toBe(false);
         const { errors } = res;
         expect(Array.isArray(errors)).toBe(true);

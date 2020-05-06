@@ -155,7 +155,7 @@ describe('A user', function () {
         },
       )
       .then((res) => {
-        expect(res.status).toBe(200);
+        expect(res.status).toBe(403);
         expect(res.success).toBe(false);
         const { errors } = res;
         expect(Array.isArray(errors)).toBe(true);
@@ -242,7 +242,7 @@ describe('A user', function () {
         done();
       });
   });
-  it('should NOT have permissions with isAllowed on Field [Reutrn null for the field]', (done) => {
+  it('should NOT have permissions with isAllowed on Field [Return null for the field and response status 200]', (done) => {
     this
       .test(
         JSON.stringify({
@@ -290,7 +290,7 @@ describe('A user', function () {
         done();
       });
   });
-  it('should NOT be allowed to call private queries [Return FOIRBIDDEN]', (done) => {
+  it('should NOT be allowed to call private queries [Return FORBIDDEN]', (done) => {
     this
       .test(
         JSON.stringify({
@@ -304,7 +304,7 @@ describe('A user', function () {
         },
       )
       .then((res) => {
-        expect(res.status).toBe(200);
+        expect(res.status).toBe(403);
         expect(res.success).toBe(false);
         const { errors } = res;
         expect(Array.isArray(errors)).toBe(true);

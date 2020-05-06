@@ -82,39 +82,35 @@ const afterwareLink = new ApolloLink((operation, forward) =>
   }),
 )
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors && graphQLErrors.filter(e => e).length > 0) {
-    graphQLErrors.map(({ message = '', status = 200 }) => {
-      if (UNAUTHORIZED === message || status === 401) {
-        console.warn(`You've attempted to access ${UNAUTHORIZED} section`)
-        if (
-          history &&
-          history.location &&
-          history.location.pathname !== LOGIN
-        ) {
-          history.push(LOGIN)
-        }
+const errorLink = onError(({ graphQLErrors = [], networkError = {} }) => {
+  const redirect = (networkError && networkError.statusCode) ||
+  (graphQLErrors && graphQLErrors.length > 0);
+    if (redirect) {
+      let { statusCode } = networkError;
+      if (!statusCode) {
+        const errors = graphQLErrors
+          .filter(e => e.status === 403 || e.status === 401);
+        const { status = 200 } = errors[0] || {};
+        statusCode = status;
       }
-      if (FORBIDDEN === message || status === 403) {
+      if (statusCode === 401) {
+        console.warn(`You've attempted to access ${UNAUTHORIZED} section`)
+            if (
+              history &&
+              history.location &&
+              history.location.pathname !== LOGIN
+            ) {
+              history.push(LOGIN)
+            }
+      }
+      if (statusCode === 403) {
         console.warn(`You've attempted a ${FORBIDDEN} action`)
         history.push(`/error-page/403`)
       }
-      return null
-    })
-  }
-  if (networkError && networkError.statusCode === 401) {
-    // eslint-disable-next-line
-    history.push(LOGIN);
-    console.warn(UNAUTHORIZED)
-  }
-  if (networkError && networkError.statusCode === 403) {
-    // Do something
-    console.warn(FORBIDDEN)
-  }
-  if (networkError && networkError.statusCode >= 500) {
-    // eslint-disable-next-line
-    console.warn('SERVER ERROR');
-    history.push(`/error-page/${networkError.statusCode}`)
+      if ((statusCode >= 500)) {
+        console.warn('SERVER ERROR');
+        history.push(`/error-page/${networkError.statusCode}`)
+    }
   }
 })
 
