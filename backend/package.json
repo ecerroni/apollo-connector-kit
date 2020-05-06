@@ -13,8 +13,11 @@
     "serve-staging": "lookenv -- node ./server.js",
     "serve-production": "lookenv -- node ./server.js",
     "serve-testing": "babel-node ./src/server.js",
+    "serve-testing-watch": "nodemon ./src/server.js --exec babel-node",
     "start-jest": "jest",
-    "test": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- yarn start-test serve-testing 3000 start-jest"
+    "start-jest-watch": "jest --watch",
+    "test": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- yarn start-test serve-testing 3000 start-jest",
+    "test-watch": "lookenv --path=./env/lookenv.dev.js --dotenv=./env/.env -- yarn start-test serve-testing-watch 3000 start-jest-watch"
   },
   "author": "",
   "devDependencies": {
