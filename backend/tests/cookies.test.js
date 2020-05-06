@@ -68,6 +68,9 @@ describe('A user', function () {
         }, 0));
         const rightRoles = roles.includes('ADMIN') && roles.includes('USER');
         expect(rightRoles).toBe(true);
+        expect(res.headers['set-cookie'].length > 0).toBe(true);
+        expect(res.headers['set-cookie'].toString().includes('x-connector-token=')).toBe(true);
+        expect(res.headers['set-cookie'].toString().includes(',x-connector-refresh-token=')).toBe(true);
         done();
       })
       .catch((err) => {
