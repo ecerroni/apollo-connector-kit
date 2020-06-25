@@ -27,20 +27,8 @@ const getAllCombinedPermissions = (roles, userFullRoles) => {
 };
 
 export default async user => {
-  const {
-    role: { value: userRole, permissions: userPermissions = [] }
-  } = user;
-  // const roles = Object.keys(FULL_ROLES).reduce(
-  //   (arr, key) => [
-  //     ...arr,
-  //     {
-  //       rank: FULL_ROLES[key].SPEC.RANK, value: key, permissions: Object.entries(FULL_ROLES[key].PERMISSIONS).map(
-  //         entry => `${entry[0]}_${entry[1]}`
-  //       )
-  //     }
-  //   ],
-  //   []
-  // );
+  const { role: userRole } = user;
+
   const roles = getAllFromSpec(FULL_ROLES);
   const userFullRoles = assignCascadeRoles(
     FULL_ROLES[userRole].SPEC,
@@ -54,7 +42,7 @@ export default async user => {
     email: user.email,
     type: user.type,
     roles: userFullRoles,
-    permissions: [...new Set([...userPermissions, ...userFullPermissions])]
+    permissions: [...new Set([...userFullPermissions])]
   };
   const [token, refreshToken] = await createTokens(
     {

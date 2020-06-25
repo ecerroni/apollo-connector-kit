@@ -13,17 +13,7 @@ export const mockUsers = [
     email: 'admin@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna', // this is === 123456
     delta: 0,
-    role: {
-      value: SCOPES.ROLES.ADMIN.VALUE,
-      rank: SCOPES.ROLES.ADMIN.RANK
-      // permissions: Object.entries(ROLES_PERMISSIONS.ADMIN.PERMISSIONS).reduce(
-      //   (arr, entry) => [
-      //     ...arr,
-      //     ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
-      //   ],
-      //   []
-      // )
-    }
+    role: SCOPES.ROLES.ADMIN.VALUE
   },
   {
     id: 2,
@@ -32,17 +22,7 @@ export const mockUsers = [
     email: 'test@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
     delta: 0,
-    role: {
-      value: SCOPES.ROLES.USER.VALUE,
-      rank: SCOPES.ROLES.USER.RANK
-      // permissions: Object.entries(ROLES_PERMISSIONS.USER.PERMISSIONS).reduce(
-      //   (arr, entry) => [
-      //     ...arr,
-      //     ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
-      //   ],
-      //   []
-      // )
-    }
+    role: SCOPES.ROLES.USER.VALUE
   },
   {
     id: 3,
@@ -51,9 +31,6 @@ export const mockUsers = [
     email: 'mike@test.it',
     password: '$2a$12$1e616OUCfSM7Wd3VOvbZve.4DtCrRDPrAZcKvIo3.lDUHm3kiXhna',
     delta: 0,
-    role: {
-      value: SCOPES.ROLES.STAFF.VALUE,
-      rank: SCOPES.ROLES.STAFF.RANK
-    }
+    role: SCOPES.ROLES.STAFF.VALUE
   }
 ];
