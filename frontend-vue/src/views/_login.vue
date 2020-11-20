@@ -69,7 +69,7 @@ import { Notyf } from 'notyf';
 import { required, minLength, email, sameAs, url } from 'vuelidate/lib/validators'
 import errorValidations from 'vuelidate-errors'
 import { loginMutation, storeQuery } from "@/api";
-import { hashString } from "@/utils";
+import { base64String } from "@/utils";
 
 export default {
   name: "Login",
@@ -134,7 +134,7 @@ export default {
               variables: {
                 userCredentials: {
                   username: this.email,
-                  password: hashString(this.password).digest
+                  password: base64String(this.password)
                 }
               }
             })

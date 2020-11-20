@@ -1,1 +1,1 @@
-export { hashString } from './hash';
+export { base64String } from './encode';

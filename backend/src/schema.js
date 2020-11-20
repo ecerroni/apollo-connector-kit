@@ -22,6 +22,7 @@ import components from '~/datacomponents';
 import { UNAUTHORIZED } from '~/environment';
 import { isPrivateOperation } from '~/utils';
 import { directives, attachDirectives } from '~/directives';
+import { GraphQLBase64 } from './scalars';
 
 const TYPE_CONSTRAINTS = [
   // ref: https://github.com/joonhocho/graphql-input-number
@@ -60,7 +61,8 @@ const typeDefs = mergeTypes([
   ...graphqlScalars.types,
   CONSTRAINT_SCALARS,
   ...components.types,
-  `scalar JSON` // due to GraphQLJSON | 'graphql-type-json';
+  `scalar Base64
+  scalar JSON` // due to GraphQLJSON | 'graphql-type-json';
 ]);
 
 /** *********** PROTECTING YOUR QUERIES/MUTATIONS ************** */
@@ -98,7 +100,14 @@ const authResolvers = mapValues(mergeResolvers(resolvers), (resolver, type) =>
 
 export const schema = makeExecutableSchema({
   typeDefs,
-  resolvers: [authResolvers, { ...graphqlScalars.resolvers, JSON: GraphQLJSON }]
+  resolvers: [
+    authResolvers,
+    {
+      ...graphqlScalars.resolvers,
+      JSON: GraphQLJSON,
+      Base64: GraphQLBase64
+    }
+  ]
 });
 
 Object.keys(TYPE_CONSTRAINTS).forEach(k => {

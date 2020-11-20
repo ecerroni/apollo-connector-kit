@@ -1,3 +1,3 @@
-import hashString from './_hash-string';
+import base64String from './_hash-string';
 
-export default hashString;
+export default base64String;

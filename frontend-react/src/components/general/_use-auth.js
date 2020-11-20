@@ -3,15 +3,7 @@ import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
 import history from '../../history'
 import { APP } from '../../apollo/_config'
 import { currentUserQuery, loginMutation } from '../../api'
-import hash from 'hash.js'
-
-const hashString = text => ({
-  digest: hash
-    .sha256()
-    .update(text)
-    .digest('hex'),
-  algorithm: 'sha-256',
-})
+import { base64String } from '../../utils'
 
 const { ROUTES: { LOGIN } = {} } = APP
 
@@ -39,7 +31,7 @@ const useAuth = () => {
       variables: {
         userCredentials: {
           username: email || username,
-          password: hashString(password).digest,
+          password: base64String(password),
         },
       },
     }).then((res) => {
