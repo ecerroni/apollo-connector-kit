@@ -63,7 +63,7 @@ describe('A user', function () {
           variables: {
             userCredentials: {
               username: 'rico',
-              password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', // 'this 123456' hashed
+              password: 'MTIzNDU2', // 'this 123456' encoded (base64). It'll be '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92' hashed
             },
           },
         }),
@@ -94,7 +94,7 @@ describe('A user', function () {
           variables: {
             userCredentials: {
               username: 'george',
-              password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', // 'this 123456' hashed
+              password: 'MTIzNDU2', // 'this 123456' encoded (base64). It'll be '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92' hashed
             },
           },
         }),

@@ -34,7 +34,7 @@ describe('A user', function () {
           variables: {
             userCredentials: {
               username: 'test',
-              password: 'wrongpass',
+              password: 'MTExMTEx',
             },
           },
         }),
@@ -59,7 +59,7 @@ describe('A user', function () {
           variables: {
             userCredentials: {
               username: 'rico',
-              password: 'wrongpass',
+              password: 'MTExMTEx',
             },
           },
         }),
@@ -76,6 +76,31 @@ describe('A user', function () {
         done();
       });
   });
+  it('should not login with non encoded (base64) password', (done) => {
+    this
+      .test(
+        JSON.stringify({
+          query: loginQuery,
+          variables: {
+            userCredentials: {
+              username: 'rico',
+              password: '123456', // right password but not encoded (base64)
+            },
+          },
+        }),
+        { jar: true },
+      )
+      .then((res) => {
+        expect(res.status).toBe(400);
+        expect(res.success).toBe(false);
+        expect(res.errors[0].message.includes('Value must be a non-empty Base64-encoded string')).toBe(true);
+        done();
+      })
+      .catch((err) => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
   it('should login with right credentials and full rights', (done) => {
     this
       .test(
@@ -84,7 +109,7 @@ describe('A user', function () {
           variables: {
             userCredentials: {
               username: 'rico',
-              password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', // 'this 123456' hashed
+              password: 'MTIzNDU2', // 'this 123456' encoded (base64). It'll be '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92' hashed
             },
           },
         }),
@@ -123,7 +148,7 @@ describe('A user', function () {
           variables: {
             userCredentials: {
               username: 'george',
-              password: '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', // 'this 123456' hashed
+              password: 'MTIzNDU2', // 'this 123456' encoded (base64). It'll be '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92' hashed
             },
           },
         }),
