@@ -1,5 +1,8 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
+import {
+  mergeTypeDefs as mergeTypes,
+  mergeResolvers
+} from '@graphql-tools/merge';
 import {
   DateTimeResolver,
   DateTimeTypeDefinition,
