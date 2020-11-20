@@ -49,6 +49,14 @@ from the project's root folder
 
 `cd backend && yarn start`
 
+## Version compatibility
+### Bcrypt
+Depending on bcrypt's version you need to use a specific node LTS version to make it work properly. This is even more importan in production environemnts to avoid build errors like `gyp ERR!....`
+
+Here there is a table compatibility you should follow:
+https://www.npmjs.com/package/bcrypt#version-compatibility
+
+The current bcrypt version used in this boilerplate requires Node.js LTS >= 12
 ## Usage
 
 ### USERS
