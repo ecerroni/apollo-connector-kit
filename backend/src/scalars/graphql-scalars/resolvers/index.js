@@ -30,6 +30,7 @@ import Base58 from './Base58';
 import JWT from './JWT';
 import JSONString from './JSONString';
 import Pattern from './Pattern';
+import SafeString from './SafeString';
 
 export default {
   Number,
@@ -63,5 +64,6 @@ export default {
   Base58,
   JWT,
   JSONString,
-  Pattern
+  Pattern,
+  SafeString
 };

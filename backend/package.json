@@ -67,6 +67,7 @@
     "graphql-depth-limit": "1.1.0",
     "graphql-input-number": "0.0.10",
     "graphql-input-string": "0.0.16",
+    "graphql-scalar-html": "^1.0.0",
     "graphql-scalars": "^1.1.0",
     "graphql-tools": "4.0.3",
     "graphql-type-json": "^0.3.0",
@@ -74,6 +75,7 @@
     "jsonwebtoken": "8.1.1",
     "lodash.mapvalues": "^4.6.0",
     "lookenv": "1.0.1",
+    "string-strip-html": "^6.3.0",
     "uuid": "3.3.2"
   },
   "license": "MIT"

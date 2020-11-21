@@ -15,6 +15,7 @@ import {
   GraphQLInputInt
   // GraphQLInputFloat,
 } from 'graphql-input-number';
+import GraphQLHTML from 'graphql-scalar-html';
 import GraphQLInputString from 'graphql-input-string';
 import GraphQLJSON from 'graphql-type-json';
 import mapValues from 'lodash.mapvalues';
@@ -22,7 +23,7 @@ import components from '~/datacomponents';
 import { UNAUTHORIZED } from '~/environment';
 import { isPrivateOperation } from '~/utils';
 import { directives, attachDirectives } from '~/directives';
-import { GraphQLBase64 } from './scalars';
+import { GraphQLBase64, GraphQLSafeString } from './scalars';
 
 const TYPE_CONSTRAINTS = [
   // ref: https://github.com/joonhocho/graphql-input-number
@@ -62,6 +63,8 @@ const typeDefs = mergeTypes([
   CONSTRAINT_SCALARS,
   ...components.types,
   `scalar Base64
+  scalar HTML
+  scalar SafeString
   scalar JSON` // due to GraphQLJSON | 'graphql-type-json';
 ]);
 
@@ -105,7 +108,11 @@ export const schema = makeExecutableSchema({
     {
       ...graphqlScalars.resolvers,
       JSON: GraphQLJSON,
-      Base64: GraphQLBase64
+      Base64: GraphQLBase64,
+      HTML: new GraphQLHTML({
+        allowedTags: [...GraphQLHTML.defaults.allowedTags, 'img']
+      }),
+      SafeString: new GraphQLSafeString()
     }
   ]
 });
