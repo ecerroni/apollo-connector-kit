@@ -35,3 +35,7 @@ export default {
   types: [...allComponents.reduce((arr, i) => [...arr, ...i.types], [])],
   resolvers: [...allComponents.reduce((arr, i) => [...arr, ...i.resolvers], [])]
 };
+
+// Tracked Components and Components' parts:
+// eslint-disable-next-line
+// User user-data user-authentication Various general test-data

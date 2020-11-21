@@ -17,14 +17,14 @@ mutation login ($userCredentials: userCredentials!) {
   login(input: $userCredentials)
 }`;
 const publicTestQuery = `
-  query test {
-    test
+  query ping {
+    ping
   }
 `;
 
 const privateAuthQuery = `
-  query _checkAuth {
-    _checkAuth
+  query _testCheckAuthAdmin {
+    _testCheckAuthAdmin
   }
 `;
 
@@ -50,8 +50,8 @@ describe('A user', function () {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
-        const { data: { test = '' } = {} } = res;
-        expect(test).toBe('Server is up and running... working smoothly');
+        const { data: { ping = '' } = {} } = res;
+        expect(ping).toBe('Server is up and running... working smoothly');
         done();
       })
       .catch((err) => {
@@ -137,7 +137,7 @@ describe('A user', function () {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
-        expect(res.data._checkAuth).toBe('Authorized | CurentUserId 1!');
+        expect(res.data._testCheckAuthAdmin).toBe('Authorized | CurentUserId 1!');
         done();
       })
       .catch((err) => {

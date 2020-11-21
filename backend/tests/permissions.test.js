@@ -39,7 +39,7 @@ const testPermissionsQuery = {
 
 const privateAuthQuery = `
   query _checkAuth {
-    _checkAuth
+    _testCheckAuthAdmin
   }
 `;
 
