@@ -6,7 +6,7 @@
   "author": "ric0 <rico@enricocerroni.com>",
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "husky": "^2.5.0"
+    "husky": "^4.3.0"
   },
   "scripts": {
     "lint-backend": "cd backend && yarn lint",

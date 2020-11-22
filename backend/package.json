@@ -9,6 +9,7 @@
     "start-docker": "bash start-docker.sh",
     "add-component-part": "cd ./src/scripts && bash create-graphql-component.sh",
     "remove-component-part": "cd ./src/scripts && bash delete-graphql-component.sh",
+    "clean": "rm -rf node_modules && rm -rf yarn.lock && rm -rf package-json.lock",
     "build": "babel -d ./build ./src -s",
     "serve-staging": "lookenv -- node ./server.js",
     "serve-production": "lookenv -- node ./server.js",

@@ -31,6 +31,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/",
     "lint-fix": "eslint --fix src/",
+    "clean": "rm -rf node_modules && rm -rf yarn.lock && rm -rf package-json.lock",
     "postinstall": "ln -sfn $(dirname $(pwd))/settings './src/settings'"
   },
   "devDependencies": {
