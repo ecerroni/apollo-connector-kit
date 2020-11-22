@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ApolloProvider as ApolloHooksProvider } from '@apollo/client';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/client'
 import { ToastProvider } from 'react-toast-notifications'
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
 import { apolloClient } from './apollo'
@@ -19,15 +19,15 @@ ReactDOM.render(
     <ApolloHooksProvider client={apolloClient}>
       <ErrorBoundary>
         <Router history={history}>
-          <div className="container">
+          <div className='container'>
             <Switch>
               <Route exact path={LOGIN} component={Login} />
-              <Route exact path="/" render={() => <Redirect to="/app" />} />
-              <Route path="/app" component={App} />
-              <Route exact path="/error-page/:error" component={ErrorPage} />
+              <Route exact path='/' render={() => <Redirect to='/app' />} />
+              <Route path='/app' component={App} />
+              <Route exact path='/error-page/:error' component={ErrorPage} />
               <Route component={ErrorPage} />
             </Switch>
-            <div className="footer">made with <span role="img" aria-label="love">💜</span> remotely</div>
+            <div className='footer'>made with <span role='img' aria-label='love'>💜</span> remotely</div>
             <style jsx global>{`
             *,
             *::before,
@@ -63,5 +63,5 @@ ReactDOM.render(
       </ErrorBoundary>
     </ApolloHooksProvider></ToastProvider>,
   document.getElementById('root'),
-);
-registerServiceWorker();
+)
+registerServiceWorker()

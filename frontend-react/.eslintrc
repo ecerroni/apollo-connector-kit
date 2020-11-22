@@ -1,0 +1,35 @@
+{
+    "parser": "babel-eslint",
+    "extends": ["standard", "standard-react"],
+    "rules": {
+      "comma-dangle": [1, {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+      }],
+      "keyword-spacing": [2],
+      "no-console": [1, { "allow": ["error"] }],
+      "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0 }],
+      "no-undef": 0,
+      "space-before-function-paren": [2, {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }],
+      "react/jsx-no-bind": 1,
+      "react/jsx-no-undef": 0,
+      "react/no-did-update-set-state": 1,
+      "react/prop-types": 0,
+      "react/react-in-jsx-scope": 0
+    },
+    "settings": {
+      "react": {
+        "version": "16.6"
+      }
+    },
+    "plugins": [
+      "react"
+    ]
+  }

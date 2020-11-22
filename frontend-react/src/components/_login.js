@@ -6,20 +6,22 @@ import { useAuth } from './general'
 
 const Login = () => {
   const { addToast } = useToasts()
-  const auth = useAuth();
+  const auth = useAuth()
   const [redirect, setRedirect] = React.useState(false)
 
-  if (redirect) return <Redirect to={{
-    pathname: '/app',
-    state: {
-      welcome: true
-    }
-  }} />
+  if (redirect) {
+    return <Redirect to={{
+      pathname: '/app',
+      state: {
+        welcome: true,
+      },
+    }} />
+  }
 
-  return (<div className="login-wrapper">
+  return (<div className='login-wrapper'>
     <h1>Login</h1>
     <Form callback={(values) => auth.login({
-      ...values
+      ...values,
     }, (e) => {
       if (e) {
         addToast('Wrong credentials', { appearance: 'error', autoDismiss: true })
@@ -80,4 +82,4 @@ const Login = () => {
   </div>)
 }
 const ToastLogin = () => <ToastProvider><Login /></ToastProvider>
-export default ToastLogin;
+export default ToastLogin

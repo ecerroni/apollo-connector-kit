@@ -5,7 +5,7 @@ import { Home } from './components'
 import { Authenticate } from './components/general'
 import history from './history'
 
-import "./index.css";
+import './index.css'
 
 
 const App = ({ match, location }) => {
@@ -18,7 +18,7 @@ const App = ({ match, location }) => {
     }
   }, [])
   return (
-    <div className="main">
+    <div className='main'>
       <Authenticate>
         <Home match={match} />
       </Authenticate>
@@ -46,10 +46,10 @@ const App = ({ match, location }) => {
       `}</style>
     </div>
   )
-};
+}
 App.propTypes = {
   match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-};
+}
 
 
-export default App;
+export default App

@@ -1,8 +1,8 @@
 import React from 'react'
 
 const Loading = ({ loadingMessage = '' }) => (
-  <div className="spinnerWrapper">
-    <div className="spinner">
+  <div className='spinnerWrapper'>
+    <div className='spinner'>
       <style jsx global>{`
         .spinnerWrapper {
           position: absolute;
@@ -68,6 +68,6 @@ const Loading = ({ loadingMessage = '' }) => (
       {loadingMessage}
     </p>
   </div>
-);
+)
 
 export default Loading

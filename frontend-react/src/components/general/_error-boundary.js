@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 
 export default class ErrorBoundary extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
 
   // componentDidCatch(error, info) {
   componentDidCatch() {
     // Display fallback UI
-    this.setState({ hasError: true });
+    this.setState({ hasError: true })
     // You can also log the error to an error reporting service like Sentry/LogRocket
     // logErrorToMyService(error, info);
   }
@@ -19,11 +19,11 @@ export default class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div className="error-container">
+        <div className='error-container'>
           <h3>Oops, something went wrong!</h3>
           <p>
             Try to refresh this page or load{' '}
-            <a href="/" onClick={() => window.location('/')}>
+            <a href='/' onClick={() => window.location('/')}>
               Home
             </a>
           </p>
@@ -42,12 +42,12 @@ export default class ErrorBoundary extends React.Component {
             }
           `}</style>
         </div>
-      );
+      )
     }
-    return this.props.children;
+    return this.props.children
   }
 }
 
 ErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
-};
+}

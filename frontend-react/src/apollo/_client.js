@@ -1,4 +1,4 @@
-import { ApolloClient,  ApolloLink, HttpLink, InMemoryCache } from '@apollo/client'
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import decode from 'jwt-decode'
@@ -10,7 +10,7 @@ const {
   FORBIDDEN,
 } = SERVER_MESSAGES
 
-const { ROUTES: { LOGIN, LOGOUT } = {} } = APP
+const { ROUTES: { LOGIN } = {} } = APP
 
 const opts = {
   credentials: 'same-origin',
@@ -76,32 +76,32 @@ const afterwareLink = new ApolloLink((operation, forward) =>
 
 const errorLink = onError(({ graphQLErrors = [], networkError = {} }) => {
   const redirect = (networkError && networkError.statusCode) ||
-  (graphQLErrors && graphQLErrors.length > 0);
-    if (redirect) {
-      let { statusCode } = networkError;
-      if (!statusCode) {
-        const errors = graphQLErrors
-          .filter(e => e.status === 403 || e.status === 401);
-        const { status = 200 } = errors[0] || {};
-        statusCode = status;
-      }
-      if (statusCode === 401) {
-        console.warn(`You've attempted to access ${UNAUTHORIZED} section`)
-            if (
-              history &&
+  (graphQLErrors && graphQLErrors.length > 0)
+  if (redirect) {
+    let { statusCode } = networkError
+    if (!statusCode) {
+      const errors = graphQLErrors
+        .filter(e => e.status === 403 || e.status === 401)
+      const { status = 200 } = errors[0] || {}
+      statusCode = status
+    }
+    if (statusCode === 401) {
+      console.warn(`You've attempted to access ${UNAUTHORIZED} section`)
+      if (
+        history &&
               history.location &&
               history.location.pathname !== LOGIN
-            ) {
-              history.push(LOGIN)
-            }
+      ) {
+        history.push(LOGIN)
       }
-      if (statusCode === 403) {
-        console.warn(`You've attempted a ${FORBIDDEN} action`)
-        history.push(`/error-page/403`)
-      }
-      if ((statusCode >= 500)) {
-        console.warn('SERVER ERROR');
-        history.push(`/error-page/${networkError.statusCode}`)
+    }
+    if (statusCode === 403) {
+      console.warn(`You've attempted a ${FORBIDDEN} action`)
+      history.push(`/error-page/403`)
+    }
+    if ((statusCode >= 500)) {
+      console.warn('SERVER ERROR')
+      history.push(`/error-page/${networkError.statusCode}`)
     }
   }
 })

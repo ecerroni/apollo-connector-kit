@@ -5,7 +5,7 @@ const { CLIENT: { ROUTES = {} } = {} } = ROUTES_SETTINGS
 
 const APP = {
   ...APP_SETTINGS,
-  ROUTES
+  ROUTES,
 }
 
 const {
