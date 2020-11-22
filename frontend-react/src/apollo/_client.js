@@ -1,13 +1,9 @@
-import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { setContext } from 'apollo-link-context'
-import { onError } from 'apollo-link-error'
-import { ApolloLink } from 'apollo-link'
+import { ApolloClient,  ApolloLink, HttpLink, InMemoryCache } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { onError } from '@apollo/client/link/error'
 import decode from 'jwt-decode'
 import { APP, SERVER_MESSAGES, AUTH, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, JWT } from './_config'
 import history from '../history'
-import { defaults as initLocalState, resolvers } from '../api'
 
 const {
   UNAUTHORIZED,
@@ -25,11 +21,7 @@ const opts = {
 
 const useLocalStorage = CLIENT_AUTHENTICATION_METHOD.LOCAL_STORAGE
 
-// const apolloCache = new InMemoryCache();
-
-const apolloCache = new InMemoryCache({
-  dataIdFromObject: e => `${e.__typename}_${e.id}` || null, // eslint-disable-line no-underscore-dangle
-})
+const apolloCache = new InMemoryCache()
 
 const httpLink = new HttpLink({
   uri: APP.ENDPOINT.GRAPHQL,
@@ -130,7 +122,6 @@ const link = ApolloLink.from(links)
 const client = new ApolloClient({
   link,
   cache: apolloCache,
-  resolvers,
   connectToDevTools: true,
 })
 
@@ -143,7 +134,5 @@ if (useLocalStorage) {
   client.onClearStore(() => resetLocalStorageTokens())
   client.onResetStore(() => resetLocalStorageTokens())
 }
-
-initLocalState(apolloCache)
 
 export default client

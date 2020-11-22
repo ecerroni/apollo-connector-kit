@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks'
+import { useQuery, useMutation, useApolloClient } from '@apollo/client'
 import history from '../../history'
 import { APP } from '../../apollo/_config'
 import { currentUserQuery, loginMutation } from '../../api'

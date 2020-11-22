@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import React, { Suspense } from 'react'
 import { authQuery } from '../../api'
 import { default as Loading } from './_loading'

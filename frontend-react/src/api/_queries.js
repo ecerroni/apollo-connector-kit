@@ -1,17 +1,7 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 import {
   User,
 } from './_fragments'
-/* eslint-disable no-underscore-dangle */
-// LOCAL
-export const storeQuery = gql`
-  query store {
-    store @client {
-      field
-      anotherField
-    }
-  }
-`
 
 // REMOTE
 export const connectionQuery = gql`

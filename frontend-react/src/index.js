@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/client';
 import { ToastProvider } from 'react-toast-notifications'
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
 import { apolloClient } from './apollo'

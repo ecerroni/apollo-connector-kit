@@ -1,14 +1,4 @@
-import gql from 'graphql-tag'
-
-// LOCAL
-export const storeMutation = gql`
-  mutation setStore($field: String!, $anotherField: String) {
-    setStore(
-      field: $field
-      anotherField: $anotherField
-    ) @client
-  }
-`
+import { gql } from '@apollo/client'
 
 // REMOTE
 export const loginMutation = gql`

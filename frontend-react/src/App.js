@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useToasts } from 'react-toast-notifications'
 import { Home } from './components'
-import { Authenticate, useStore } from './components/general'
+import { Authenticate } from './components/general'
 import history from './history'
 
 import "./index.css";
@@ -10,7 +10,6 @@ import "./index.css";
 
 const App = ({ match, location }) => {
   const { state } = location
-  const store = useStore();
   const { addToast } = useToasts()
   React.useEffect(() => {
     if (state && state.welcome) {
@@ -18,7 +17,6 @@ const App = ({ match, location }) => {
       history.replace('/') // that's an hack to remove route's state
     }
   }, [])
-  console.log(store);
   return (
     <div className="main">
       <Authenticate>
