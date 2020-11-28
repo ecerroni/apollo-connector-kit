@@ -3,32 +3,28 @@
     "READ": "read",
     "UPDATE": "update",
     "CREATE": "create",
-    "DELETE": "delete"
+    "DELETE": "delete",
+    "ACCEPT": "accept",
+    "REJECT": "reject"
   },
   "SCOPES": {
-    "PROFILE": "profile",
-    "BILLING": "billing"
+    "HOTEL_PROFILE": "hotelProfile",
+    "SHOP_PROFILE": "shopProfile",
+    "SHOP_ITEM": "shopItem",
+    "SHOP_SALE": "shopSale",
+    "MERCHANT_PROFILE": "merchantProfile",
+    "MERCHANT_SERVICE": "merchantServices",
+    "MERCHANT_SALE": "merchantSales",
+    "MERCHANT_SERVICE_REQUEST": "merchantServiceRequests",
+    "CHAT": "chat",
+    "USER_PROFILE": "userProfile",
+    "BOOK_SERVICE": "bookService",
+    "BILLING": "userProfile"
   },
   "GROUPS": {
     "ADMINS": {
       "PERMISSIONS": {
-        "PROFILE": [
-          "CREATE",
-          "READ",
-          "UPDATE",
-          "DELETE"
-        ],
-        "BILLING": [
-          "CREATE",
-          "READ",
-          "UPDATE",
-          "DELETE"
-        ]
-      }
-    },
-    "FINANCE": {
-      "PERMISSIONS": {
-        "BILLING": [
+        "USER_PROFILE": [
           "CREATE",
           "READ",
           "UPDATE",
@@ -41,47 +37,150 @@
     {
       "ADMIN": {
         "PERMISSIONS": {
-          "PROFILE": [
-            "CREATE",
-            "READ",
-            "UPDATE",
-            "DELETE"
+          "USER_PROFILE": [
+            "CREATE"
           ]
-        },
-        "GROUPS": [
-          "ADMINS"
-        ]
+        }
       }
     },
     [
-      {
-        "STAFF": {
-          "PERMISSIONS": {
-            "PROFILE": [
+      [
+        {
+          "HOTEL_OWNER": {
+            "SHOP": [
+              "CREATE",
               "READ",
-              "UPDATE"
-            ]
-          },
-          "GROUPS": [
-            "FINANCE"
-          ]
-        }
-      },
-      {
-        "AGENT": {
-          "PERMISSIONS": {
-            "PROFILE": [
-              "READ",
-              "UPDATE"
+              "UPDATE",
+              "DELETE"
+            ],
+            "SHOP_SALE": [
+              "DELETE"
+            ],
+            "HOTEL_PROFILE": [
+              "CREATE",
+              "DELETE"
             ]
           }
+        },
+        [
+          {
+            "HOTEL_SALES": {
+              "PERMISSIONS": {
+                "SHOP_SALE": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE"
+                ],
+                "SHOP_ITEM": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE",
+                  "DELETE"
+                ]
+              }
+            }
+          },
+          {
+            "HOTEL_RECEPTION": {
+              "PERMISSIONS": {
+                "HOTEL_PROFILE": [
+                  "READ",
+                  "UPDATE"
+                ]
+              }
+            }
+          }
+        ]
+      ]
+    ],        
+    [
+      [
+        {
+          "MERCHANT_OWNER": {
+            "PERMISSIONS": {
+              "MERCHANT_SALE": [
+                "DELETE"
+              ],
+              "MERCHANT_PROFILE": [
+                "DELETE"
+              ]
+            }
+          }
+        },
+        {
+          "STAFF": {
+            "PERMISSIONS": {
+              "USER_PROFILE": [
+                
+              ]
+            }
+          }
+        },
+        [
+          {
+            "MERCHANT_SALES": {
+              "PERMISSIONS": {
+                "MERCHANT_SALE": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE"
+                ]
+              }
+            }
+          },
+          {
+            "MERCHANT_RECEPTION": {
+              "PERMISSIONS": {
+                "MERCHANT_PROFILE": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE"
+                ],
+                "MERCHANT_SERVICE": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE",
+                  "DELETE"
+                ]
+              }
+            }
+          }          
+        ],
+        {
+          "MERCHANT_EMPLOYER": {
+            "PERMISSIONS": {
+              "MERCHANT_SERVICE_REQUEST": [
+                "ACCEPT",
+                "REJECT",
+                "READ",
+                "UPDATE"
+              ],
+              "CHAT": [
+                "READ",
+                "CREATE"
+              ]
+            }
+          }
         }
-      }
+      ]
     ],
     {
       "USER": {
         "PERMISSIONS": {
-          "PROFILE": [
+          "USER_PROFILE": [
+            "CREATE",
+            "READ",
+            "UPDATE",
+            "DELETE"
+          ],
+          "BOOK_SERVICE": [
+            "CREATE",
+            "READ",
+            "UPDATE",
+            "DELETE"
+          ],
+          "CHAT": [
+            "CREATE",
             "READ",
             "DELETE"
           ]

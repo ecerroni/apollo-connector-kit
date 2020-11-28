@@ -7,35 +7,69 @@ const OWNER = {
   VALUE: 'OWNER'
 };
 
-const ROLES = USERS.reduce(
-  (obj, type, index) => {
-    let values = {};
-    if (Array.isArray(type)) {
-      values = type.reduce(
-        (o, item) => ({
-          ...o,
-          [Object.keys(item)[0]]: {
-            RANK: index + 1,
-            VALUE: Object.keys(item)[0]
+let offset = 0;
+let isolation = 0;
+const buildRoles = (roles, level = 0, container = 0) => {
+  return roles.reduce(
+    (obj, type, index) => {
+      let values = {};
+      offset = offset + level + 1;
+      if (Array.isArray(type)) {
+        values = type.reduce((o, item) => {
+          if (Array.isArray(item)) {
+            isolation += 1;
+            return {
+              ...obj,
+              ...buildRoles(item, level + 1, isolation)
+            };
           }
-        }),
-        {}
-      );
-    } else {
-      values = {
-        [Object.keys(type)[0]]: {
-          RANK: index + 1,
-          VALUE: Object.keys(type)[0]
-        }
+          return {
+            ...o,
+            [Object.keys(item)[0]]: {
+              RANK: offset + index + 1,
+              VALUE: Object.keys(item)[0],
+              LEVEL: level,
+              CONTAINER: container
+            }
+          };
+        }, {});
+      } else {
+        values = {
+          [Object.keys(type)[0]]: {
+            RANK: offset + index + 1,
+            VALUE: Object.keys(type)[0],
+            LEVEL: level,
+            CONTAINER: container
+          }
+        };
+      }
+      return {
+        ...obj,
+        ...values
       };
-    }
-    return {
-      ...obj,
-      ...values
-    };
-  },
-  { OWNER }
-);
+    },
+    { OWNER }
+  );
+};
+
+const ROLES = buildRoles(USERS);
+
+// uncomment if you need a more detailed view of the roles' hierarchy
+// console.log('####################################################');
+// console.log('ROLES HIERARCHY WITH RANK, LEVEL AND CONTAINERS');
+// console.log('####################################################');
+// console.log(ROLES);
+
+// eslint-disable-next-line no-unused-vars
+const getRolePermissions = permissions =>
+  Object.entries(permissions).reduce(
+    (arr, entry) => [
+      ...arr,
+      ...entry[1].reduce((a, s) => [...a, `${entry[0]}_${s}`], [])
+    ],
+    []
+  );
+
 export default {
   OPERATION,
   TYPE: SCOPES,

@@ -16,7 +16,7 @@ export const queryTypes = `
     expensiveQuery: String @cost (complexity: 10000)
     _testCheckAuthAdmin: String @${roles.is.admin}
     testPermissionsHasRole: String @${roles.is.admin}
-    testPermissionsIsAllowed: String @${permissions.can.read.billing}
+    testPermissionsIsAllowed: String @${permissions.can.read.user_profile}
     testEmailScalar: EmailAddress
     testJSON(where: JSON): Boolean
   }

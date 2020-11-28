@@ -5,7 +5,7 @@ export const types = `
     id: String!
     name: String
     username: String
-    email: String @${permissions.can.read.billing}
+    email: String @${permissions.can.read.user_profile}
   }`;
 
 export const typeResolvers = {

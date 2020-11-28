@@ -3,6 +3,7 @@ import decode from 'jwt-decode';
 import { SERVER } from '../src/config';
 import { UNAUTHORIZED } from '../src/environment';
 import ROLES_PERMISSIONS from '../../settings/roles-permissions.json'
+import { deepFlatten } from '../src/utils';
 
 
 const {
@@ -108,7 +109,7 @@ describe('A user', function () {
         const { user: { roles, permissions } = {} } = decodedToken;
         expect(Array.isArray(permissions)).toBe(true);
         expect(Array.isArray(roles)).toBe(true);
-        expect(roles).toHaveLength(ROLES_PERMISSIONS.USERS.reduce((count, user) => {
+        expect(roles).toHaveLength(deepFlatten(ROLES_PERMISSIONS.USERS).reduce((count, user) => {
           if (Array.isArray(user)) return count + user.length
           return count + 1
         }, 0));

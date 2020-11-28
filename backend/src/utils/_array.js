@@ -160,3 +160,7 @@ export const sortItems = ({ items = [], ordering = 'ASC', field = null }) =>
     }
     return 0; // do nothing;
   });
+
+  export const deepFlatten = (array => (array, start = []) => array.reduce((acc, curr) => {
+    return Array.isArray(curr) ? deepFlatten(curr, acc) : [...acc, curr];
+  }, start))();
