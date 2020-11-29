@@ -241,6 +241,9 @@ const fullTreePermissions = Object.entries(rolesAndPermissions).reduce(
     if (value.SPEC.VALUE === 'OWNER') return '';
     return `${str}
   ROLE: ${key}
+  INHERITED_ROLES: [${assignCascadeRoles(value.SPEC, sortedRolesAndPermissions)
+    .filter(role => role !== key)
+    .join(', ')}]
   GROUPS: [${USERS[key]?.GROUPS ? USERS[key].GROUPS.join(', ') : ''}]
   ALL PERMISSIONS: [\n    ${getAllCombinedPermissions(
     getAllFromSpec(rolesAndPermissions),
@@ -283,27 +286,35 @@ const permissionsInRoles = Object.entries(rolesAndFullPermissions).reduce(
 
 const sameRankKey = (arr, obj) =>
   arr.reduce((key, item) => {
-    if (obj.name !== item.name && obj.rank === item.rank) return item.name;
+    if (
+      obj.container === item.container &&
+      obj.name !== item.name &&
+      obj.rank === item.rank
+    )
+      return item.name;
     if (item.children?.length) return sameRankKey(item.children, obj);
     return key;
   }, '');
 
-const appendToEqualRankKey = (targetKey, key, a) =>
+const appendToEqualRankKey = (targetKey, key, a = []) =>
   a.reduce((arr, item) => {
-    if (item.name.includes(targetKey) && !item.name.includes(key))
-      return [
-        ...arr,
-        {
-          ...item,
-          name: `${item.name}|${key}`
-        }
-      ];
-    if (item.children?.length)
-      return [...arr, ...appendToEqualRankKey(targetKey, key, item.children)];
+    // if (item.children?.length)
+    //   return [
+    //     ...arr,
+    //     {
+    //       ...item,
+    //       children: appendToEqualRankKey(targetKey, key, item.children)
+    //     }
+    //   ];
     return [
       ...arr,
       {
-        ...item
+        ...item,
+        name:
+          item.name.includes(targetKey) && !item.name.includes(key)
+            ? `${item.name}|${key}`
+            : item.name,
+        children: appendToEqualRankKey(targetKey, key, item.children)
       }
     ];
   }, []);
@@ -314,7 +325,12 @@ const rPyramid = roles =>
     if (typeof value?.LEVEL === 'undefined') return arr; // it's OWNER
     if (utilizedRoles.includes(key)) return arr; // it's already in the tree
     utilizedRoles.push(key);
-    const euqalRankKey = sameRankKey(arr, { name: key, rank: value.RANK });
+    const euqalRankKey = sameRankKey(arr, {
+      name: key,
+      rank: value.RANK,
+      level: value.LEVEL,
+      container: value.CONTAINER
+    });
     if (euqalRankKey) {
       return [...appendToEqualRankKey(euqalRankKey, key, arr)];
     }
@@ -326,6 +342,8 @@ const rPyramid = roles =>
         {
           name: key,
           rank: value.RANK,
+          level: value.LEVEL,
+          container: value.CONTAINER,
           children: []
         }
       ];
@@ -336,6 +354,8 @@ const rPyramid = roles =>
       {
         name: key,
         rank: value.RANK,
+        level: value.LEVEL,
+        container: value.CONTAINER,
         children: rPyramid(
           Object.entries(SCOPES.ROLES)
             .filter(([k]) => childrenKeys.includes(k))

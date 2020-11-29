@@ -9,7 +9,7 @@ const OWNER = {
 
 let offset = 0;
 let isolation = 0;
-const buildRoles = (roles, level = 0, container = 0) => {
+const buildRoles = (roles, level = 0, container = 0, pIndexes = [0]) => {
   return roles.reduce(
     (obj, type, index) => {
       let values = {};
@@ -20,7 +20,7 @@ const buildRoles = (roles, level = 0, container = 0) => {
             isolation += 1;
             return {
               ...obj,
-              ...buildRoles(item, level + 1, isolation)
+              ...buildRoles(item, level + 1, isolation, [...pIndexes, index])
             };
           }
           return {
@@ -29,7 +29,8 @@ const buildRoles = (roles, level = 0, container = 0) => {
               RANK: offset + index + 1,
               VALUE: Object.keys(item)[0],
               LEVEL: level,
-              CONTAINER: container
+              CONTAINER: container,
+              IDS: pIndexes
             }
           };
         }, {});
@@ -39,7 +40,8 @@ const buildRoles = (roles, level = 0, container = 0) => {
             RANK: offset + index + 1,
             VALUE: Object.keys(type)[0],
             LEVEL: level,
-            CONTAINER: container
+            CONTAINER: container,
+            IDS: pIndexes
           }
         };
       }

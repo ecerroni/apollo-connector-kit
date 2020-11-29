@@ -13,6 +13,7 @@ export const getAllFromSpec = roles =>
     value: entry[1].SPEC.VALUE,
     level: entry[1].SPEC.LEVEL,
     container: entry[1].SPEC.CONTAINER,
+    ids: entry[1].SPEC.IDS,
     permissions: getRolePermissions(entry[1].PERMISSIONS)
   }));
 
