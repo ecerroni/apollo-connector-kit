@@ -100,7 +100,7 @@ Then restart the server
     "HOST": "localhost",
     "PORT": 3000,
     "GRAPHQL": "/graphql",
-    "GRAPHIQL": "/graphiql",
+    "GRAPHIQL": "/graphql",
     "PAYLOAD": { // this however will affect also production environment
       "JSON": {
         "LIMIT": "50mb"

@@ -94,7 +94,12 @@ const server = new CostAnalysisApolloServer({
 });
 server.applyMiddleware({ app });
 
-const { PORT } = SERVER;
+const { PORT, GRAPHQL, GRAPHIQL, PROTOCOL, HOST } = SERVER;
 app.listen({ port: PORT }, () => {
-  startupMessages({ port: PORT });
+  startupMessages({
+    port: PORT,
+    graphql: GRAPHQL,
+    graphiql: GRAPHIQL,
+    endpoint: `${PROTOCOL}://${HOST}`
+  });
 });

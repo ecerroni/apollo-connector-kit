@@ -5,7 +5,12 @@ const localAuthCheck = () =>
   AUTH.ENDPOINT === '127.0.0.1' ||
   AUTH.ENDPOINT === '0.0.0.0';
 
-export const startupMessages = ({ port }) => {
+export const startupMessages = ({
+  endpoint = 'http://localhost',
+  port,
+  graphiql = '/graphql',
+  graphql = 'graphql'
+}) => {
   if (
     typeof AUTH.SECRET_TOKEN === 'undefined' ||
     typeof AUTH.SECRET_REFRESH_TOKEN === 'undefined'
@@ -26,7 +31,7 @@ export const startupMessages = ({ port }) => {
     }
   }
   console.log(
-    `🚀  GraphQL Server is now running on http://localhost:${port}/graphql 🚀`
+    `🚀  GraphQL Server is now running on ${endpoint}:${port}/${graphql} 🚀`
   );
-  console.log(`View GraphiQL at http://localhost:${port}/graphiql`);
+  console.log(`View GraphiQL at ${endpoint}:${port}/${graphiql}`);
 };
