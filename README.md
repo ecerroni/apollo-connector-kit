@@ -159,97 +159,105 @@ These are exclusively for apollo backend
 ```
 #### roles-permissions.json
 All application roles and permissions are set here
+
+**HIERARCHY BUILDING BLOCKS**
+- Top-down: higher users in the tree inherit roles from lower levels as long as they are in the same sub-tree
+- Sibilings: sibilings do not inherit permissions from each other despite their order
+
+`{}` creates a tree leaf
+`[]` creates a tree leaf of sibilings
+`[[]]` creates a sub-tree
+
+Example:
+
+  - `{}` parent (root)
+  - `{}` child (a) of [root]
+  - `[` grand-children of [root] and children of [a] with same rank, i.e sibilings
+        `{}`, child (a1) of [a]
+        `{}` child (a2) of [a]
+      `]`,
+  - `[[`   grand-children of [root] children of [a] in nested (isolated) level, i.e. sub-tree
+      `{}` child (a3) of [a]
+      `{}` child (a4) of [a]
+    `]]`
+  - `{}` child (b) of [root]
+
+Real-world example:
 ```
 {
-  "OPERATION": { // The CRUD operations allowed. You may extend this list
+  "OPERATION": {
     "READ": "read",
     "UPDATE": "update",
     "CREATE": "create",
     "DELETE": "delete"
   },
   "SCOPES": {
-    "PROFILE": "profile",
-    "BILLING": "billing"
+    "USER_PROFILE": "userProfile",
+    "EMPLOYEE_PROFILE": "employeeProfile",
+    "BADGE": "badge"
   },
-  "GROUPS": { // Groups defined here can be added to specific user types
-    "ADMINS": {
+  "GROUPS": {
+    "VOLUNTEERS": {
       "PERMISSIONS": {
-        "PROFILE": [ // There is a check at run-time to ensure that the field key is an actual SCOPE
-          "CREATE", // There is a check at run-time to ensure that the field key is an actual OPERATION
-          "READ",
-          "UPDATE",
-          "DELETE"
-        ],
-        "BILLING": [
-          "CREATE",
-          "READ",
-          "UPDATE",
-          "DELETE"
-        ]
-      }
-    },
-    "FINANCE": {
-      "PERMISSIONS": {
-        "BILLING": [
-          "CREATE",
-          "READ",
-          "UPDATE",
-          "DELETE"
+        "BADGE": [
+          "READ"
         ]
       }
     }
   },
-  "USERS": [ // Order is important here. Higher in hierarchy  user types will inherit all permissions from lower ranks
+  "USERS": [
     {
       "ADMIN": {
         "PERMISSIONS": {
-          "PROFILE": [
+          "USER_PROFILE": [
+            "UPDATE",
+            "DELETE"
+          ],
+          "BADGE": [
             "CREATE",
-            "READ",
             "UPDATE",
             "DELETE"
           ]
-        },
-        "GROUPS": [
-          "ADMINS" // Admin will also inherit permissions from the ADMINS group that are not duplicates
-          // There is a check at run-time to ensure that the field key is an actual GROUP
-        ]
+        }
       }
     },
-    [ // f you need to have user types of the same rank you need to put them into an array like here.
-    // In this case staff and agent will both inherit the permissions of `USER`. However staff will not inherit those of AGENT as the share the same rank in the hirearchy (being they grouped in an array)
-      {
-        "STAFF": {
-          "PERMISSIONS": {
-            "PROFILE": [
-              "READ",
-              "UPDATE"
-            ]
+    [[
+        [
+          {
+            "HR": {              
+              "PERMISSIONS": {
+                "USER_PROFILE": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE"
+                ],
+                "EMPLOYEE_PROFILE": [
+                  "CREATE",
+                  "READ",
+                  "UPDATE"
+                ]
+              }
+            }
           },
-          "GROUPS": [
-            "FINANCE"
-          ]
-        }
-      },
-      {
-        "AGENT": {
-          "PERMISSIONS": {
-            "PROFILE": [
-              "READ",
-              "UPDATE"
-            ]
+          {
+            "STAFF": {
+              "GROUPS": ["VOLUNTEERS"],
+              "PERMISSIONS": {                
+                "EMPLOYEE_PROFILE": [
+                  "READ"
+                ]
+              }
+            }
           }
-        }
-      }
-    ],
+        ]
+    ]],
     {
       "USER": {
+        "GROUPS": ["VOLUNTEERS"],
         "PERMISSIONS": {
-          "PROFILE": [
-            "READ"
-          ],
-          "BILLING": [
-            "READ"
+          "USER_PROFILE": [
+            "READ",
+            "UPDATE"
           ]
         }
       }
@@ -260,26 +268,92 @@ All application roles and permissions are set here
 
 ###### Ouput of the above roles/permissions
 ```
-{ OWNER: // this is a special user type that it's built at run-time and inherits all existing permissions
-   { permissions:
-      { create: 'profile, billing',
-        read: 'profile, billing',
-        update: 'profile, billing',
-        delete: 'profile, billing' } },
-  ADMIN:
-   { permissions:
-      { create: 'profile, billing',
-        read: 'profile, billing',
-        update: 'profile, billing',
-        delete: 'profile, billing' } },
-  STAFF:
-   { permissions:
-      { create: 'billing',
-        read: 'profile, billing',
-        update: 'profile, billing',
-        delete: 'billing' } },
-  AGENT: { permissions: { read: 'profile', update: 'profile' } },
-  USER: { permissions: { read: 'profile, billing' } } }
+####################################################
+ROLES TREE
+####################################################
+OWNER
+└── ADMIN
+    ├── HR|STAFF
+    └── USER
+
+####################################################
+ROLES' GROUPS AND COMPUTED PERMISSIONS
+####################################################
+
+  ROLE: ADMIN
+  INHERITED_ROLES: [HR, STAFF, USER]
+  GROUPS: []
+  ALL PERMISSIONS: [
+    update_userProfile
+    update_badge
+    delete_userProfile
+    delete_badge
+    create_badge
+    create_userProfile
+    create_employeeProfile
+    read_userProfile
+    read_employeeProfile
+    update_employeeProfile
+    read_badge
+  ]
+
+-----------------------------------------------------------------
+  
+  ROLE: HR
+  INHERITED_ROLES: []
+  GROUPS: []
+  ALL PERMISSIONS: [
+    create_userProfile
+    create_employeeProfile
+    read_userProfile
+    read_employeeProfile
+    update_userProfile
+    update_employeeProfile
+  ]
+
+-----------------------------------------------------------------
+  
+  ROLE: STAFF
+  INHERITED_ROLES: []
+  GROUPS: [VOLUNTEERS]
+  ALL PERMISSIONS: [
+    read_employeeProfile
+    read_badge
+  ]
+
+-----------------------------------------------------------------
+  
+  ROLE: USER
+  INHERITED_ROLES: []
+  GROUPS: [VOLUNTEERS]
+  ALL PERMISSIONS: [
+    read_userProfile
+    read_badge
+    update_userProfile
+  ]
+
+-----------------------------------------------------------------
+  
+####################################################
+PERMISSIONS IN ROLES
+####################################################
+{
+  update_userProfile: [ 'OWNER', 'ADMIN', 'HR', 'USER' ],
+  update_badge: [ 'OWNER', 'ADMIN' ],
+  update_employeeProfile: [ 'OWNER', 'ADMIN', 'HR' ],
+  create_badge: [ 'OWNER', 'ADMIN' ],
+  create_userProfile: [ 'OWNER', 'ADMIN', 'HR' ],
+  create_employeeProfile: [ 'OWNER', 'ADMIN', 'HR' ],
+  read_userProfile: [ 'OWNER', 'ADMIN', 'HR', 'USER' ],
+  read_employeeProfile: [ 'OWNER', 'ADMIN', 'HR', 'STAFF' ],
+  read_badge: [ 'OWNER', 'ADMIN', 'STAFF', 'USER' ],
+  delete_userProfile: [ 'ADMIN' ],
+  delete_badge: [ 'ADMIN' ]
+}
+####################################################
+####################################################
+
+
 ```
 
 ###### How to enforce roles and permissions in queries and mutations using custom directives
@@ -299,14 +373,14 @@ export const types = `
     id: String!
     name: String
     username: String
-    email: String @${permissions.can.read.profile}
+    email: String @${permissions.can.read.user_profile}
   }`;
 ```
 
 > ##### at query/mutation level
 ```
     testPermissionsHasRole: String @${roles.is.admin}
-    testPermissionsIsAllowed: String @${permissions.can.read.billing}
+    testPermissionsIsAllowed: String @${permissions.can.read.badge}
 ```
 
 ### AUHENTICATION STRATEGIES

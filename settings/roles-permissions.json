@@ -3,32 +3,18 @@
     "READ": "read",
     "UPDATE": "update",
     "CREATE": "create",
-    "DELETE": "delete",
-    "ACCEPT": "accept",
-    "REJECT": "reject"
+    "DELETE": "delete"
   },
   "SCOPES": {
-    "HOTEL_PROFILE": "hotelProfile",
-    "SHOP_PROFILE": "shopProfile",
-    "SHOP_ITEM": "shopItem",
-    "SHOP_SALE": "shopSale",
-    "MERCHANT_PROFILE": "merchantProfile",
-    "MERCHANT_SERVICE": "merchantServices",
-    "MERCHANT_SALE": "merchantSales",
-    "MERCHANT_SERVICE_REQUEST": "merchantServiceRequests",
-    "CHAT": "chat",
     "USER_PROFILE": "userProfile",
-    "BOOK_SERVICE": "bookService",
-    "BILLING": "userProfile"
+    "EMPLOYEE_PROFILE": "employeeProfile",
+    "BADGE": "badge"
   },
   "GROUPS": {
-    "ADMINS": {
+    "VOLUNTEERS": {
       "PERMISSIONS": {
-        "USER_PROFILE": [
-          "CREATE",
-          "READ",
-          "UPDATE",
-          "DELETE"
+        "BADGE": [
+          "READ"
         ]
       }
     }
@@ -38,151 +24,54 @@
       "ADMIN": {
         "PERMISSIONS": {
           "USER_PROFILE": [
-            "CREATE"
+            "UPDATE",
+            "DELETE"
+          ],
+          "BADGE": [
+            "CREATE",
+            "UPDATE",
+            "DELETE"
           ]
         }
       }
     },
-    [
-      [
-        {
-          "HOTEL_OWNER": {
-            "SHOP": [
-              "CREATE",
-              "READ",
-              "UPDATE",
-              "DELETE"
-            ],
-            "SHOP_SALE": [
-              "DELETE"
-            ],
-            "HOTEL_PROFILE": [
-              "CREATE",
-              "DELETE"
-            ]
-          }
-        },
+    [[
         [
           {
-            "HOTEL_SALES": {
+            "HR": {              
               "PERMISSIONS": {
-                "SHOP_SALE": [
+                "USER_PROFILE": [
                   "CREATE",
                   "READ",
                   "UPDATE"
                 ],
-                "SHOP_ITEM": [
+                "EMPLOYEE_PROFILE": [
                   "CREATE",
                   "READ",
-                  "UPDATE",
-                  "DELETE"
+                  "UPDATE"
                 ]
               }
             }
           },
           {
-            "HOTEL_RECEPTION": {
-              "PERMISSIONS": {
-                "HOTEL_PROFILE": [
-                  "READ",
-                  "UPDATE"
+            "STAFF": {
+              "GROUPS": ["VOLUNTEERS"],
+              "PERMISSIONS": {                
+                "EMPLOYEE_PROFILE": [
+                  "READ"
                 ]
               }
             }
           }
         ]
-      ]
-    ],        
-    [
-      [
-        {
-          "MERCHANT_OWNER": {
-            "PERMISSIONS": {
-              "MERCHANT_SALE": [
-                "DELETE"
-              ],
-              "MERCHANT_PROFILE": [
-                "DELETE"
-              ]
-            }
-          }
-        },
-        {
-          "STAFF": {
-            "PERMISSIONS": {
-              "USER_PROFILE": [
-                
-              ]
-            }
-          }
-        },
-        [
-          {
-            "MERCHANT_SALES": {
-              "PERMISSIONS": {
-                "MERCHANT_SALE": [
-                  "CREATE",
-                  "READ",
-                  "UPDATE"
-                ]
-              }
-            }
-          },
-          {
-            "MERCHANT_RECEPTION": {
-              "PERMISSIONS": {
-                "MERCHANT_PROFILE": [
-                  "CREATE",
-                  "READ",
-                  "UPDATE"
-                ],
-                "MERCHANT_SERVICE": [
-                  "CREATE",
-                  "READ",
-                  "UPDATE",
-                  "DELETE"
-                ]
-              }
-            }
-          }          
-        ],
-        {
-          "MERCHANT_EMPLOYER": {
-            "PERMISSIONS": {
-              "MERCHANT_SERVICE_REQUEST": [
-                "ACCEPT",
-                "REJECT",
-                "READ",
-                "UPDATE"
-              ],
-              "CHAT": [
-                "READ",
-                "CREATE"
-              ]
-            }
-          }
-        }
-      ]
-    ],
+    ]],
     {
       "USER": {
+        "GROUPS": ["VOLUNTEERS"],
         "PERMISSIONS": {
           "USER_PROFILE": [
-            "CREATE",
             "READ",
-            "UPDATE",
-            "DELETE"
-          ],
-          "BOOK_SERVICE": [
-            "CREATE",
-            "READ",
-            "UPDATE",
-            "DELETE"
-          ],
-          "CHAT": [
-            "CREATE",
-            "READ",
-            "DELETE"
+            "UPDATE"
           ]
         }
       }
