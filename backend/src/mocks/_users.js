@@ -7,7 +7,7 @@ import { SCOPES } from '~/config';
 // https://www.dailycred.com/article/bcrypt-calculator
 export const mockUsers = [
   {
-    id: 1,
+    id: Buffer.from('Mock:Enrico').toString('base64'),
     name: 'Enrico',
     username: 'rico',
     email: 'admin@test.it',
@@ -16,7 +16,7 @@ export const mockUsers = [
     role: SCOPES.ROLES.ADMIN.VALUE
   },
   {
-    id: 2,
+    id: Buffer.from('Mock:George').toString('base64'),
     name: 'George',
     username: 'george',
     email: 'test@test.it',
@@ -25,7 +25,7 @@ export const mockUsers = [
     role: SCOPES.ROLES.USER.VALUE
   },
   {
-    id: 3,
+    id: Buffer.from('Mock:Mike').toString('base64'),
     name: 'Mike',
     username: 'mike',
     email: 'mike@test.it',

@@ -138,7 +138,7 @@ describe('A user', function () {
       .then((res) => {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
-        expect(res.data._testCheckAuthAdmin).toBe('Authorized | CurentUserId 1!');
+        expect(res.data._testCheckAuthAdmin).toBe(`Authorized | CurentUserId ${Buffer.from('Mock:Enrico').toString('base64')}!`);
         done();
       })
       .catch((err) => {
