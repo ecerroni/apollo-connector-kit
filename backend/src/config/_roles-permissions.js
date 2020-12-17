@@ -151,20 +151,21 @@ const rolesAndPermissions = Object.entries(SCOPES.ROLES).reduce(
       permissions = {
         ...Object.entries(groupPermissions).reduce(
           // eslint-disable-next-line no-shadow
-          (obj, [key, permissions]) => {
-            if (userPermissions[key])
+          (obj, [key, gPermissions]) => {
+            if (userPermissions[key] !== gPermissions[key]) {
               return {
                 ...obj,
                 [key]: Array.from(
-                  new Set([...userPermissions[key], ...permissions])
+                  new Set([...userPermissions[key], ...gPermissions])
                 )
               };
+            }
             return {
               ...obj,
-              [key]: permissions
+              [key]: gPermissions
             };
           },
-          {}
+          { ...userPermissions }
         )
       };
     }
@@ -408,19 +409,3 @@ console.log(permissionsInRoles);
 
 console.log('####################################################');
 console.log('####################################################');
-
-/* HIERARCHY BUILDING BLOCKS
-{}, // parent (root)
-{}, // child (a) of [root]
-[   // children of [a] with same rank
-  {}, // child (a1) of [a]
-  {}  // child (a2) of [a]
-],
-[  // children of [a] in nested (isolated) level
-  [
-    {}, // child (a3) of [a]
-    {}  // child (a4) of [a]
-  ]
-],
-{} // child (b) of [root]
-*/
