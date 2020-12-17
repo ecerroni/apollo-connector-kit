@@ -68,7 +68,7 @@ import { validationMixin } from 'vuelidate'
 import { Notyf } from 'notyf';
 import { required, minLength, email, sameAs, url } from 'vuelidate/lib/validators'
 import errorValidations from 'vuelidate-errors'
-import { loginMutation, storeQuery } from "@/api";
+import { LOGIN_MUTATION, storeQuery } from "@/api";
 import { base64String } from "@/utils";
 
 export default {
@@ -129,7 +129,7 @@ export default {
         this.$apollo
             .mutate({
               // Query
-              mutation: loginMutation,
+              mutation: LOGIN_MUTATION,
               // Parameters
               variables: {
                 userCredentials: {

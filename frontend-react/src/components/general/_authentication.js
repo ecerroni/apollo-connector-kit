@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client'
 import React, { Suspense } from 'react'
-import { authQuery } from '../../api'
+import { AUTH_QUERY } from '../../api'
 import Loading from './_loading'
 
 const ConnectionResult = ({ children }) => {
-  useQuery(authQuery, {
+  useQuery(AUTH_QUERY, {
     suspend: true,
     options: { fetchPolicy: 'network-only' },
   })

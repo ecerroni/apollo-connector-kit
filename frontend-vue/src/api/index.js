@@ -1,12 +1,12 @@
 export {
-  connectionQuery,
+  CONENCTION_QUERY,
   storeQuery,
-  authQuery,
-  currentUserQuery,
+  AUTH_QUERY,
+  CURRENT_USER_QUERY,
 } from './_queries'
 
 export {
-  loginMutation,
+  LOGIN_MUTATION,
   storeMutation,
 } from './_mutations'
 

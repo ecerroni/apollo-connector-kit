@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {currentUserQuery} from '@/api'
+import {CURRENT_USER_QUERY} from '@/api'
 export default {
   name: 'CurrentUser',
   // props: ['varName'],
@@ -35,7 +35,7 @@ export default {
   apollo: {
     currentUser() {
       return {
-        query: currentUserQuery,
+        query: CURRENT_USER_QUERY,
         variables() {
           return {
             delay: this.delay

@@ -1,9 +1,9 @@
 export {
-  connectionQuery,
-  authQuery,
-  currentUserQuery,
+  CONENCTION_QUERY,
+  AUTH_QUERY,
+  CURRENT_USER_QUERY,
 } from './_queries'
 
 export {
-  loginMutation,
+  LOGIN_MUTATION,
 } from './_mutations'

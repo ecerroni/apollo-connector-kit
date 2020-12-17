@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery, useMutation, useApolloClient } from '@apollo/client'
 import history from '../../history'
 import { APP } from '../../apollo/_config'
-import { currentUserQuery, loginMutation } from '../../api'
+import { CURRENT_USER_QUERY, LOGIN_MUTATION } from '../../api'
 import { base64String } from '../../utils'
 
 const { ROUTES: { LOGIN } = {} } = APP
@@ -11,8 +11,8 @@ const { ROUTES: { LOGIN } = {} } = APP
 const isFunction = (functionToCheck) => functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
 
 const useAuth = () => {
-  const { data: { currentUser } = {}, loading } = useQuery(currentUserQuery)
-  const [submitLogin] = useMutation(loginMutation)
+  const { data: { currentUser } = {}, loading } = useQuery(CURRENT_USER_QUERY)
+  const [submitLogin] = useMutation(LOGIN_MUTATION)
   const client = useApolloClient()
   if (loading) return <p>Loading...</p>
   const logout = (callback, { cacheOnly = false } = {}) => {
