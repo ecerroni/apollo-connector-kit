@@ -1,11 +1,8 @@
-const { injectBabelPlugin } = require('react-app-rewired');
 const {
   override,
   addBabelPlugins,
-} = require("customize-cra");
-const APP = require('../settings/app.json');
-
-const { ENDPOINT: { HOST, PORT, PROTOCOL } } = APP;
+  addPostcssPlugins,
+} = require('customize-cra')
 
 /* config-overrides.js */
 
@@ -13,9 +10,10 @@ const { ENDPOINT: { HOST, PORT, PROTOCOL } } = APP;
 const rootImport = ['root-import', {
   rootPathPrefix: '$',
   rootPathSuffix: './src',
-}];
+}]
 
 
 module.exports = {
-  webpack: override(...addBabelPlugins('styled-jsx/babel', rootImport)),
-};
+  webpack: override(...addBabelPlugins(rootImport), addPostcssPlugins([require('tailwindcss'), require('autoprefixer')])),
+
+}
