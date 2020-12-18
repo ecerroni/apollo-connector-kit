@@ -27,20 +27,6 @@ export default class ErrorBoundary extends React.Component {
               Home
             </a>
           </p>
-          <style jsx>{`
-            .error-container {
-              height: 100%;
-              width: 100%;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            }
-            h3,
-            p {
-              padding: 30px;
-            }
-          `}</style>
         </div>
       )
     }

@@ -29,31 +29,18 @@ const errorPage = code => {
 const Page = ({ match: { params: { error = '404' } } }) => {
   const { statusCode, content } = errorPage(error)
   return (
-    <div className='cover'>
-      <h1>
-        We got a problem <small>Error {statusCode}</small>
-      </h1>
-      <p className='lead'>{content}</p>
-      <p>
-        <Link href='/' to='/'>
-          Home
-        </Link>
-      </p>
-      <style jsx>{`
-        .cover {
-          background-color: steelblue;
-          padding: 50px 50px;
-          color: #eee;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          justify-content: center;
-          align-items: center;
-        }
-        .lead {
-          font-size: large;
-        }
-      `}</style>
+    <div className='container w-full flex justify-center items-center'>
+      <div className='w-2/5 mt-4 py-16 bg-gray-100 rounded-md px-8'>
+        <h1>
+          We got a problem <small>Error {statusCode}</small>
+        </h1>
+        <p className='lead'>{content}</p>
+        <p className='justify-center flex pt-8 text-purple-700'>
+          <Link href='/' to='/'>
+            Home
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }
