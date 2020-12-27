@@ -1,4 +1,4 @@
-import { forEachField } from 'graphql-tools';
+import { forEachField } from '@graphql-tools/utils';
 import { getArgumentValues } from 'graphql/execution/values';
 import { FORBIDDEN, NOT_ALLOWED } from '~/environment';
 import { isPrivateOperation } from '~/utils';
