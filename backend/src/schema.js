@@ -4,6 +4,10 @@ import {
   mergeResolvers
 } from '@graphql-tools/merge';
 import {
+  constraintDirective,
+  constraintDirectiveTypeDefs
+} from 'graphql-constraint-directive';
+import {
   DateTimeResolver,
   DateTimeTypeDefinition,
   NonNegativeFloatResolver,
@@ -11,12 +15,7 @@ import {
   EmailAddressResolver,
   EmailAddressTypeDefinition
 } from 'graphql-scalars'; // eslint-disable-line
-import {
-  GraphQLInputInt
-  // GraphQLInputFloat,
-} from 'graphql-input-number';
 import GraphQLHTML from 'graphql-scalar-html';
-import GraphQLInputString from 'graphql-input-string';
 import GraphQLJSON from 'graphql-type-json';
 import mapValues from 'lodash.mapvalues';
 import components from '~/datacomponents';
@@ -24,25 +23,6 @@ import { UNAUTHORIZED } from '~/environment';
 import { isPrivateOperation } from '~/utils';
 import { directives, attachDirectives } from '~/directives';
 import { GraphQLBase64, GraphQLSafeString } from './scalars';
-
-const TYPE_CONSTRAINTS = [
-  // ref: https://github.com/joonhocho/graphql-input-number
-  GraphQLInputInt({
-    name: 'PaginationAmount',
-    min: 1,
-    max: 100
-  }),
-  // ref: https://github.com/joonhocho/graphql-input-string
-  GraphQLInputString({
-    name: 'TrimmedString',
-    trim: true
-  })
-];
-
-const CONSTRAINT_SCALARS = TYPE_CONSTRAINTS.reduce(
-  (type, input) => `${type} scalar ${input}`,
-  ''
-);
 
 const graphqlScalars = {
   types: [
@@ -59,8 +39,8 @@ const graphqlScalars = {
 
 const typeDefs = mergeTypes([
   directives,
+  constraintDirectiveTypeDefs,
   ...graphqlScalars.types,
-  CONSTRAINT_SCALARS,
   ...components.types,
   `scalar Base64
   scalar HTML
@@ -114,14 +94,8 @@ export const schema = makeExecutableSchema({
       }),
       SafeString: new GraphQLSafeString()
     }
-  ]
+  ],
+  schemaTransforms: [constraintDirective()]
 });
 
-Object.keys(TYPE_CONSTRAINTS).forEach(k => {
-  // eslint-disable-next-line no-underscore-dangle
-  const key = TYPE_CONSTRAINTS[k];
-  if (schema._typeMap[key]) {
-    Object.assign(schema._typeMap[key], TYPE_CONSTRAINTS[k]); // eslint-disable-line no-underscore-dangle
-  }
-});
 attachDirectives(schema);

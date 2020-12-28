@@ -19,6 +19,7 @@ export const queryTypes = `
     testPermissionsIsAllowed: String @${permissions.can.read.user_profile}
     testEmailScalar: EmailAddress
     testJSON(where: JSON): Boolean
+    testConstraint(input: inputConstraint): String
   }
 `;
 
@@ -35,6 +36,7 @@ export const queryResolvers = {
     testPermissionsHasRole: () => 'ok role',
     testPermissionsIsAllowed: () => 'ok permission',
     testEmailScalar: () => 'info@test.com',
-    testJSON: (_, { where }) => IsJsonString(JSON.stringify(where))
+    testJSON: (_, { where }) => IsJsonString(JSON.stringify(where)),
+    testConstraint: () => 'ok'
   }
 };
