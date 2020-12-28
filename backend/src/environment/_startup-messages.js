@@ -31,7 +31,7 @@ export const startupMessages = ({
     }
   }
   console.log(
-    `🚀  GraphQL Server is now running on ${endpoint}:${port}/${graphql} 🚀`
+    `🚀  GraphQL Server is now running on ${endpoint}:${port}${graphql} 🚀`
   );
-  console.log(`View GraphiQL at ${endpoint}:${port}/${graphiql}`);
+  console.log(`View GraphiQL at ${endpoint}:${port}${graphiql}`);
 };
