@@ -29,10 +29,12 @@ export const formatResponse = ({ response, query }) => {
 
   const errorStatus = {};
   if (Array.isArray(errors)) {
-    if (errors.filter(e => e.message && e.message === UNAUTHORIZED).length > 0)
+    if (errors.filter(e => e?.message === UNAUTHORIZED).length > 0)
       errorStatus['401'] = true;
-    if (errors.filter(e => e.message && e.message === FORBIDDEN).length > 0)
+    if (errors.filter(e => e?.message === FORBIDDEN).length > 0)
       errorStatus['403'] = true;
+    if (errors.filter(e => e?.status === 422).length > 0)
+      errorStatus['422'] = true;
   }
 
   if (isLogout) {
@@ -58,6 +60,8 @@ export const formatResponse = ({ response, query }) => {
       res.status(401);
     } else if (errorStatus['403']) {
       res.status(403);
+    } else if (errorStatus['422']) {
+      res.status(422);
     }
   }
   return response;

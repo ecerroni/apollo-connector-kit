@@ -1,11 +1,20 @@
+import { userInputValidation } from '~/utils';
+import inputSchema from './_yup';
+
 export const mutationTypes = `
   type Mutation {
-    test: String
+    testInputValidationOnMutation(yup: Int, text: String): String
   }
 `;
 
 export const mutationResolvers = {
   Mutation: {
-    //
+    testInputValidationOnMutation: userInputValidation(
+      inputSchema.inputTest,
+      // eslint-disable-next-line
+      (_, args, context) => {
+        return 'ok';
+      }
+    )
   }
 };

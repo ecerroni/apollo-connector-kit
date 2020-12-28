@@ -16,7 +16,31 @@ const testConstraintsQuery = {
   `
 };
 
+const testYupsQuery = {
+  testInputValidationOnMutationNoArgs: `
+    mutation testInputValidationOnMutation {
+      testInputValidationOnMutation
+    }
+  `,
+  testInputValidationOnMutationErrorYup: `
+    mutation testInputValidationOnMutation {
+      testInputValidationOnMutation(yup: 1)
+    }
+  `,
+  testInputValidationOnMutationErrorText: `
+    mutation testInputValidationOnMutation {
+      testInputValidationOnMutation(yup: 3, text: "123")
+    }
+  `,
+  testInputValidationOnMutationOk: `
+    mutation testInputValidationOnMutation {
+      testInputValidationOnMutation(yup: 3, text: "1234")
+    }
+  `,
+};
+
 // USERS
+
 describe('A user', function() {
   beforeAll(() => {
     this.test = tester({
@@ -79,4 +103,114 @@ describe('A user', function() {
         done();
       });
   });
+
+
+  // YUP
+  it('should be valid input yup', done => {
+    this.test(
+      JSON.stringify({
+        query:testYupsQuery.testInputValidationOnMutationNoArgs
+      }),
+      {
+        jar: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-connector-auth-request-type': 'LOCAL_STORAGE',
+          'x-connector-token': null,
+          'x-connector-refresh-token': null
+        }
+      }
+    )
+      .then(res => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(true);
+        expect(!!res.data.testInputValidationOnMutation).toBe(true);
+        done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+
+  it('should be valid input yup + text', done => {
+    this.test(
+      JSON.stringify({
+        query:testYupsQuery.testInputValidationOnMutationOk
+      }),
+      {
+        jar: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-connector-auth-request-type': 'LOCAL_STORAGE',
+          'x-connector-token': null,
+          'x-connector-refresh-token': null
+        }
+      }
+    )
+      .then(res => {
+        expect(res.status).toBe(200);
+        expect(res.success).toBe(true);
+        expect(!!res.data.testInputValidationOnMutation).toBe(true);
+        done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+
+  it('should NOT be valid input yup', done => {
+    this.test(
+      JSON.stringify({
+        query:testYupsQuery.testInputValidationOnMutationErrorYup
+      }),
+      {
+        jar: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-connector-auth-request-type': 'LOCAL_STORAGE',
+          'x-connector-token': null,
+          'x-connector-refresh-token': null
+        }
+      }
+    )
+      .then(res => {
+        expect(res.status).toBe(422);
+        expect(res.success).toBe(false);
+        expect(!!res.data.testInputValidationOnMutation).toBe(false);
+        done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
+  it('should NOT be valid input yup', done => {
+    this.test(
+      JSON.stringify({
+        query:testYupsQuery.testInputValidationOnMutationErrorText
+      }),
+      {
+        jar: true,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-connector-auth-request-type': 'LOCAL_STORAGE',
+          'x-connector-token': null,
+          'x-connector-refresh-token': null
+        }
+      }
+    )
+      .then(res => {
+        expect(res.status).toBe(422);
+        expect(res.success).toBe(false);
+        expect(!!res.data.testInputValidationOnMutation).toBe(false);
+        done();
+      })
+      .catch(err => {
+        expect(err).toBe(null);
+        done();
+      });
+  });
 });
+

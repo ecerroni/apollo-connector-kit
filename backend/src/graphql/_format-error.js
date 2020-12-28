@@ -1,4 +1,4 @@
-import { ApolloError } from 'apollo-server-express';
+import { ApolloError, UserInputError } from 'apollo-server-express';
 import { v4 } from 'uuid';
 import { GraphQLError } from 'graphql';
 import { FORBIDDEN, UNAUTHORIZED, ERROR } from '~/environment';
@@ -42,6 +42,18 @@ export const formatError = err => { // eslint-disable-line
     error = {
       message: err.message,
       status: 403,
+      location: err.location,
+      path: err.path,
+      extensions: {
+        code: err.extensions.code
+      }
+    }; // thus set the status in the error
+  }
+  if (error.originalError instanceof UserInputError) {
+    // We need this response status in the apollo client afterware
+    error = {
+      message: err.message,
+      status: 422,
       location: err.location,
       path: err.path,
       extensions: {

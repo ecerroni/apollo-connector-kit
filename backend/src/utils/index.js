@@ -5,3 +5,4 @@ export { asyncArray, arrayNewOldDiff, sortItems, deepFlatten } from './_array';
 export { assignCascadeRoles } from './_roles';
 export { default as createUserToken } from './_create-user-token';
 export { getAllCombinedPermissions, getAllFromSpec } from './_permissions.js';
+export { userInputValidation } from './validations';
