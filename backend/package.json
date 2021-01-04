@@ -70,7 +70,6 @@
     "graphql-constraint-directive": "^2.1.1",
     "graphql-cost-analysis": "1.0.3",
     "graphql-depth-limit": "1.1.0",
-    "graphql-resolvers": "^0.4.2",
     "graphql-scalar-html": "^1.0.0",
     "graphql-scalars": "^1.1.0",
     "graphql-type-json": "^0.3.0",

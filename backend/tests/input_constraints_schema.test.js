@@ -122,9 +122,11 @@ describe('A user', function() {
       }
     )
       .then(res => {
+        console.log(res);
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
         expect(!!res.data.testInputValidationOnMutation).toBe(true);
+        expect(res.data.testInputValidationOnMutation.yup).toBe(3);
         done();
       })
       .catch(err => {
@@ -152,6 +154,8 @@ describe('A user', function() {
         expect(res.status).toBe(200);
         expect(res.success).toBe(true);
         expect(!!res.data.testInputValidationOnMutation).toBe(true);
+        expect(res.data.testInputValidationOnMutation.yup).toBe(3);
+        expect(res.data.testInputValidationOnMutation.text).toBe('1234');
         done();
       })
       .catch(err => {

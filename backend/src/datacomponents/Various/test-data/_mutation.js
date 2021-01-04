@@ -3,7 +3,7 @@ import inputSchema from './_yup';
 
 export const mutationTypes = `
   type Mutation {
-    testInputValidationOnMutation(yup: Int, text: String): String
+    testInputValidationOnMutation(yup: Int, text: String): JSON
   }
 `;
 
@@ -13,7 +13,7 @@ export const mutationResolvers = {
       inputSchema.inputTest,
       // eslint-disable-next-line
       (_, args, context) => {
-        return 'ok';
+        return args;
       }
     )
   }

@@ -1,5 +1,4 @@
 import { UserInputError } from 'apollo-server-express';
-import { skip, combineResolvers } from 'graphql-resolvers';
 
 /* eslint-disable no-nested-ternary */
 const formatMessage = (errors = []) =>
@@ -11,16 +10,15 @@ const formatMessage = (errors = []) =>
         .map((e, i) => `${i + 1}) ${e}.`)
         .join(' ')}`;
 
-const validate = schema => async (_, args) => {
+const validate = (schema, resolver) => async (_, args, context, info) => {
   try {
-    await schema.validate(args, {
+    const validated = await schema.validate(args, {
       abortEarly: false
     });
-    return skip;
+    return resolver(_, validated, context, info);
   } catch (error) {
     throw new UserInputError(formatMessage(error.errors));
   }
 };
 
-export default (schema, resolver) =>
-  combineResolvers(validate(schema), resolver);
+export default (schema, resolver) => validate(schema, resolver);
