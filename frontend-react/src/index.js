@@ -28,7 +28,15 @@ ReactDOM.render(
               <Route exact path='/error-page/:error' component={ErrorPage} />
               <Route component={ErrorPage} />
             </Switch>
-            <div className='footer w-full flex justify-center absolute bottom-4'>made with <span role='img' aria-label='love'>💜</span> remotely</div>
+          </div>
+          <div className='footer bg-gray-100 rounded-t-xl w-full flex justify-center fixed bottom-0'>
+            <div className='py-1'>
+              made with{' '}
+              <span role='img' aria-label='love'>
+                💜
+              </span>{' '}
+              remotely
+            </div>
           </div>
         </Router>
       </ErrorBoundary>
