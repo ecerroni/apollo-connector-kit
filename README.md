@@ -8,7 +8,7 @@ Boilerplate for Apollo authentication/authorization
 
 Ecosystem:
 - Apollo 2 Server (with Express)
-- Apollo Client 2.0
+- Apollo Client 3.x
 - Vue.js (frontend web client)
 - React (frontend web client)
 
