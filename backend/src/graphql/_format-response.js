@@ -1,3 +1,6 @@
+import url from 'url';
+import querystring from 'querystring';
+import { crunch } from 'graphql-crunch';
 import {
   setCookies,
   setHeaders,
@@ -7,6 +10,7 @@ import {
 import { FORBIDDEN, UNAUTHORIZED } from '~/environment';
 
 import ROUTES_RESOLVERS from '$/settings/routes-resolvers.json';
+import { crunch as crunchOption } from '$/settings/queries.json';
 
 const {
   SERVER: {
@@ -62,6 +66,15 @@ export const formatResponse = ({ response, query }) => {
       res.status(403);
     } else if (errorStatus['422']) {
       res.status(422);
+    }
+  }
+
+  if (crunchOption?.use) {
+    const parsed = url.parse(request.url);
+    const clientQuery = querystring.parse(parsed.query);
+    if (clientQuery.crunch && response.data) {
+      const version = parseInt(clientQuery.crunch, 10) || 1;
+      response.data = crunch(response.data, version);
     }
   }
   return response;

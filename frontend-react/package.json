@@ -7,6 +7,7 @@
     "apollo-cache-inmemory": "1.5.1",
     "apollo-link-response-resolver": "^0.2.0",
     "graphql": "^14.5.3",
+    "graphql-crunch": "^2.1.1",
     "history": "4.7.2",
     "jwt-decode": "2.2.0",
     "prop-types": "15.6.1",
