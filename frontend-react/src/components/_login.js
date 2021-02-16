@@ -18,8 +18,8 @@ const Login = () => {
     }} />
   }
 
-  return (<div className='container flex flex-wrap justify-center items-center'>
-    <div className='w-full py-8 flex justify-center items-center'>
+  return (<div className='flex h-screen w-screen justify-center items-center flex-col'>
+    <div className='flex items-center flex-shrink-0 px-4'>
       <span className='text-xl'>Login</span>
     </div>
     <Form callback={(values) => auth.login({
