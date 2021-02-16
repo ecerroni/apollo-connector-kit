@@ -2,8 +2,17 @@ import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from '@apollo/clien
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import decode from 'jwt-decode'
-import { APP, SERVER_MESSAGES, AUTH, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, JWT } from './_config'
+import { uncrunch } from 'graphql-crunch'
+import { APP, SERVER_MESSAGES, AUTH, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, JWT, crunch } from './_config'
 import history from '../history'
+
+const uncruncher = new ApolloLink((operation, forward) =>
+  forward(operation)
+    .map((response) => {
+      response.data = uncrunch(response.data)
+      return response
+    })
+)
 
 const {
   UNAUTHORIZED,
@@ -23,8 +32,10 @@ const useLocalStorage = CLIENT_AUTHENTICATION_METHOD.LOCAL_STORAGE
 
 const apolloCache = new InMemoryCache()
 
+const uri = crunch && crunch.use ? `${APP.ENDPOINT.GRAPHQL}/?crunch=${crunch.version}` : APP.ENDPOINT.GRAPHQL
+
 const httpLink = new HttpLink({
-  uri: APP.ENDPOINT.GRAPHQL,
+  uri,
   ...opts,
 })
 
@@ -106,14 +117,14 @@ const errorLink = onError(({ graphQLErrors = [], networkError = {} }) => {
   }
 })
 
-let links = [errorLink, httpLink]
+let links = [errorLink, crunch && crunch.use ? ApolloLink.concat(uncruncher, httpLink) : httpLink]
 
 if (useLocalStorage) {
   links = [
     errorLink,
     afterwareLink,
     authMiddlewareLink,
-    httpLink,
+    crunch && crunch.use ? ApolloLink.concat(uncruncher, httpLink) : httpLink,
   ]
 }
 
