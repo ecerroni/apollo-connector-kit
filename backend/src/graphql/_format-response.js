@@ -10,7 +10,7 @@ import {
 import { FORBIDDEN, UNAUTHORIZED } from '~/environment';
 
 import ROUTES_RESOLVERS from '$/settings/routes-resolvers.json';
-import { crunch as crunchOption } from '$/settings/queries.json';
+import { CRUNCH } from '$/settings/queries.json';
 
 const {
   SERVER: {
@@ -69,7 +69,7 @@ export const formatResponse = ({ response, query }) => {
     }
   }
 
-  if (crunchOption?.use) {
+  if (CRUNCH?.USE) {
     const parsed = url.parse(request.url);
     const clientQuery = querystring.parse(parsed.query);
     if (clientQuery.crunch && response.data) {

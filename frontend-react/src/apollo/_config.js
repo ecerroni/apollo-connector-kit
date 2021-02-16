@@ -1,6 +1,6 @@
 import APP_SETTINGS from '../settings/app.json'
 import ROUTES_SETTINGS from '../settings/routes-resolvers.json'
-import { crunch } from '../settings/queries.json'
+import { CRUNCH } from '../settings/queries.json'
 
 const { CLIENT: { ROUTES = {} } = {} } = ROUTES_SETTINGS
 
@@ -69,4 +69,4 @@ const CLIENT_AUTHENTICATION_METHOD = { // Either both FALSE or one TRUE at any g
     AUTH.STRATEGIES.CLIENT.LOCAL_STORAGE === CLIENT_AUTH_REQUEST_TYPE,
 }
 
-export { APP, AUTH, JWT, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, SERVER_MESSAGES, crunch }
+export { APP, AUTH, JWT, CLIENT_AUTH_REQUEST_TYPE, CLIENT_AUTHENTICATION_METHOD, SERVER_MESSAGES, CRUNCH }
