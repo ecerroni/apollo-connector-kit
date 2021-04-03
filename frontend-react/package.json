@@ -16,7 +16,7 @@
     "react-hook-form": "^3.22.3",
     "react-router-dom": "5.0.0",
     "react-scripts": "2.1.8",
-    "react-toast-notifications": "^2.2.4",
+    "react-toast-notifications": "https://github.com/ecerroni/react-toast-notifications",
     "recoil": "^0.1.2",
     "use-onclickoutside": "^0.3.1"
   },
